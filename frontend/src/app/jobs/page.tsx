@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, useCallback, useRef, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
 import { JobPosting, AnalysisResult, InterviewQuestion, ExperienceLevel, ParsedJobInfo, UserProfile } from '@/lib/types';
@@ -106,8 +106,9 @@ function clearJobAnalysisCache(): void {
   }
 }
 
-export default function JobsPage() {
+function JobsPageContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [postings, setPostings] = useState<JobPosting[]>([]);
   const [userSkills, setUserSkills] = useState<string[]>([]);
@@ -350,6 +351,38 @@ export default function JobsPage() {
       setAnalyzing(false);
     }
   }, [userSkills, userId, useAI]);
+
+  // Handle job_id query parameter from URL (e.g., from Compare page)
+  useEffect(() => {
+    const jobIdFromUrl = searchParams.get('job_id');
+    if (!jobIdFromUrl || loading || postings.length === 0 || userSkills.length === 0) return;
+
+    // Check if job is already in current postings
+    const existingJob = postings.find((p) => p.id === jobIdFromUrl);
+    if (existingJob) {
+      handleAnalyze(existingJob);
+      // Clear the URL param after handling
+      router.replace('/jobs', { scroll: false });
+      return;
+    }
+
+    // Job not in current list - fetch it directly
+    const fetchAndAnalyzeJob = async () => {
+      try {
+        const job = await api.getJobPosting(jobIdFromUrl);
+        // Add to postings list at the top
+        setPostings((prev) => [job, ...prev.filter((p) => p.id !== job.id)]);
+        handleAnalyze(job);
+        // Clear the URL param after handling
+        router.replace('/jobs', { scroll: false });
+      } catch (err) {
+        console.error('Failed to fetch job from URL param:', err);
+        setError('Could not find the requested job posting');
+      }
+    };
+
+    fetchAndAnalyzeJob();
+  }, [searchParams, loading, postings, userSkills, handleAnalyze, router]);
 
   const handleReanalyze = () => {
     console.log('handleReanalyze called, selectedPosting:', selectedPosting?.id);
@@ -973,5 +1006,20 @@ export default function JobsPage() {
         userId={userId || undefined}
       />
     </div>
+  );
+}
+
+export default function JobsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-600 mx-auto mb-4" />
+          <p className="text-gray-600">Loading job postings...</p>
+        </div>
+      </div>
+    }>
+      <JobsPageContent />
+    </Suspense>
   );
 }
