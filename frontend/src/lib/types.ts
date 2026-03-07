@@ -85,12 +85,13 @@ export interface JobPosting {
   location: string;
   employment_type: string;
   experience_level: string;
-  description: string;
+  about_the_job: string | null;
+  minimum_qualifications: string[];
+  preferred_qualifications: string[];
   responsibilities: string[];
   required_skills: string[];
   preferred_skills: string[];
   required_experience_years: number;
-  education_requirement: string | null;
   salary_range: string | null;
   benefits: string[];
   posted_date: string | null;

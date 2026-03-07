@@ -253,7 +253,7 @@ export default function JobsPage() {
                       ✕
                     </Button>
                   </CardHeader>
-                  <CardContent className="space-y-5">
+                  <CardContent className="space-y-5 max-h-[70vh] overflow-y-auto">
                     <div className="flex flex-wrap gap-2">
                       <span className="px-3 py-1.5 bg-gray-100 rounded-full text-sm font-medium text-gray-700">
                         📍 {selectedPosting.location}
@@ -266,19 +266,58 @@ export default function JobsPage() {
                       </span>
                     </div>
 
-                    <p className="text-gray-600">{selectedPosting.description}</p>
-
                     {selectedPosting.salary_range && (
                       <div className="bg-green-50 rounded-xl p-4">
                         <p className="text-green-700 font-bold text-lg">{selectedPosting.salary_range}</p>
-                        <p className="text-green-600 text-sm">Estimated salary range</p>
+                        <p className="text-green-600 text-sm">Base salary + bonus + equity</p>
                       </div>
                     )}
 
+                    {/* About the Job */}
+                    {selectedPosting.about_the_job && (
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-3">About the Job</h4>
+                        <p className="text-gray-600 text-sm whitespace-pre-line leading-relaxed">
+                          {selectedPosting.about_the_job}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Minimum Qualifications */}
+                    {selectedPosting.minimum_qualifications?.length > 0 && (
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-3">Minimum Qualifications</h4>
+                        <ul className="space-y-2">
+                          {selectedPosting.minimum_qualifications.map((qual, i) => (
+                            <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                              <span className="text-violet-500 mt-1">•</span>
+                              {qual}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Preferred Qualifications */}
+                    {selectedPosting.preferred_qualifications?.length > 0 && (
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-3">Preferred Qualifications</h4>
+                        <ul className="space-y-2">
+                          {selectedPosting.preferred_qualifications.map((qual, i) => (
+                            <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                              <span className="text-gray-400 mt-1">•</span>
+                              {qual}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Responsibilities */}
                     <div>
                       <h4 className="font-bold text-gray-900 mb-3">Responsibilities</h4>
                       <ul className="space-y-2">
-                        {selectedPosting.responsibilities.slice(0, 4).map((resp, i) => (
+                        {selectedPosting.responsibilities.map((resp, i) => (
                           <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
                             <span className="text-violet-500 mt-1">•</span>
                             {resp}
@@ -287,6 +326,7 @@ export default function JobsPage() {
                       </ul>
                     </div>
 
+                    {/* Required Skills */}
                     <div>
                       <h4 className="font-bold text-gray-900 mb-3">Required Skills</h4>
                       <div className="flex flex-wrap gap-2">
@@ -312,19 +352,46 @@ export default function JobsPage() {
                       </div>
                     </div>
 
+                    {/* Preferred Skills */}
                     {selectedPosting.preferred_skills.length > 0 && (
                       <div>
-                        <h4 className="font-bold text-gray-900 mb-3">Nice to Have</h4>
+                        <h4 className="font-bold text-gray-900 mb-3">Nice to Have Skills</h4>
                         <div className="flex flex-wrap gap-2">
-                          {selectedPosting.preferred_skills.map((skill) => (
-                            <span
-                              key={skill}
-                              className="px-3 py-1.5 rounded-full text-sm bg-gray-50 text-gray-500"
-                            >
-                              {skill}
-                            </span>
-                          ))}
+                          {selectedPosting.preferred_skills.map((skill) => {
+                            const hasSkill = userSkills.some(
+                              (us) =>
+                                us.toLowerCase().includes(skill.toLowerCase()) ||
+                                skill.toLowerCase().includes(us.toLowerCase())
+                            );
+                            return (
+                              <span
+                                key={skill}
+                                className={`px-3 py-1.5 rounded-full text-sm ${
+                                  hasSkill
+                                    ? 'bg-green-50 text-green-600'
+                                    : 'bg-gray-50 text-gray-500'
+                                }`}
+                              >
+                                {hasSkill && '✓ '}{skill}
+                              </span>
+                            );
+                          })}
                         </div>
+                      </div>
+                    )}
+
+                    {/* Benefits */}
+                    {selectedPosting.benefits?.length > 0 && (
+                      <div>
+                        <h4 className="font-bold text-gray-900 mb-3">Benefits</h4>
+                        <ul className="grid grid-cols-1 gap-2">
+                          {selectedPosting.benefits.map((benefit, i) => (
+                            <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                              <span className="text-green-500">✓</span>
+                              {benefit}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     )}
                   </CardContent>
