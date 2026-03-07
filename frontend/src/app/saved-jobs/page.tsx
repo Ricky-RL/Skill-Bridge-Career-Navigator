@@ -26,6 +26,7 @@ export default function SavedJobsPage() {
   const [userSkills, setUserSkills] = useState<string[]>([]);
   const [learningSkill, setLearningSkill] = useState<string | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [reanalyzing, setReanalyzing] = useState(false);
 
   const toggleSkillComplete = async (skill: string) => {
     if (!userId || !selectedJob) return;
@@ -255,6 +256,63 @@ export default function SavedJobsPage() {
     });
   };
 
+  // Re-analyze the saved job with current user skills
+  const handleReanalyze = async () => {
+    if (!selectedJob || !userId || userSkills.length === 0) return;
+
+    setReanalyzing(true);
+    setError(null);
+
+    try {
+      // Build job description from saved job info for re-analysis
+      const jobInfo = selectedJob.job_info;
+      const jobDescription = [
+        `Job Title: ${jobInfo.title}`,
+        jobInfo.company ? `Company: ${jobInfo.company}` : '',
+        jobInfo.experience_level ? `Experience Level: ${jobInfo.experience_level}` : '',
+        jobInfo.description ? `\nAbout the Role:\n${jobInfo.description}` : '',
+        jobInfo.required_skills?.length ? `\nRequired Skills: ${jobInfo.required_skills.join(', ')}` : '',
+        jobInfo.nice_to_have_skills?.length ? `\nNice to Have: ${jobInfo.nice_to_have_skills.join(', ')}` : '',
+        jobInfo.responsibilities?.length ? `\nResponsibilities:\n${jobInfo.responsibilities.join('\n')}` : '',
+        jobInfo.minimum_qualifications?.length ? `\nMinimum Qualifications:\n${jobInfo.minimum_qualifications.join('\n')}` : '',
+      ].filter(Boolean).join('\n');
+
+      const result = await api.analyzeFromDescription({
+        user_skills: userSkills,
+        job_description: jobDescription,
+        user_id: userId,
+      });
+
+      // Update the selected job with new analysis
+      const updatedJob = {
+        ...selectedJob,
+        analysis_result: result.analysis,
+      };
+      setSelectedJob(updatedJob);
+
+      // Update the list view with new match percentage
+      setSavedJobs((prev) =>
+        prev.map((job) =>
+          job.id === selectedJob.id
+            ? { ...job, match_percentage: result.analysis.match_percentage }
+            : job
+        )
+      );
+
+      // Re-initialize completed skills
+      const learnedSkills = result.analysis.recommendations
+        ?.filter((rec) =>
+          userSkills.some((us) => us.toLowerCase() === rec.skill.toLowerCase())
+        )
+        .map((rec) => rec.skill) || [];
+      setCompletedSkills(new Set(learnedSkills));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to re-analyze job');
+    } finally {
+      setReanalyzing(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
@@ -383,6 +441,26 @@ export default function SavedJobsPage() {
                 </Card>
               ) : selectedJob ? (
                 <>
+                  {/* Re-analyze Card */}
+                  <Card variant="elevated" className="bg-white">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">Re-analyze with your current skills</p>
+                          <p className="text-xs text-gray-500">Your profile may have changed since this was saved</p>
+                        </div>
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          onClick={handleReanalyze}
+                          isLoading={reanalyzing}
+                        >
+                          {reanalyzing ? 'Analyzing...' : 'Re-analyze'}
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+
                   {/* Job Info Card */}
                   <Card variant="elevated" className="bg-white">
                     <CardHeader>

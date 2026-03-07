@@ -39,6 +39,9 @@ export default function Chatbot({ context, userId }: ChatbotProps) {
       timestamp: new Date().toISOString(),
     };
 
+    // Capture current messages before state update for history
+    const currentHistory = [...messages, userMessage];
+
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setLoading(true);
@@ -47,7 +50,7 @@ export default function Chatbot({ context, userId }: ChatbotProps) {
       const response = await api.sendChatMessage({
         message: text,
         context,
-        history: messages.slice(-10),
+        history: currentHistory.slice(-10),
         user_id: userId,
       });
 

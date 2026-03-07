@@ -55,14 +55,14 @@ export default function Home() {
             {/* Left side - Text content */}
             <div className="text-white pt-16 lg:pt-0">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                Stop Getting Ghosted.
+                Know Your Fit.
                 <br />
-                <span className="text-yellow-400">Start Getting Offers.</span>
+                <span className="text-yellow-400">Land Your Dream Role.</span>
               </h1>
               <p className="text-xl md:text-2xl text-white/80 mb-10 leading-relaxed">
-                No mass applying. No black holes.
+                See exactly how your skills stack up against any job.
                 <br />
-                Get matched with roles where you&apos;ll thrive.
+                Get a personalized roadmap to close the gap.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/auth/login">
@@ -181,9 +181,9 @@ export default function Home() {
                   </svg>
                 </div>
                 <div className="absolute top-6 right-6 text-6xl font-bold text-yellow-100 group-hover:text-yellow-200 transition-colors">2</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Get Matched</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Analyze Any Role</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Our AI matches you with roles from top companies based on your skills and target industries.
+                  Paste any job posting and instantly see your match percentage, skill gaps, and what you need to learn.
                 </p>
               </div>
             </div>
@@ -304,7 +304,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
-            © 2024 SkillBridge. Built for Palo Alto Networks Case Study.
+            © 2026 SkillBridge. Built for Palo Alto Networks Case Study.
           </div>
         </div>
       </footer>
