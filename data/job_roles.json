@@ -1,0 +1,137 @@
+[
+  {
+    "id": "role-frontend-dev",
+    "title": "Frontend Developer",
+    "category": "Engineering",
+    "description": "Build and maintain user interfaces for web applications using modern JavaScript frameworks.",
+    "required_skills": ["JavaScript", "React", "HTML/CSS", "TypeScript", "Git"],
+    "nice_to_have_skills": ["Next.js", "Tailwind CSS", "Testing", "GraphQL"],
+    "avg_salary_range": "$80,000 - $130,000"
+  },
+  {
+    "id": "role-backend-dev",
+    "title": "Backend Developer",
+    "category": "Engineering",
+    "description": "Design and implement server-side logic, APIs, and database integrations.",
+    "required_skills": ["Python", "SQL", "REST APIs", "Git", "Docker"],
+    "nice_to_have_skills": ["FastAPI", "PostgreSQL", "Redis", "Kubernetes"],
+    "avg_salary_range": "$85,000 - $140,000"
+  },
+  {
+    "id": "role-fullstack-dev",
+    "title": "Full Stack Developer",
+    "category": "Engineering",
+    "description": "Develop both frontend and backend components of web applications.",
+    "required_skills": ["JavaScript", "Python", "React", "SQL", "REST APIs", "Git"],
+    "nice_to_have_skills": ["TypeScript", "Docker", "AWS", "Node.js"],
+    "avg_salary_range": "$90,000 - $150,000"
+  },
+  {
+    "id": "role-cloud-engineer",
+    "title": "Cloud Engineer",
+    "category": "Infrastructure",
+    "description": "Design, implement, and manage cloud infrastructure and services.",
+    "required_skills": ["AWS", "Terraform", "Linux", "Docker", "Networking"],
+    "nice_to_have_skills": ["Kubernetes", "GCP", "Azure", "CI/CD", "Python"],
+    "avg_salary_range": "$100,000 - $160,000"
+  },
+  {
+    "id": "role-devops-engineer",
+    "title": "DevOps Engineer",
+    "category": "Infrastructure",
+    "description": "Build and maintain CI/CD pipelines, automate deployments, and ensure system reliability.",
+    "required_skills": ["Docker", "Kubernetes", "CI/CD", "Linux", "Git", "Python"],
+    "nice_to_have_skills": ["Terraform", "AWS", "Jenkins", "Prometheus", "Grafana"],
+    "avg_salary_range": "$95,000 - $155,000"
+  },
+  {
+    "id": "role-sre",
+    "title": "Site Reliability Engineer",
+    "category": "Infrastructure",
+    "description": "Ensure high availability and reliability of production systems through automation and best practices.",
+    "required_skills": ["Linux", "Python", "Kubernetes", "Monitoring", "Incident Response"],
+    "nice_to_have_skills": ["Go", "Terraform", "AWS", "SLOs/SLIs", "Chaos Engineering"],
+    "avg_salary_range": "$110,000 - $170,000"
+  },
+  {
+    "id": "role-data-scientist",
+    "title": "Data Scientist",
+    "category": "Data",
+    "description": "Analyze complex data sets to drive business insights and build predictive models.",
+    "required_skills": ["Python", "SQL", "Machine Learning", "Statistics", "pandas"],
+    "nice_to_have_skills": ["TensorFlow", "PyTorch", "Spark", "A/B Testing", "Deep Learning"],
+    "avg_salary_range": "$100,000 - $160,000"
+  },
+  {
+    "id": "role-data-engineer",
+    "title": "Data Engineer",
+    "category": "Data",
+    "description": "Build and maintain data pipelines and infrastructure for analytics and machine learning.",
+    "required_skills": ["Python", "SQL", "ETL", "Spark", "Data Warehousing"],
+    "nice_to_have_skills": ["Kafka", "Airflow", "AWS", "dbt", "Snowflake"],
+    "avg_salary_range": "$95,000 - $155,000"
+  },
+  {
+    "id": "role-ml-engineer",
+    "title": "Machine Learning Engineer",
+    "category": "Data",
+    "description": "Build, deploy, and maintain machine learning models in production environments.",
+    "required_skills": ["Python", "Machine Learning", "TensorFlow", "Docker", "MLOps"],
+    "nice_to_have_skills": ["PyTorch", "Kubernetes", "Feature Engineering", "Model Monitoring"],
+    "avg_salary_range": "$120,000 - $180,000"
+  },
+  {
+    "id": "role-security-engineer",
+    "title": "Security Engineer",
+    "category": "Security",
+    "description": "Protect systems and data by implementing security measures and responding to threats.",
+    "required_skills": ["Network Security", "OWASP", "Linux", "Python", "IAM"],
+    "nice_to_have_skills": ["Penetration Testing", "SIEM", "Encryption", "Compliance", "Cloud Security"],
+    "avg_salary_range": "$105,000 - $165,000"
+  },
+  {
+    "id": "role-platform-engineer",
+    "title": "Platform Engineer",
+    "category": "Infrastructure",
+    "description": "Build and maintain internal developer platforms and tooling to improve developer productivity.",
+    "required_skills": ["Kubernetes", "Docker", "Terraform", "Python", "CI/CD"],
+    "nice_to_have_skills": ["Go", "Service Mesh", "GitOps", "Internal Developer Portals"],
+    "avg_salary_range": "$115,000 - $175,000"
+  },
+  {
+    "id": "role-mobile-dev",
+    "title": "Mobile Developer",
+    "category": "Engineering",
+    "description": "Develop native or cross-platform mobile applications for iOS and Android.",
+    "required_skills": ["React Native", "JavaScript", "Mobile UI/UX", "REST APIs", "Git"],
+    "nice_to_have_skills": ["Swift", "Kotlin", "Flutter", "App Store Deployment"],
+    "avg_salary_range": "$85,000 - $145,000"
+  },
+  {
+    "id": "role-qa-engineer",
+    "title": "QA/Test Engineer",
+    "category": "Engineering",
+    "description": "Design and execute test plans to ensure software quality and reliability.",
+    "required_skills": ["Test Automation", "Python", "Selenium", "API Testing", "Git"],
+    "nice_to_have_skills": ["Cypress", "Performance Testing", "CI/CD", "Test Strategy"],
+    "avg_salary_range": "$75,000 - $125,000"
+  },
+  {
+    "id": "role-solutions-architect",
+    "title": "Solutions Architect",
+    "category": "Architecture",
+    "description": "Design technical solutions and architectures to meet business requirements.",
+    "required_skills": ["System Design", "AWS", "Architecture Patterns", "Technical Communication", "Cloud Services"],
+    "nice_to_have_skills": ["Multi-cloud", "Enterprise Architecture", "Security Architecture", "Cost Optimization"],
+    "avg_salary_range": "$130,000 - $200,000"
+  },
+  {
+    "id": "role-software-engineer",
+    "title": "Software Engineer",
+    "category": "Engineering",
+    "description": "Design, develop, and maintain software applications using best practices.",
+    "required_skills": ["Programming", "Data Structures", "Algorithms", "Git", "Problem Solving"],
+    "nice_to_have_skills": ["System Design", "Code Review", "Agile", "Testing"],
+    "avg_salary_range": "$80,000 - $150,000"
+  }
+]

@@ -1,0 +1,452 @@
+[
+  {
+    "id": "res-001",
+    "skill_name": "Python",
+    "resource_name": "Python for Everybody Specialization",
+    "resource_url": "https://www.coursera.org/specializations/python",
+    "resource_type": "course",
+    "platform": "Coursera",
+    "is_free": true,
+    "estimated_hours": 80
+  },
+  {
+    "id": "res-002",
+    "skill_name": "Python",
+    "resource_name": "Automate the Boring Stuff with Python",
+    "resource_url": "https://automatetheboringstuff.com/",
+    "resource_type": "course",
+    "platform": "Free Online Book",
+    "is_free": true,
+    "estimated_hours": 40
+  },
+  {
+    "id": "res-003",
+    "skill_name": "JavaScript",
+    "resource_name": "JavaScript Algorithms and Data Structures",
+    "resource_url": "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/",
+    "resource_type": "course",
+    "platform": "freeCodeCamp",
+    "is_free": true,
+    "estimated_hours": 300
+  },
+  {
+    "id": "res-004",
+    "skill_name": "JavaScript",
+    "resource_name": "The Complete JavaScript Course",
+    "resource_url": "https://www.udemy.com/course/the-complete-javascript-course/",
+    "resource_type": "course",
+    "platform": "Udemy",
+    "is_free": false,
+    "estimated_hours": 69
+  },
+  {
+    "id": "res-005",
+    "skill_name": "React",
+    "resource_name": "React - The Complete Guide",
+    "resource_url": "https://www.udemy.com/course/react-the-complete-guide-incl-redux/",
+    "resource_type": "course",
+    "platform": "Udemy",
+    "is_free": false,
+    "estimated_hours": 68
+  },
+  {
+    "id": "res-006",
+    "skill_name": "React",
+    "resource_name": "React Official Tutorial",
+    "resource_url": "https://react.dev/learn",
+    "resource_type": "article",
+    "platform": "React Docs",
+    "is_free": true,
+    "estimated_hours": 10
+  },
+  {
+    "id": "res-007",
+    "skill_name": "TypeScript",
+    "resource_name": "TypeScript Handbook",
+    "resource_url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+    "resource_type": "article",
+    "platform": "TypeScript Docs",
+    "is_free": true,
+    "estimated_hours": 15
+  },
+  {
+    "id": "res-008",
+    "skill_name": "TypeScript",
+    "resource_name": "Understanding TypeScript",
+    "resource_url": "https://www.udemy.com/course/understanding-typescript/",
+    "resource_type": "course",
+    "platform": "Udemy",
+    "is_free": false,
+    "estimated_hours": 15
+  },
+  {
+    "id": "res-009",
+    "skill_name": "AWS",
+    "resource_name": "AWS Certified Cloud Practitioner",
+    "resource_url": "https://aws.amazon.com/certification/certified-cloud-practitioner/",
+    "resource_type": "course",
+    "platform": "AWS Training",
+    "is_free": true,
+    "estimated_hours": 40
+  },
+  {
+    "id": "res-010",
+    "skill_name": "AWS",
+    "resource_name": "AWS Solutions Architect Associate",
+    "resource_url": "https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c03/",
+    "resource_type": "course",
+    "platform": "Udemy",
+    "is_free": false,
+    "estimated_hours": 27
+  },
+  {
+    "id": "res-011",
+    "skill_name": "Docker",
+    "resource_name": "Docker Mastery",
+    "resource_url": "https://www.udemy.com/course/docker-mastery/",
+    "resource_type": "course",
+    "platform": "Udemy",
+    "is_free": false,
+    "estimated_hours": 20
+  },
+  {
+    "id": "res-012",
+    "skill_name": "Docker",
+    "resource_name": "Docker Getting Started Guide",
+    "resource_url": "https://docs.docker.com/get-started/",
+    "resource_type": "article",
+    "platform": "Docker Docs",
+    "is_free": true,
+    "estimated_hours": 5
+  },
+  {
+    "id": "res-013",
+    "skill_name": "Kubernetes",
+    "resource_name": "Kubernetes for the Absolute Beginners",
+    "resource_url": "https://www.udemy.com/course/learn-kubernetes/",
+    "resource_type": "course",
+    "platform": "Udemy",
+    "is_free": false,
+    "estimated_hours": 6
+  },
+  {
+    "id": "res-014",
+    "skill_name": "Kubernetes",
+    "resource_name": "Kubernetes Official Tutorial",
+    "resource_url": "https://kubernetes.io/docs/tutorials/",
+    "resource_type": "article",
+    "platform": "Kubernetes Docs",
+    "is_free": true,
+    "estimated_hours": 10
+  },
+  {
+    "id": "res-015",
+    "skill_name": "SQL",
+    "resource_name": "SQL for Data Science",
+    "resource_url": "https://www.coursera.org/learn/sql-for-data-science",
+    "resource_type": "course",
+    "platform": "Coursera",
+    "is_free": true,
+    "estimated_hours": 16
+  },
+  {
+    "id": "res-016",
+    "skill_name": "SQL",
+    "resource_name": "SQLBolt Interactive Tutorial",
+    "resource_url": "https://sqlbolt.com/",
+    "resource_type": "course",
+    "platform": "SQLBolt",
+    "is_free": true,
+    "estimated_hours": 8
+  },
+  {
+    "id": "res-017",
+    "skill_name": "Git",
+    "resource_name": "Git & GitHub Crash Course",
+    "resource_url": "https://www.youtube.com/watch?v=RGOj5yH7evk",
+    "resource_type": "video",
+    "platform": "YouTube",
+    "is_free": true,
+    "estimated_hours": 2
+  },
+  {
+    "id": "res-018",
+    "skill_name": "Git",
+    "resource_name": "Pro Git Book",
+    "resource_url": "https://git-scm.com/book/en/v2",
+    "resource_type": "article",
+    "platform": "Git SCM",
+    "is_free": true,
+    "estimated_hours": 20
+  },
+  {
+    "id": "res-019",
+    "skill_name": "Machine Learning",
+    "resource_name": "Machine Learning Specialization",
+    "resource_url": "https://www.coursera.org/specializations/machine-learning-introduction",
+    "resource_type": "course",
+    "platform": "Coursera",
+    "is_free": true,
+    "estimated_hours": 90
+  },
+  {
+    "id": "res-020",
+    "skill_name": "Machine Learning",
+    "resource_name": "Fast.ai Practical Deep Learning",
+    "resource_url": "https://course.fast.ai/",
+    "resource_type": "course",
+    "platform": "Fast.ai",
+    "is_free": true,
+    "estimated_hours": 40
+  },
+  {
+    "id": "res-021",
+    "skill_name": "TensorFlow",
+    "resource_name": "TensorFlow Developer Certificate",
+    "resource_url": "https://www.coursera.org/professional-certificates/tensorflow-in-practice",
+    "resource_type": "course",
+    "platform": "Coursera",
+    "is_free": true,
+    "estimated_hours": 60
+  },
+  {
+    "id": "res-022",
+    "skill_name": "PyTorch",
+    "resource_name": "PyTorch for Deep Learning",
+    "resource_url": "https://www.udemy.com/course/pytorch-for-deep-learning/",
+    "resource_type": "course",
+    "platform": "Udemy",
+    "is_free": false,
+    "estimated_hours": 23
+  },
+  {
+    "id": "res-023",
+    "skill_name": "Terraform",
+    "resource_name": "HashiCorp Certified Terraform Associate",
+    "resource_url": "https://www.udemy.com/course/terraform-beginner-to-advanced/",
+    "resource_type": "course",
+    "platform": "Udemy",
+    "is_free": false,
+    "estimated_hours": 13
+  },
+  {
+    "id": "res-024",
+    "skill_name": "Terraform",
+    "resource_name": "Terraform Official Tutorials",
+    "resource_url": "https://developer.hashicorp.com/terraform/tutorials",
+    "resource_type": "article",
+    "platform": "HashiCorp",
+    "is_free": true,
+    "estimated_hours": 15
+  },
+  {
+    "id": "res-025",
+    "skill_name": "CI/CD",
+    "resource_name": "GitHub Actions Tutorial",
+    "resource_url": "https://docs.github.com/en/actions/learn-github-actions",
+    "resource_type": "article",
+    "platform": "GitHub Docs",
+    "is_free": true,
+    "estimated_hours": 8
+  },
+  {
+    "id": "res-026",
+    "skill_name": "Linux",
+    "resource_name": "Introduction to Linux",
+    "resource_url": "https://www.edx.org/learn/linux/the-linux-foundation-introduction-to-linux",
+    "resource_type": "course",
+    "platform": "edX",
+    "is_free": true,
+    "estimated_hours": 60
+  },
+  {
+    "id": "res-027",
+    "skill_name": "REST APIs",
+    "resource_name": "REST API Design Best Practices",
+    "resource_url": "https://www.freecodecamp.org/news/rest-api-best-practices-rest-endpoint-design-examples/",
+    "resource_type": "article",
+    "platform": "freeCodeCamp",
+    "is_free": true,
+    "estimated_hours": 3
+  },
+  {
+    "id": "res-028",
+    "skill_name": "FastAPI",
+    "resource_name": "FastAPI Official Tutorial",
+    "resource_url": "https://fastapi.tiangolo.com/tutorial/",
+    "resource_type": "article",
+    "platform": "FastAPI Docs",
+    "is_free": true,
+    "estimated_hours": 10
+  },
+  {
+    "id": "res-029",
+    "skill_name": "HTML/CSS",
+    "resource_name": "Responsive Web Design Certification",
+    "resource_url": "https://www.freecodecamp.org/learn/2022/responsive-web-design/",
+    "resource_type": "course",
+    "platform": "freeCodeCamp",
+    "is_free": true,
+    "estimated_hours": 300
+  },
+  {
+    "id": "res-030",
+    "skill_name": "Next.js",
+    "resource_name": "Next.js Official Learn Course",
+    "resource_url": "https://nextjs.org/learn",
+    "resource_type": "course",
+    "platform": "Vercel",
+    "is_free": true,
+    "estimated_hours": 15
+  },
+  {
+    "id": "res-031",
+    "skill_name": "pandas",
+    "resource_name": "Data Analysis with Pandas",
+    "resource_url": "https://www.kaggle.com/learn/pandas",
+    "resource_type": "course",
+    "platform": "Kaggle",
+    "is_free": true,
+    "estimated_hours": 4
+  },
+  {
+    "id": "res-032",
+    "skill_name": "Statistics",
+    "resource_name": "Statistics with Python Specialization",
+    "resource_url": "https://www.coursera.org/specializations/statistics-with-python",
+    "resource_type": "course",
+    "platform": "Coursera",
+    "is_free": true,
+    "estimated_hours": 40
+  },
+  {
+    "id": "res-033",
+    "skill_name": "Network Security",
+    "resource_name": "CompTIA Security+ Certification",
+    "resource_url": "https://www.comptia.org/certifications/security",
+    "resource_type": "course",
+    "platform": "CompTIA",
+    "is_free": false,
+    "estimated_hours": 60
+  },
+  {
+    "id": "res-034",
+    "skill_name": "OWASP",
+    "resource_name": "OWASP Top 10 Training",
+    "resource_url": "https://owasp.org/www-project-top-ten/",
+    "resource_type": "article",
+    "platform": "OWASP",
+    "is_free": true,
+    "estimated_hours": 10
+  },
+  {
+    "id": "res-035",
+    "skill_name": "System Design",
+    "resource_name": "System Design Primer",
+    "resource_url": "https://github.com/donnemartin/system-design-primer",
+    "resource_type": "article",
+    "platform": "GitHub",
+    "is_free": true,
+    "estimated_hours": 40
+  },
+  {
+    "id": "res-036",
+    "skill_name": "Data Structures",
+    "resource_name": "Data Structures & Algorithms Specialization",
+    "resource_url": "https://www.coursera.org/specializations/data-structures-algorithms",
+    "resource_type": "course",
+    "platform": "Coursera",
+    "is_free": true,
+    "estimated_hours": 100
+  },
+  {
+    "id": "res-037",
+    "skill_name": "Algorithms",
+    "resource_name": "LeetCode Practice",
+    "resource_url": "https://leetcode.com/",
+    "resource_type": "project",
+    "platform": "LeetCode",
+    "is_free": true,
+    "estimated_hours": 100
+  },
+  {
+    "id": "res-038",
+    "skill_name": "Spark",
+    "resource_name": "Apache Spark with Python",
+    "resource_url": "https://www.udemy.com/course/spark-and-python-for-big-data-with-pyspark/",
+    "resource_type": "course",
+    "platform": "Udemy",
+    "is_free": false,
+    "estimated_hours": 11
+  },
+  {
+    "id": "res-039",
+    "skill_name": "Monitoring",
+    "resource_name": "Prometheus and Grafana Tutorial",
+    "resource_url": "https://www.youtube.com/watch?v=h4Sl21AKiDg",
+    "resource_type": "video",
+    "platform": "YouTube",
+    "is_free": true,
+    "estimated_hours": 3
+  },
+  {
+    "id": "res-040",
+    "skill_name": "Test Automation",
+    "resource_name": "Selenium WebDriver with Python",
+    "resource_url": "https://www.udemy.com/course/selenium-python/",
+    "resource_type": "course",
+    "platform": "Udemy",
+    "is_free": false,
+    "estimated_hours": 10
+  },
+  {
+    "id": "res-041",
+    "skill_name": "React Native",
+    "resource_name": "React Native - The Practical Guide",
+    "resource_url": "https://www.udemy.com/course/react-native-the-practical-guide/",
+    "resource_type": "course",
+    "platform": "Udemy",
+    "is_free": false,
+    "estimated_hours": 29
+  },
+  {
+    "id": "res-042",
+    "skill_name": "Tailwind CSS",
+    "resource_name": "Tailwind CSS Documentation",
+    "resource_url": "https://tailwindcss.com/docs",
+    "resource_type": "article",
+    "platform": "Tailwind",
+    "is_free": true,
+    "estimated_hours": 8
+  },
+  {
+    "id": "res-043",
+    "skill_name": "PostgreSQL",
+    "resource_name": "PostgreSQL Tutorial",
+    "resource_url": "https://www.postgresqltutorial.com/",
+    "resource_type": "article",
+    "platform": "PostgreSQL Tutorial",
+    "is_free": true,
+    "estimated_hours": 20
+  },
+  {
+    "id": "res-044",
+    "skill_name": "Go",
+    "resource_name": "Go by Example",
+    "resource_url": "https://gobyexample.com/",
+    "resource_type": "article",
+    "platform": "Go by Example",
+    "is_free": true,
+    "estimated_hours": 15
+  },
+  {
+    "id": "res-045",
+    "skill_name": "Node.js",
+    "resource_name": "Node.js Complete Guide",
+    "resource_url": "https://www.udemy.com/course/nodejs-the-complete-guide/",
+    "resource_type": "course",
+    "platform": "Udemy",
+    "is_free": false,
+    "estimated_hours": 40
+  }
+]

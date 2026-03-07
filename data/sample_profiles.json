@@ -1,0 +1,37 @@
+[
+  {
+    "id": "sample-001",
+    "name": "Alex Johnson",
+    "current_role": "Junior Software Developer",
+    "skills": ["JavaScript", "HTML/CSS", "Git", "React", "Node.js"],
+    "target_role": "Full Stack Developer"
+  },
+  {
+    "id": "sample-002",
+    "name": "Sam Chen",
+    "current_role": "Recent Graduate",
+    "skills": ["Python", "SQL", "Git", "Data Structures", "Algorithms"],
+    "target_role": "Backend Developer"
+  },
+  {
+    "id": "sample-003",
+    "name": "Jordan Rivera",
+    "current_role": "IT Support Specialist",
+    "skills": ["Linux", "Networking", "Python", "Troubleshooting"],
+    "target_role": "DevOps Engineer"
+  },
+  {
+    "id": "sample-004",
+    "name": "Taylor Williams",
+    "current_role": "Data Analyst",
+    "skills": ["Python", "SQL", "pandas", "Statistics", "Excel"],
+    "target_role": "Data Scientist"
+  },
+  {
+    "id": "sample-005",
+    "name": "Morgan Lee",
+    "current_role": "Career Switcher - Marketing",
+    "skills": ["Communication", "Analytics", "Project Management"],
+    "target_role": "Frontend Developer"
+  }
+]
