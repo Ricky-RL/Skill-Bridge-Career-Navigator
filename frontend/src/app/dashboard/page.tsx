@@ -225,6 +225,14 @@ export default function AnalyzeRolePage() {
         setParsedJob(result.parsed_job);
         setAnalysis(result.analysis);
         setJobLoaded(true);
+
+        // Initialize completedSkills with skills that user has already learned
+        const learnedSkills = result.analysis.recommendations
+          ?.filter((rec) =>
+            userSkills.some((us) => us.toLowerCase() === rec.skill.toLowerCase())
+          )
+          .map((rec) => rec.skill) || [];
+        setCompletedSkills(new Set(learnedSkills));
       } catch (err) {
         console.error('Description analysis error:', err);
         setError(err instanceof Error ? err.message : 'Failed to analyze job description');
@@ -239,6 +247,13 @@ export default function AnalyzeRolePage() {
       if (cached) {
         setAnalysis(cached);
         setUsedCache(true);
+        // Initialize completedSkills with skills that user has already learned
+        const learnedSkills = cached.recommendations
+          ?.filter((rec) =>
+            userSkills.some((us) => us.toLowerCase() === rec.skill.toLowerCase())
+          )
+          .map((rec) => rec.skill) || [];
+        setCompletedSkills(new Set(learnedSkills));
       }
       setLoadingJob(false);
     }
@@ -278,6 +293,14 @@ export default function AnalyzeRolePage() {
 
         setParsedJob(result.parsed_job);
         setAnalysis(result.analysis);
+
+        // Initialize completedSkills with skills that user has already learned
+        const learnedSkills = result.analysis.recommendations
+          ?.filter((rec) =>
+            userSkills.some((us) => us.toLowerCase() === rec.skill.toLowerCase())
+          )
+          .map((rec) => rec.skill) || [];
+        setCompletedSkills(new Set(learnedSkills));
       } catch (err) {
         console.error('Description analysis error:', err);
         setError(err instanceof Error ? err.message : 'Failed to analyze job description');
@@ -293,6 +316,13 @@ export default function AnalyzeRolePage() {
       if (cached) {
         setAnalysis(cached);
         setUsedCache(true);
+        // Initialize completedSkills with skills that user has already learned
+        const learnedSkills = cached.recommendations
+          ?.filter((rec) =>
+            userSkills.some((us) => us.toLowerCase() === rec.skill.toLowerCase())
+          )
+          .map((rec) => rec.skill) || [];
+        setCompletedSkills(new Set(learnedSkills));
         return;
       }
     }
@@ -300,6 +330,7 @@ export default function AnalyzeRolePage() {
     setAnalyzing(true);
     setError(null);
     setUsedCache(false);
+    setCompletedSkills(new Set());
 
     // For demo mode, use local analysis since we don't have a real job_posting_id in the database
     const requiredSkills = DEMO_JOB_POSTING.required_skills.map((s) => s.toLowerCase());

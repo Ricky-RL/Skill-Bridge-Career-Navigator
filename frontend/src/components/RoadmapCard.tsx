@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+import confetti from 'canvas-confetti';
 import { SkillRecommendation } from '@/lib/types';
 import Card, { CardHeader, CardTitle, CardContent } from './ui/Card';
 import SkillTag from './ui/SkillTag';
@@ -78,11 +80,46 @@ function getSkillUrl(skill: string): string | null {
 
 export default function RoadmapCard({ recommendation, isCompleted = false, onToggleComplete, onMarkLearned, isLearning = false }: RoadmapCardProps) {
   const { skill, priority, resources } = recommendation;
+  const checkboxRef = useRef<HTMLLabelElement>(null);
 
   const getPriorityBadge = () => {
     if (priority === 1) return { color: 'bg-red-100 text-red-800', label: 'High Priority' };
     if (priority <= 3) return { color: 'bg-yellow-100 text-yellow-800', label: 'Medium Priority' };
     return { color: 'bg-gray-100 text-gray-800', label: 'Low Priority' };
+  };
+
+  const handleToggleComplete = (skillName: string) => {
+    // Only trigger when marking as complete (not when unchecking)
+    if (!isCompleted) {
+      // Fire confetti
+      if (checkboxRef.current) {
+        const rect = checkboxRef.current.getBoundingClientRect();
+        const x = (rect.left + rect.width / 2) / window.innerWidth;
+        const y = (rect.top + rect.height / 2) / window.innerHeight;
+
+        confetti({
+          particleCount: 50,
+          spread: 60,
+          origin: { x, y },
+          colors: ['#8b5cf6', '#10b981', '#fbbf24', '#3b82f6', '#ec4899'],
+          ticks: 150,
+          gravity: 1.2,
+          scalar: 0.8,
+          shapes: ['circle', 'square'],
+        });
+      }
+
+      // If onMarkLearned is provided, use it to persist to profile
+      // Otherwise fall back to local toggle
+      if (onMarkLearned) {
+        onMarkLearned(skillName);
+      } else {
+        onToggleComplete?.(skillName);
+      }
+    } else {
+      // Allow unchecking (local state only)
+      onToggleComplete?.(skillName);
+    }
   };
 
   const priorityBadge = getPriorityBadge();
@@ -97,23 +134,34 @@ export default function RoadmapCard({ recommendation, isCompleted = false, onTog
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center flex-1 min-w-0">
             {/* Checkbox */}
-            <button
-              onClick={() => onToggleComplete?.(skill)}
-              className={`w-8 h-8 flex-shrink-0 rounded-lg border-2 flex items-center justify-center mr-3 transition-all shadow-sm hover:shadow-md ${
-                isCompleted
-                  ? 'bg-green-500 border-green-500 text-white scale-105'
-                  : 'border-violet-300 bg-violet-50 hover:border-violet-500 hover:bg-violet-100'
-              }`}
-              title={isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
-            >
-              {isCompleted ? (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                </svg>
-              ) : (
-                <span className="text-sm font-bold text-violet-600">{priority}</span>
-              )}
-            </button>
+            <label ref={checkboxRef} className="relative flex items-center mr-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={isCompleted}
+                onChange={() => handleToggleComplete(skill)}
+                disabled={isLearning}
+                className="peer sr-only"
+              />
+              <div className={`w-6 h-6 flex-shrink-0 rounded border-2 flex items-center justify-center transition-all ${
+                isLearning
+                  ? 'border-violet-300 bg-violet-50'
+                  : isCompleted
+                    ? 'bg-green-500 border-green-500'
+                    : 'border-gray-300 bg-white hover:border-violet-500'
+              }`}>
+                {isLearning ? (
+                  <div className="w-3 h-3 border-2 border-violet-300 border-t-violet-600 rounded-full animate-spin" />
+                ) : isCompleted ? (
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                ) : null}
+              </div>
+            </label>
+            {/* Priority number */}
+            <span className="w-6 h-6 flex-shrink-0 rounded-full bg-violet-100 text-violet-700 text-xs font-bold flex items-center justify-center mr-2">
+              {priority}
+            </span>
             <CardTitle className={`text-base ${isCompleted ? 'line-through text-gray-400' : ''}`}>
               {skill}
             </CardTitle>
@@ -138,27 +186,6 @@ export default function RoadmapCard({ recommendation, isCompleted = false, onTog
               </svg>
               Start Learning {skill}
             </a>
-            {onMarkLearned && !isCompleted && (
-              <button
-                onClick={() => onMarkLearned(skill)}
-                disabled={isLearning}
-                className="inline-flex items-center gap-2 px-3 py-2 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isLearning ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-green-300 border-t-green-600 rounded-full animate-spin" />
-                    Adding...
-                  </>
-                ) : (
-                  <>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    I Learned This
-                  </>
-                )}
-              </button>
-            )}
           </div>
         )}
 

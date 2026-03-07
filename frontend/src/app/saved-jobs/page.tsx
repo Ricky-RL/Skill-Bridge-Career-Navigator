@@ -19,6 +19,75 @@ export default function SavedJobsPage() {
   const [loadingDetail, setLoadingDetail] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [completedSkills, setCompletedSkills] = useState<Set<string>>(new Set());
+  const [userSkills, setUserSkills] = useState<string[]>([]);
+  const [learningSkill, setLearningSkill] = useState<string | null>(null);
+
+  const toggleSkillComplete = (skill: string) => {
+    setCompletedSkills((prev) => {
+      const next = new Set(prev);
+      if (next.has(skill)) {
+        next.delete(skill);
+      } else {
+        next.add(skill);
+      }
+      return next;
+    });
+  };
+
+  const handleMarkSkillLearned = async (skill: string) => {
+    if (!userId || !selectedJob) return;
+
+    setLearningSkill(skill);
+    try {
+      // Add skill to user's profile
+      const updatedSkills = [...userSkills, skill];
+      await api.updateProfile(userId, { skills: updatedSkills });
+      setUserSkills(updatedSkills);
+
+      // Mark as completed locally
+      setCompletedSkills((prev) => new Set([...prev, skill]));
+
+      // Update the selected job's analysis result locally to reflect the new match
+      const currentAnalysis = selectedJob.analysis_result;
+      const newMatchingSkills = [...(currentAnalysis.matching_skills || []), skill];
+      const newMissingSkills = (currentAnalysis.missing_skills || []).filter(
+        (s: string) => s.toLowerCase() !== skill.toLowerCase()
+      );
+
+      // Use the job's required skills as the denominator for consistent calculation
+      const totalRequiredSkills = selectedJob.job_info.required_skills?.length ||
+        (newMatchingSkills.length + newMissingSkills.length);
+      const newMatchPercentage = totalRequiredSkills > 0
+        ? Math.round((newMatchingSkills.length / totalRequiredSkills) * 100)
+        : 0;
+
+      // Update the selected job detail
+      setSelectedJob({
+        ...selectedJob,
+        analysis_result: {
+          ...currentAnalysis,
+          matching_skills: newMatchingSkills,
+          missing_skills: newMissingSkills,
+          match_percentage: newMatchPercentage,
+          // Keep recommendations list unchanged - skill stays visible but marked as completed
+        },
+      });
+
+      // Also update the savedJobs list to keep the sidebar in sync
+      setSavedJobs((prev) =>
+        prev.map((job) =>
+          job.id === selectedJob.id
+            ? { ...job, match_percentage: newMatchPercentage }
+            : job
+        )
+      );
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to add skill to profile');
+    } finally {
+      setLearningSkill(null);
+    }
+  };
 
   useEffect(() => {
     const init = async () => {
@@ -32,8 +101,14 @@ export default function SavedJobsPage() {
       setUserId(session.user.id);
 
       try {
-        const jobs = await api.getSavedAnalyses(session.user.id);
+        const [jobs, profile] = await Promise.all([
+          api.getSavedAnalyses(session.user.id),
+          api.getProfile(session.user.id).catch(() => null),
+        ]);
         setSavedJobs(jobs);
+        if (profile?.skills) {
+          setUserSkills(profile.skills);
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load saved jobs');
       }
@@ -53,6 +128,15 @@ export default function SavedJobsPage() {
     try {
       const detail = await api.getSavedAnalysis(job.id, userId);
       setSelectedJob(detail);
+
+      // Initialize completedSkills with skills that user has already learned
+      // (skills that exist in both recommendations and userSkills)
+      const learnedSkills = detail.analysis_result.recommendations
+        ?.filter((rec: any) =>
+          userSkills.some((us) => us.toLowerCase() === rec.skill.toLowerCase())
+        )
+        .map((rec: any) => rec.skill) || [];
+      setCompletedSkills(new Set(learnedSkills));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load job details');
     } finally {
@@ -300,8 +384,10 @@ export default function SavedJobsPage() {
                           <RoadmapCard
                             key={rec.skill}
                             recommendation={rec}
-                            isCompleted={false}
-                            onToggleComplete={() => {}}
+                            isCompleted={completedSkills.has(rec.skill)}
+                            onToggleComplete={toggleSkillComplete}
+                            onMarkLearned={handleMarkSkillLearned}
+                            isLearning={learningSkill === rec.skill}
                           />
                         ))}
                       </CardContent>

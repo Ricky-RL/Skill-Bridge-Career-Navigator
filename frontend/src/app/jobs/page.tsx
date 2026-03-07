@@ -255,7 +255,6 @@ export default function JobsPage() {
   const handleAnalyze = useCallback(async (posting: JobPosting, forceRefresh = false) => {
     console.log('handleAnalyze called:', { postingId: posting.id, forceRefresh });
     setSelectedPosting(posting);
-    setCompletedSkills(new Set());
     setError(null);
     setSaved(false);
 
@@ -266,12 +265,20 @@ export default function JobsPage() {
         console.log('Using cached analysis');
         setAnalysis(cached);
         setUsedCache(true);
+        // Initialize completedSkills with skills that user has already learned
+        const learnedSkills = cached.recommendations
+          ?.filter((rec) =>
+            userSkills.some((us) => us.toLowerCase() === rec.skill.toLowerCase())
+          )
+          .map((rec) => rec.skill) || [];
+        setCompletedSkills(new Set(learnedSkills));
         return;
       }
     }
 
     console.log('Clearing analysis and starting API call');
     setAnalysis(null);
+    setCompletedSkills(new Set());
     setAnalyzing(true);
     setUsedCache(false);
 
@@ -288,6 +295,14 @@ export default function JobsPage() {
       setAnalysis(result);
       console.log('Analysis state set');
       setCachedJobAnalysis(posting.id, userSkills, result);
+
+      // Initialize completedSkills with skills that user has already learned
+      const learnedSkills = result.recommendations
+        ?.filter((rec) =>
+          userSkills.some((us) => us.toLowerCase() === rec.skill.toLowerCase())
+        )
+        .map((rec) => rec.skill) || [];
+      setCompletedSkills(new Set(learnedSkills));
       // Scroll to analysis section after a short delay
       setTimeout(() => {
         analysisRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
