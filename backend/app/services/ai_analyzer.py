@@ -67,7 +67,7 @@ Provide a JSON response with exactly this structure:
 Focus on actionable, specific recommendations. Prioritize the most critical missing skills first."""
 
     response = client.chat.completions.create(
-        model="llama-3.1-70b-versatile",
+        model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}],
         response_format={"type": "json_object"},
         temperature=0.3,
