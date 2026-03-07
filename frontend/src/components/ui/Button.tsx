@@ -2,27 +2,29 @@ import { ButtonHTMLAttributes, forwardRef } from 'react';
 import { clsx } from 'clsx';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'yellow';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
+  rightIcon?: boolean;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'primary', size = 'md', isLoading, children, disabled, ...props }, ref) => {
-    const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+  ({ className, variant = 'primary', size = 'md', isLoading, rightIcon, children, disabled, ...props }, ref) => {
+    const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
     const variants = {
-      primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
-      secondary: 'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500',
-      outline: 'border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-blue-500',
+      primary: 'bg-violet-600 text-white hover:bg-violet-700 focus:ring-violet-500 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40',
+      secondary: 'bg-gray-800 text-white hover:bg-gray-900 focus:ring-gray-500',
+      outline: 'border-2 border-white/80 text-white hover:bg-white/10 focus:ring-white',
       ghost: 'text-gray-700 hover:bg-gray-100 focus:ring-gray-500',
       danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
+      yellow: 'bg-yellow-400 text-gray-900 hover:bg-yellow-300 focus:ring-yellow-500 shadow-lg shadow-yellow-400/25 hover:shadow-yellow-400/40 font-bold',
     };
 
     const sizes = {
-      sm: 'px-3 py-1.5 text-sm',
-      md: 'px-4 py-2 text-base',
-      lg: 'px-6 py-3 text-lg',
+      sm: 'px-4 py-2 text-sm',
+      md: 'px-6 py-2.5 text-base',
+      lg: 'px-8 py-3.5 text-lg',
     };
 
     return (
@@ -57,7 +59,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             Loading...
           </>
         ) : (
-          children
+          <>
+            {children}
+            {rightIcon && (
+              <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+              </svg>
+            )}
+          </>
         )}
       </button>
     );

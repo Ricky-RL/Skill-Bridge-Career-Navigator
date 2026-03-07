@@ -1,0 +1,239 @@
+[
+  {
+    "company": "Google",
+    "company_logo_url": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+    "title": "Software Engineer, Cloud Infrastructure",
+    "industry": "Cloud & Infrastructure",
+    "location": "Mountain View, CA (Hybrid)",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "description": "Join Google Cloud to build and maintain the infrastructure that powers millions of users worldwide. You'll work on distributed systems, containerization, and cloud-native technologies that define the future of computing.",
+    "responsibilities": [
+      "Design, develop, and maintain scalable cloud infrastructure services",
+      "Build and optimize container orchestration systems using Kubernetes",
+      "Implement monitoring, alerting, and observability solutions",
+      "Collaborate with cross-functional teams to improve system reliability",
+      "Write technical documentation and participate in code reviews",
+      "Mentor junior engineers and contribute to team growth"
+    ],
+    "required_skills": [
+      "Python",
+      "Go",
+      "Kubernetes",
+      "Docker",
+      "Linux",
+      "Distributed Systems",
+      "Cloud Computing",
+      "Git",
+      "CI/CD"
+    ],
+    "preferred_skills": [
+      "Terraform",
+      "gRPC",
+      "Prometheus",
+      "Service Mesh",
+      "GCP",
+      "System Design"
+    ],
+    "required_experience_years": 3,
+    "education_requirement": "BS in Computer Science or equivalent experience",
+    "salary_range": "$140,000 - $200,000",
+    "benefits": [
+      "Comprehensive health insurance",
+      "401(k) with company match",
+      "Generous PTO and parental leave",
+      "On-site fitness centers and meals",
+      "Learning and development stipend"
+    ]
+  },
+  {
+    "company": "Amazon",
+    "company_logo_url": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+    "title": "Software Development Engineer II - AWS Security",
+    "industry": "Cybersecurity",
+    "location": "Seattle, WA (On-site)",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "description": "Help secure the world's most comprehensive cloud platform. As an SDE on the AWS Security team, you'll build systems that protect millions of customers and their data. You'll work on identity management, encryption services, and threat detection at unprecedented scale.",
+    "responsibilities": [
+      "Design and implement security services for AWS infrastructure",
+      "Build identity and access management (IAM) systems",
+      "Develop encryption and key management solutions",
+      "Create automated security testing and vulnerability scanning tools",
+      "Respond to security incidents and implement preventive measures",
+      "Work with compliance teams to meet regulatory requirements"
+    ],
+    "required_skills": [
+      "Java",
+      "Python",
+      "AWS",
+      "Security Engineering",
+      "Cryptography",
+      "REST APIs",
+      "SQL",
+      "Linux",
+      "Data Structures"
+    ],
+    "preferred_skills": [
+      "OAuth",
+      "SAML",
+      "HSM",
+      "Penetration Testing",
+      "SIEM",
+      "Threat Modeling"
+    ],
+    "required_experience_years": 4,
+    "education_requirement": "BS/MS in Computer Science, Security, or related field",
+    "salary_range": "$150,000 - $220,000",
+    "benefits": [
+      "Stock options (RSUs)",
+      "Relocation assistance",
+      "Health, dental, and vision insurance",
+      "Employee discount program",
+      "Career development programs"
+    ]
+  },
+  {
+    "company": "Palo Alto Networks",
+    "company_logo_url": "https://www.paloaltonetworks.com/content/dam/pan/en_US/images/logos/brand/primary-company-logo.png",
+    "title": "Senior Software Engineer - Cortex XSIAM",
+    "industry": "Cybersecurity",
+    "location": "Santa Clara, CA (Hybrid)",
+    "employment_type": "Full-time",
+    "experience_level": "Senior",
+    "description": "Join the team building Cortex XSIAM, the world's first autonomous security operations platform. You'll work on cutting-edge AI/ML-powered security automation, processing billions of security events daily to detect and respond to threats in real-time.",
+    "responsibilities": [
+      "Design and develop features for the Cortex XSIAM platform",
+      "Build high-throughput data pipelines for security event processing",
+      "Implement machine learning models for threat detection",
+      "Optimize system performance for processing billions of events",
+      "Collaborate with security researchers on detection algorithms",
+      "Lead technical design discussions and architecture reviews"
+    ],
+    "required_skills": [
+      "Python",
+      "Java",
+      "Elasticsearch",
+      "Kafka",
+      "Machine Learning",
+      "Big Data",
+      "Cybersecurity",
+      "REST APIs",
+      "Microservices"
+    ],
+    "preferred_skills": [
+      "Spark",
+      "SOAR",
+      "SIEM",
+      "Kubernetes",
+      "TensorFlow",
+      "Threat Intelligence"
+    ],
+    "required_experience_years": 5,
+    "education_requirement": "BS in Computer Science; MS preferred",
+    "salary_range": "$160,000 - $230,000",
+    "benefits": [
+      "Competitive equity package",
+      "FLEXBenefits wellness spending account",
+      "Mental health resources",
+      "Fitness reimbursement",
+      "Paid volunteer time"
+    ]
+  },
+  {
+    "company": "Apple",
+    "company_logo_url": "https://www.apple.com/ac/globalnav/7/en_US/images/be15095f-5a20-57d0-ad14-cf4c638e223a/globalnav_apple_image__b5er5ngrzxqq_large.svg",
+    "title": "Machine Learning Engineer - Siri",
+    "industry": "AI & Machine Learning",
+    "location": "Cupertino, CA (On-site)",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "description": "Help make Siri smarter and more helpful for over a billion users. You'll work on natural language processing, speech recognition, and conversational AI that powers Apple's intelligent assistant across all devices.",
+    "responsibilities": [
+      "Develop and optimize NLP models for intent classification",
+      "Build and improve speech recognition systems",
+      "Design conversational AI features for multi-turn dialogues",
+      "Create efficient on-device ML models for privacy-preserving inference",
+      "Analyze user interactions to improve model accuracy",
+      "Collaborate with product teams to define ML-powered features"
+    ],
+    "required_skills": [
+      "Python",
+      "PyTorch",
+      "TensorFlow",
+      "NLP",
+      "Deep Learning",
+      "Machine Learning",
+      "Statistics",
+      "Linear Algebra",
+      "Git"
+    ],
+    "preferred_skills": [
+      "Swift",
+      "Core ML",
+      "Transformers",
+      "Speech Recognition",
+      "On-device ML",
+      "BERT",
+      "LLMs"
+    ],
+    "required_experience_years": 3,
+    "education_requirement": "MS/PhD in Computer Science, ML, or related field",
+    "salary_range": "$155,000 - $250,000",
+    "benefits": [
+      "Employee stock purchase program",
+      "Comprehensive medical coverage",
+      "Product discounts",
+      "Wellness programs",
+      "Matching gifts program"
+    ]
+  },
+  {
+    "company": "Meta",
+    "company_logo_url": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg",
+    "title": "Full Stack Software Engineer - Reality Labs",
+    "industry": "Full Stack Development",
+    "location": "Menlo Park, CA (Hybrid)",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "description": "Build the future of social connection in virtual and augmented reality. Join Reality Labs to create immersive experiences that connect billions of people. You'll work on web and mobile applications that power the metaverse ecosystem.",
+    "responsibilities": [
+      "Build full-stack applications for VR/AR platforms",
+      "Develop React-based web applications with GraphQL backends",
+      "Create mobile experiences using React Native",
+      "Implement real-time collaboration features",
+      "Optimize application performance for global scale",
+      "Work with 3D rendering and spatial computing APIs"
+    ],
+    "required_skills": [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Node.js",
+      "GraphQL",
+      "SQL",
+      "REST APIs",
+      "Git",
+      "HTML",
+      "CSS"
+    ],
+    "preferred_skills": [
+      "React Native",
+      "Three.js",
+      "WebGL",
+      "C++",
+      "Unity",
+      "Performance Optimization"
+    ],
+    "required_experience_years": 3,
+    "education_requirement": "BS in Computer Science or equivalent experience",
+    "salary_range": "$145,000 - $210,000",
+    "benefits": [
+      "Competitive RSU package",
+      "Generous parental leave",
+      "Free meals and snacks",
+      "Commuter benefits",
+      "On-site health services"
+    ]
+  }
+]

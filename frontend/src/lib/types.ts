@@ -17,7 +17,10 @@ export interface UserProfile {
   name: string;
   job_title: string | null;
   skills: string[];
+  target_industries: string[];
   target_role_id: string | null;
+  resume_url: string | null;
+  resume_text: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -27,14 +30,27 @@ export interface ProfileCreate {
   name: string;
   job_title?: string;
   skills: string[];
+  target_industries?: string[];
   target_role_id?: string;
+  resume_url?: string;
+  resume_text?: string;
 }
 
 export interface ProfileUpdate {
   name?: string;
   job_title?: string;
   skills?: string[];
+  target_industries?: string[];
   target_role_id?: string;
+  resume_url?: string;
+  resume_text?: string;
+}
+
+export interface ResumeUploadResponse {
+  resume_url: string;
+  resume_text: string;
+  extracted_skills: string[];
+  message: string;
 }
 
 export interface SkillRecommendation {
@@ -56,7 +72,29 @@ export interface AnalysisResult {
 
 export interface AnalysisRequest {
   user_skills: string[];
-  target_role_id: string;
+  target_role_id?: string;
+  job_posting_id?: string;
+}
+
+export interface JobPosting {
+  id: string;
+  company: string;
+  company_logo_url: string | null;
+  title: string;
+  industry: string;
+  location: string;
+  employment_type: string;
+  experience_level: string;
+  description: string;
+  responsibilities: string[];
+  required_skills: string[];
+  preferred_skills: string[];
+  required_experience_years: number;
+  education_requirement: string | null;
+  salary_range: string | null;
+  benefits: string[];
+  posted_date: string | null;
+  created_at: string | null;
 }
 
 export interface LearningResource {

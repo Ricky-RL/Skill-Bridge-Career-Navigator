@@ -15,17 +15,36 @@ logger = logging.getLogger(__name__)
 @router.post("", response_model=AnalysisResponse)
 async def analyze_skills(request: AnalysisRequest, db: Client = Depends(get_db)):
     """
-    Analyze skill gap between user skills and target role.
+    Analyze skill gap between user skills and target role or job posting.
 
     Uses AI analysis with automatic fallback to rule-based matching.
     """
     try:
-        # Get target role
-        role_result = db.table("job_roles").select("*").eq("id", request.target_role_id).execute()
-        if not role_result.data:
-            raise HTTPException(status_code=404, detail="Target role not found")
+        # Determine the target (job posting or generic role)
+        if request.job_posting_id:
+            # Analyze against a specific job posting
+            posting_result = db.table("job_postings").select("*").eq("id", request.job_posting_id).execute()
+            if not posting_result.data:
+                raise HTTPException(status_code=404, detail="Job posting not found")
 
-        target_role = role_result.data[0]
+            job_posting = posting_result.data[0]
+            target_role = {
+                "title": f"{job_posting['title']} at {job_posting['company']}",
+                "required_skills": job_posting.get("required_skills", []),
+                "nice_to_have_skills": job_posting.get("preferred_skills", []),
+                "description": job_posting.get("description", ""),
+                "company": job_posting.get("company"),
+                "experience_level": job_posting.get("experience_level"),
+                "responsibilities": job_posting.get("responsibilities", [])
+            }
+        elif request.target_role_id:
+            # Analyze against a generic role
+            role_result = db.table("job_roles").select("*").eq("id", request.target_role_id).execute()
+            if not role_result.data:
+                raise HTTPException(status_code=404, detail="Target role not found")
+            target_role = role_result.data[0]
+        else:
+            raise HTTPException(status_code=400, detail="Either target_role_id or job_posting_id is required")
 
         # Get learning resources for potential recommendations
         resources_result = db.table("learning_resources").select("*").execute()

@@ -5,7 +5,8 @@ from datetime import datetime
 
 class AnalysisRequest(BaseModel):
     user_skills: list[str] = Field(..., min_length=1)
-    target_role_id: str
+    target_role_id: Optional[str] = None
+    job_posting_id: Optional[str] = None
 
 
 class SkillRecommendation(BaseModel):

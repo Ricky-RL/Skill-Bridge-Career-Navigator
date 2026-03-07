@@ -1,11 +1,13 @@
 import {
   JobRole,
+  JobPosting,
   UserProfile,
   ProfileCreate,
   ProfileUpdate,
   AnalysisResult,
   AnalysisRequest,
   LearningResource,
+  ResumeUploadResponse,
 } from './types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
@@ -64,6 +66,24 @@ class ApiClient {
     });
   }
 
+  async uploadResume(userId: string, file: File): Promise<ResumeUploadResponse> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const url = `${this.baseUrl}/api/profiles/upload-resume?user_id=${encodeURIComponent(userId)}`;
+    const response = await fetch(url, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+      throw new Error(error.detail || `HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  }
+
   // Job roles endpoints
   async getRoles(params?: {
     search?: string;
@@ -87,6 +107,46 @@ class ApiClient {
 
   async getCategories(): Promise<{ categories: string[] }> {
     return this.request<{ categories: string[] }>('/api/roles/categories');
+  }
+
+  // Job postings endpoints
+  async getJobPostings(params?: {
+    search?: string;
+    company?: string;
+    industry?: string;
+    industries?: string[];
+    experience_level?: string;
+    limit?: number;
+    offset?: number;
+  }): Promise<JobPosting[]> {
+    const searchParams = new URLSearchParams();
+    if (params?.search) searchParams.append('search', params.search);
+    if (params?.company) searchParams.append('company', params.company);
+    if (params?.industry) searchParams.append('industry', params.industry);
+    if (params?.industries?.length) searchParams.append('industries', params.industries.join(','));
+    if (params?.experience_level) searchParams.append('experience_level', params.experience_level);
+    if (params?.limit) searchParams.append('limit', params.limit.toString());
+    if (params?.offset) searchParams.append('offset', params.offset.toString());
+
+    const query = searchParams.toString();
+    return this.request<JobPosting[]>(`/api/job-postings${query ? `?${query}` : ''}`);
+  }
+
+  async getJobPosting(postingId: string): Promise<JobPosting> {
+    return this.request<JobPosting>(`/api/job-postings/${postingId}`);
+  }
+
+  async getSuggestedPostings(userId: string, limit?: number): Promise<JobPosting[]> {
+    const params = limit ? `?limit=${limit}` : '';
+    return this.request<JobPosting[]>(`/api/job-postings/suggested/${userId}${params}`);
+  }
+
+  async getIndustries(): Promise<{ industries: string[] }> {
+    return this.request<{ industries: string[] }>('/api/job-postings/industries');
+  }
+
+  async getCompanies(): Promise<{ companies: string[] }> {
+    return this.request<{ companies: string[] }>('/api/job-postings/companies');
   }
 
   // Analysis endpoints
