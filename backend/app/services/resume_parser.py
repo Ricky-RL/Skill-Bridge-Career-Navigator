@@ -1,4 +1,4 @@
-"""Resume parsing utilities for extracting text and skills."""
+"""Resume parsing utilities for extracting comprehensive profile information."""
 
 import io
 import json
@@ -24,45 +24,110 @@ def extract_text_from_pdf(pdf_content: bytes) -> str:
         raise ValueError(f"Failed to extract text from PDF: {str(e)}")
 
 
-async def extract_skills_from_resume(resume_text: str) -> list[str]:
-    """Use AI to extract skills from resume text."""
+async def extract_profile_from_resume(resume_text: str) -> dict:
+    """Use AI to extract comprehensive profile information from resume text."""
     try:
         settings = get_settings()
         client = Groq(api_key=settings.groq_api_key)
 
-        prompt = f"""Analyze the following resume text and extract all technical and professional skills mentioned.
+        prompt = f"""Analyze the following resume text and extract comprehensive profile information.
 
 Resume:
-{resume_text[:4000]}
+{resume_text[:6000]}
 
 Return a JSON object with exactly this structure:
 {{
-    "skills": ["skill1", "skill2", "skill3", ...]
+    "skills": ["skill1", "skill2", ...],
+    "years_of_experience": <number or null>,
+    "education": [
+        {{
+            "institution": "University Name",
+            "degree": "Bachelor's/Master's/PhD/etc",
+            "field_of_study": "Computer Science/etc",
+            "start_date": "2018 or Aug 2018",
+            "end_date": "2022 or May 2022 or Present",
+            "gpa": "3.8 or null"
+        }}
+    ],
+    "certifications": [
+        {{
+            "name": "AWS Solutions Architect",
+            "issuer": "Amazon Web Services",
+            "date_obtained": "2023",
+            "expiry_date": "2026 or null",
+            "credential_id": "ABC123 or null"
+        }}
+    ],
+    "work_experience": [
+        {{
+            "company": "Company Name",
+            "title": "Software Engineer",
+            "start_date": "Jan 2022",
+            "end_date": "Present or Dec 2023",
+            "description": "Brief role description",
+            "highlights": ["Built X that improved Y by Z%", "Led team of N engineers"]
+        }}
+    ],
+    "projects": [
+        {{
+            "name": "Project Name",
+            "description": "What the project does",
+            "technologies": ["React", "Node.js", "PostgreSQL"],
+            "url": "github.com/user/project or null"
+        }}
+    ]
 }}
 
-Only include actual skills (programming languages, frameworks, tools, methodologies, soft skills).
-Do not include job titles, company names, or dates.
-Normalize skill names (e.g., "JavaScript" not "JS", "Python" not "python3")."""
+Guidelines:
+- Extract ALL technical skills mentioned (programming languages, frameworks, tools, cloud platforms, databases, etc.)
+- Normalize skill names (e.g., "JavaScript" not "JS", "Python" not "python3")
+- Include both bootcamps and traditional education in the education array
+- For certifications, include professional certs, course completions, and bootcamp certificates
+- For work experience, focus on tech-relevant roles
+- For projects, include personal projects, hackathon projects, and significant coursework
+- Calculate years_of_experience from work history if possible
+- Use null for missing optional fields, don't make up data"""
 
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[{"role": "user", "content": prompt}],
             response_format={"type": "json_object"},
             temperature=0.2,
-            max_tokens=1000
+            max_tokens=3000
         )
 
         result = json.loads(response.choices[0].message.content)
-        return result.get("skills", [])
+
+        # Ensure all required fields exist
+        return {
+            "skills": result.get("skills", []),
+            "years_of_experience": result.get("years_of_experience"),
+            "education": result.get("education", []),
+            "certifications": result.get("certifications", []),
+            "work_experience": result.get("work_experience", []),
+            "projects": result.get("projects", [])
+        }
 
     except Exception as e:
-        # Fallback: extract common skills using keyword matching
-        return extract_skills_fallback(resume_text)
+        # Fallback: extract just skills using keyword matching
+        return {
+            "skills": extract_skills_fallback(resume_text),
+            "years_of_experience": None,
+            "education": [],
+            "certifications": [],
+            "work_experience": [],
+            "projects": []
+        }
+
+
+async def extract_skills_from_resume(resume_text: str) -> list[str]:
+    """Use AI to extract skills from resume text (legacy function for compatibility)."""
+    result = await extract_profile_from_resume(resume_text)
+    return result.get("skills", [])
 
 
 def extract_skills_fallback(resume_text: str) -> list[str]:
     """Fallback skill extraction using keyword matching."""
-    # Common tech skills to look for
     known_skills = [
         "Python", "JavaScript", "TypeScript", "Java", "C++", "C#", "Go", "Rust",
         "Ruby", "PHP", "Swift", "Kotlin", "SQL", "R", "Scala", "Perl",
