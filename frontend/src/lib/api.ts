@@ -16,6 +16,8 @@ import {
   SavedAnalysisListItem,
   ChatRequest,
   ChatResponse,
+  BulkComparisonRequest,
+  BulkComparisonResult,
 } from './types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
@@ -238,6 +240,22 @@ class ApiClient {
       method: 'POST',
       body: JSON.stringify(request),
     });
+  }
+
+  // Bulk comparison
+  async bulkCompare(request: BulkComparisonRequest): Promise<BulkComparisonResult> {
+    return this.request<BulkComparisonResult>('/api/compare', {
+      method: 'POST',
+      body: JSON.stringify(request),
+    });
+  }
+
+  async getCompareIndustries(): Promise<{ industries: string[] }> {
+    return this.request<{ industries: string[] }>('/api/compare/industries');
+  }
+
+  async getRoleTypes(): Promise<{ role_types: string[] }> {
+    return this.request<{ role_types: string[] }>('/api/compare/role-types');
   }
 }
 

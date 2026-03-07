@@ -87,6 +87,12 @@ export default function Navbar() {
                     Analyze Role
                   </Link>
                   <Link
+                    href="/compare"
+                    className={`px-4 py-2 text-sm font-medium ${navTextColor} ${navHoverColor} transition-colors`}
+                  >
+                    Compare Roles
+                  </Link>
+                  <Link
                     href="/saved-jobs"
                     className={`px-4 py-2 text-sm font-medium ${navTextColor} ${navHoverColor} transition-colors`}
                   >

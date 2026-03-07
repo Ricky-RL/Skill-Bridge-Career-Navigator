@@ -298,3 +298,40 @@ export interface ChatResponse {
   message: string;
   suggestions: string[];
 }
+
+// Bulk comparison types
+export interface SkillFrequency {
+  skill: string;
+  frequency: number;
+  percentage: number;
+  user_has: boolean;
+}
+
+export interface JobMatchSummary {
+  job_id: string;
+  title: string;
+  company: string;
+  industry: string;
+  experience_level: string;
+  match_percentage: number;
+  matching_skills: string[];
+  missing_skills: string[];
+}
+
+export interface BulkComparisonRequest {
+  user_id: string;
+  role_type?: string;
+  industries?: string[];
+  experience_level?: string;
+  max_jobs?: number;
+}
+
+export interface BulkComparisonResult {
+  total_jobs_analyzed: number;
+  market_readiness_score: number;
+  most_requested_skills: SkillFrequency[];
+  most_missing_skills: SkillFrequency[];
+  job_matches: JobMatchSummary[];
+  avg_match_percentage: number;
+  best_fit_industries: string[];
+}
