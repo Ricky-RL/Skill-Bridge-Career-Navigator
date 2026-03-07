@@ -187,5 +187,560 @@
     "required_experience_years": 3,
     "salary_range": "$147,000 - $208,000 + bonus + equity",
     "benefits": ["Competitive RSU package (4-year vesting)", "Annual performance bonus (10-20%)", "Comprehensive health insurance", "Generous parental leave (up to 20 weeks)", "Free breakfast, lunch, and dinner", "Commuter benefits", "On-site health centers", "Remote work flexibility", "$3,000 annual wellness stipend"]
+  },
+  {
+    "company": "Microsoft",
+    "title": "Software Engineer, New Grad - Azure",
+    "industry": "Cloud & Infrastructure",
+    "location": "Redmond, WA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Entry Level",
+    "minimum_qualifications": [
+      "Currently pursuing or recently completed Bachelor's or Master's degree in Computer Science, Computer Engineering, or related field.",
+      "Programming experience in one or more languages (C#, Java, Python, JavaScript, or C++).",
+      "Understanding of data structures and algorithms.",
+      "Strong problem-solving skills and ability to learn quickly.",
+      "Graduation date between September 2025 and August 2026."
+    ],
+    "preferred_qualifications": [
+      "Internship experience in software development.",
+      "Experience with cloud platforms (Azure, AWS, or GCP).",
+      "Contributions to open-source projects.",
+      "Experience with web development (frontend or backend).",
+      "Familiarity with agile development methodologies.",
+      "Strong communication and collaboration skills."
+    ],
+    "about_the_job": "Microsoft Azure is the world's second-largest cloud platform, serving millions of customers from startups to Fortune 500 companies. As a New Grad Software Engineer, you'll join one of our Azure teams and work on services that power the digital transformation of businesses worldwide.\n\nThis is an incredible opportunity to start your career working on cloud infrastructure at massive scale. You'll learn from experienced engineers, receive mentorship, and work on projects that have real impact from day one. New grads at Microsoft work on the same challenging problems as senior engineers—we believe in giving ownership and responsibility early.\n\nOur New Grad program includes structured onboarding, technical training, and a cohort experience to help you build connections across the company. You'll have opportunities to explore different areas of Azure and find the team and technology that excites you most.\n\nBase salary ranges from $102,600 to $136,000 depending on location. Total compensation includes signing bonus, stock awards, and annual performance bonus.",
+    "responsibilities": [
+      "Design and implement features for Azure cloud services used by millions of customers.",
+      "Write clean, maintainable code and participate in code reviews.",
+      "Learn and apply cloud computing concepts, distributed systems, and software engineering best practices.",
+      "Collaborate with team members to solve technical challenges and deliver high-quality software.",
+      "Participate in on-call rotations after ramp-up period (typically 6+ months).",
+      "Contribute to team documentation and knowledge sharing."
+    ],
+    "required_skills": ["C#", "Python", "Data Structures", "Algorithms", "Git", "Problem Solving"],
+    "preferred_skills": ["Azure", "JavaScript", "SQL", "Docker", "REST APIs", "Agile", "Linux"],
+    "required_experience_years": 0,
+    "salary_range": "$102,600 - $136,000 + signing bonus + stock",
+    "benefits": ["Comprehensive health coverage", "401(k) with company match", "$1,200 annual wellness stipend", "Stock awards (4-year vesting)", "Generous parental leave (20 weeks)", "Employee discount program", "Learning and development resources", "Relocation assistance"]
+  },
+  {
+    "company": "Netflix",
+    "title": "Senior Software Engineer, Content Delivery",
+    "industry": "Backend Development",
+    "location": "Los Gatos, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Senior",
+    "minimum_qualifications": [
+      "7+ years of software engineering experience.",
+      "Strong proficiency in Java or a similar object-oriented language.",
+      "Experience building and operating large-scale distributed systems.",
+      "Deep understanding of networking concepts (TCP/IP, HTTP, CDN).",
+      "Experience with cloud infrastructure (preferably AWS)."
+    ],
+    "preferred_qualifications": [
+      "Experience with video streaming technologies and protocols (HLS, DASH).",
+      "Experience with content delivery networks (CDN) at scale.",
+      "Experience with edge computing and global traffic management.",
+      "Knowledge of video encoding and transcoding pipelines.",
+      "Experience with chaos engineering and building resilient systems.",
+      "Publications or talks at engineering conferences."
+    ],
+    "about_the_job": "Netflix is the world's leading streaming entertainment service with over 230 million paid memberships in more than 190 countries. Our Content Delivery team is responsible for streaming billions of hours of content to members worldwide, ensuring the best possible viewing experience.\n\nAs a Senior Software Engineer on the Content Delivery team, you will work on the systems that deliver video from our global Open Connect CDN to member devices. You'll optimize streaming quality, build tools for capacity planning, and develop algorithms that ensure smooth playback even under challenging network conditions.\n\nThis role requires deep technical expertise and the ability to work autonomously. At Netflix, we value freedom and responsibility—you'll have significant ownership over your projects and the authority to make important technical decisions. We're looking for engineers who thrive in ambiguous environments and are passionate about building systems at scale.\n\nNetflix offers a unique compensation structure with a single top-of-market salary (no separate bonus or stock). Annual compensation ranges from $300,000 to $700,000.",
+    "responsibilities": [
+      "Design and build systems that deliver petabytes of video content daily across 190+ countries.",
+      "Optimize streaming quality algorithms that adapt to network conditions in real-time.",
+      "Build and maintain tools for CDN capacity planning and traffic engineering.",
+      "Implement chaos engineering practices to ensure system resilience.",
+      "Lead technical design discussions and mentor other engineers.",
+      "Collaborate with cross-functional teams including encoding, client, and infrastructure."
+    ],
+    "required_skills": ["Java", "Distributed Systems", "AWS", "Networking", "System Design", "Linux", "Git", "REST APIs"],
+    "preferred_skills": ["Video Streaming", "CDN", "HLS", "DASH", "Chaos Engineering", "Cassandra", "Python", "Edge Computing"],
+    "required_experience_years": 7,
+    "salary_range": "$300,000 - $700,000 (all-inclusive)",
+    "benefits": ["Top-of-market salary (no bonus/stock)", "Unlimited PTO (with cultural expectation of ~4 weeks)", "Generous parental leave", "Stock option program available", "No traditional performance reviews", "High degree of autonomy and ownership"]
+  },
+  {
+    "company": "Stripe",
+    "title": "Software Engineer, Payments Infrastructure",
+    "industry": "Backend Development",
+    "location": "San Francisco, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's degree in Computer Science or equivalent experience.",
+      "2+ years of software engineering experience.",
+      "Strong programming skills in at least one language (Ruby, Java, Go, or similar).",
+      "Understanding of distributed systems concepts.",
+      "Experience with relational databases and SQL."
+    ],
+    "preferred_qualifications": [
+      "Experience in fintech or payments industry.",
+      "Experience building financial systems with strict consistency requirements.",
+      "Knowledge of payment processing (card networks, ACH, wire transfers).",
+      "Experience with event-driven architectures.",
+      "Strong attention to detail and quality.",
+      "Interest in helping businesses grow through financial infrastructure."
+    ],
+    "about_the_job": "Stripe builds economic infrastructure for the internet. Millions of companies—from the world's largest enterprises to ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities.\n\nAs a Software Engineer on the Payments Infrastructure team, you will work on the core systems that process hundreds of billions of dollars annually. You'll build reliable, scalable infrastructure that handles payments across 135+ currencies and dozens of payment methods. The systems you build will directly impact the revenue of millions of businesses.\n\nPayments infrastructure is uniquely challenging—every transaction must be processed correctly, and downtime directly impacts our users' revenue. You'll work on problems like exactly-once payment processing, distributed transaction management, and real-time fraud detection. This is a role for engineers who care deeply about correctness and reliability.\n\nCompensation ranges from $140,000 to $199,000 depending on experience and location.",
+    "responsibilities": [
+      "Build and scale payment processing systems handling millions of transactions daily.",
+      "Design distributed systems with strong consistency guarantees for financial operations.",
+      "Implement integrations with global payment networks and banking systems.",
+      "Improve system reliability, reducing latency and increasing availability.",
+      "Participate in on-call rotation to ensure 24/7 payment processing.",
+      "Work with product and compliance teams to launch new payment features."
+    ],
+    "required_skills": ["Ruby", "Java", "SQL", "Distributed Systems", "REST APIs", "Git", "Linux", "Problem Solving"],
+    "preferred_skills": ["Go", "Payments", "Event Sourcing", "Kafka", "Redis", "Financial Systems", "AWS", "Kubernetes"],
+    "required_experience_years": 2,
+    "salary_range": "$140,000 - $199,000 + equity",
+    "benefits": ["Competitive equity package", "Comprehensive health insurance", "$10,000 annual learning budget", "Remote work flexibility", "Generous parental leave (20 weeks)", "Commuter benefits", "Wellness stipend", "Annual company retreat"]
+  },
+  {
+    "company": "Uber",
+    "title": "Software Engineer I, Rider Experience",
+    "industry": "Mobile Development",
+    "location": "San Francisco, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Entry Level",
+    "minimum_qualifications": [
+      "Bachelor's degree in Computer Science or equivalent.",
+      "0-2 years of software engineering experience (internships count).",
+      "Programming experience in Swift, Kotlin, or React Native.",
+      "Understanding of mobile app architecture patterns (MVC, MVVM).",
+      "Strong problem-solving skills."
+    ],
+    "preferred_qualifications": [
+      "Published mobile apps on App Store or Google Play.",
+      "Experience with iOS or Android SDK.",
+      "Familiarity with RESTful APIs and mobile networking.",
+      "Experience with mobile testing frameworks.",
+      "Interest in location-based services and maps.",
+      "Understanding of mobile performance optimization."
+    ],
+    "about_the_job": "Uber's mission is to reimagine the way the world moves for the better. Our Rider Experience team builds the features that millions of riders use every day—from requesting rides to tracking their driver to managing payments.\n\nAs a Software Engineer I on the Rider Experience team, you'll work on one of the most downloaded apps in the world. You'll build features that directly impact the experience of millions of daily active users across 70+ countries. This is a great opportunity for early-career engineers to learn mobile development at scale.\n\nYou'll be mentored by senior engineers and have access to Uber's extensive learning resources. We believe in giving meaningful work to engineers at all levels—you won't just be fixing bugs, you'll be building features that users see and love.\n\nBase salary ranges from $106,000 to $141,000 depending on location. Total compensation includes annual bonus and equity.",
+    "responsibilities": [
+      "Develop features for the Uber rider app used by millions of users daily.",
+      "Write clean, testable code in Swift or Kotlin.",
+      "Collaborate with designers and product managers to create great user experiences.",
+      "Learn mobile development best practices from experienced engineers.",
+      "Participate in code reviews and contribute to team documentation.",
+      "Debug and fix issues reported by users and internal teams."
+    ],
+    "required_skills": ["Swift", "Kotlin", "Mobile Development", "Git", "REST APIs", "Data Structures"],
+    "preferred_skills": ["iOS SDK", "Android SDK", "React Native", "Maps API", "Unit Testing", "MVVM", "Agile"],
+    "required_experience_years": 0,
+    "salary_range": "$106,000 - $141,000 + bonus + equity",
+    "benefits": ["Uber credits", "Comprehensive health insurance", "401(k) with company match", "Flexible PTO", "Parental leave", "Learning & development stipend", "Mental health support", "Remote work options"]
+  },
+  {
+    "company": "Airbnb",
+    "title": "Software Engineer, Search & Discovery",
+    "industry": "Full Stack Development",
+    "location": "San Francisco, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's degree in Computer Science or equivalent experience.",
+      "3+ years of software engineering experience.",
+      "Experience with Java, Kotlin, or similar backend languages.",
+      "Experience with search technologies (Elasticsearch, Solr) or recommendation systems.",
+      "Strong understanding of data structures and algorithms."
+    ],
+    "preferred_qualifications": [
+      "Experience with machine learning for search ranking or recommendations.",
+      "Experience with A/B testing and experimentation frameworks.",
+      "Knowledge of information retrieval concepts.",
+      "Experience with distributed systems at scale.",
+      "Frontend experience with React or similar frameworks.",
+      "Passion for travel and community."
+    ],
+    "about_the_job": "Airbnb is a community built on connection—the connection between guests and hosts, travelers and locals, people and places. Our Search & Discovery team is responsible for helping guests find their perfect stay among millions of listings worldwide.\n\nAs a Software Engineer on the Search & Discovery team, you will build the systems that power Airbnb's search experience. You'll work on search ranking algorithms, personalization models, and discovery features that help guests find unique stays they'll love. Your work will directly impact booking conversion and guest satisfaction.\n\nThis role combines backend engineering with data-driven optimization. You'll work closely with data scientists and ML engineers to implement and iterate on ranking models, and you'll build the infrastructure that serves millions of search queries daily.\n\nCompensation ranges from $154,000 to $200,000 base salary plus equity and bonus.",
+    "responsibilities": [
+      "Build and optimize search ranking algorithms serving millions of queries daily.",
+      "Implement personalization features that tailor results to individual users.",
+      "Design and run A/B experiments to improve search quality metrics.",
+      "Build backend services in Java/Kotlin that power the search experience.",
+      "Collaborate with ML engineers to deploy and iterate on ranking models.",
+      "Contribute to search infrastructure improvements for scale and reliability."
+    ],
+    "required_skills": ["Java", "Elasticsearch", "SQL", "Algorithms", "Distributed Systems", "REST APIs", "Git"],
+    "preferred_skills": ["Kotlin", "Machine Learning", "A/B Testing", "Spark", "Kafka", "React", "Redis", "Ranking Models"],
+    "required_experience_years": 3,
+    "salary_range": "$154,000 - $200,000 + equity + bonus",
+    "benefits": ["$2,000 annual travel credit", "Quarterly team travel", "Comprehensive health benefits", "Generous parental leave (22 weeks)", "Employee stock purchase plan", "Learning & development stipend", "Sabbatical program", "Volunteer time off"]
+  },
+  {
+    "company": "Spotify",
+    "title": "Backend Engineer, Personalization",
+    "industry": "Backend Development",
+    "location": "New York, NY, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's degree in Computer Science or equivalent experience.",
+      "2+ years of backend development experience.",
+      "Proficiency in Java, Scala, or Python.",
+      "Experience with microservices architecture.",
+      "Familiarity with cloud platforms (GCP preferred)."
+    ],
+    "preferred_qualifications": [
+      "Experience with recommendation systems or ML infrastructure.",
+      "Experience with real-time data processing (Kafka, Spark Streaming).",
+      "Knowledge of collaborative filtering or content-based recommendations.",
+      "Experience with A/B testing at scale.",
+      "Passion for music and audio content.",
+      "Experience with Kubernetes and containerization."
+    ],
+    "about_the_job": "Spotify is the world's most popular audio streaming subscription service with 600+ million users. Our Personalization team builds the recommendation systems that power Discover Weekly, Release Radar, Daily Mix, and other personalized experiences.\n\nAs a Backend Engineer on the Personalization team, you will build the infrastructure that delivers billions of personalized recommendations daily. You'll work on real-time ML serving systems, feature pipelines, and the backend services that connect our recommendation models to the Spotify experience.\n\nThis is a unique opportunity to work at the intersection of engineering and machine learning, building systems that help 600 million users discover music they'll love. You'll collaborate with ML researchers, data scientists, and product teams to bring new recommendation features to life.\n\nSalary ranges from $131,000 to $187,000 depending on experience and location.",
+    "responsibilities": [
+      "Build backend services that serve personalized recommendations to 600M+ users.",
+      "Design and implement feature pipelines for ML models.",
+      "Create real-time systems for serving and updating user preferences.",
+      "Optimize recommendation serving for low latency and high throughput.",
+      "Collaborate with ML teams to deploy and monitor recommendation models.",
+      "Participate in squad rituals and contribute to team culture."
+    ],
+    "required_skills": ["Java", "Python", "Microservices", "GCP", "SQL", "REST APIs", "Git", "Docker"],
+    "preferred_skills": ["Scala", "Kafka", "Spark", "Kubernetes", "Machine Learning", "A/B Testing", "BigQuery", "Redis"],
+    "required_experience_years": 2,
+    "salary_range": "$131,000 - $187,000 + equity",
+    "benefits": ["Free Spotify Premium", "Flexible work hours", "Work from anywhere program", "6 months parental leave", "Generous vacation policy", "Learning & development budget", "Mental health support", "Music industry events access"]
+  },
+  {
+    "company": "NVIDIA",
+    "title": "Deep Learning Engineer, Autonomous Vehicles",
+    "industry": "AI & Machine Learning",
+    "location": "Santa Clara, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Senior",
+    "minimum_qualifications": [
+      "Master's degree or PhD in Computer Science, Machine Learning, or related field.",
+      "5+ years of experience in deep learning.",
+      "Strong proficiency in Python and deep learning frameworks (PyTorch, TensorFlow).",
+      "Experience with computer vision for perception tasks.",
+      "Experience with GPU programming and optimization."
+    ],
+    "preferred_qualifications": [
+      "Experience with autonomous vehicle perception systems.",
+      "Experience with 3D object detection, segmentation, or tracking.",
+      "Publications in top-tier venues (CVPR, ICCV, NeurIPS, ICML).",
+      "Experience with CUDA and TensorRT optimization.",
+      "Experience with sensor fusion (camera, lidar, radar).",
+      "Knowledge of real-time systems and embedded deployment."
+    ],
+    "about_the_job": "NVIDIA is the pioneer of GPU-accelerated computing. Our DRIVE platform powers the autonomous vehicle systems of major automakers worldwide, from advanced driver assistance to fully self-driving capabilities.\n\nAs a Deep Learning Engineer on the Autonomous Vehicles team, you will develop perception models that enable vehicles to understand their environment. You'll work on 3D object detection, semantic segmentation, lane detection, and other computer vision tasks critical for safe autonomous driving.\n\nThis role combines cutting-edge research with real-world deployment. You'll develop models that run on NVIDIA's DRIVE AGX platform in production vehicles. Safety is paramount—your work directly impacts the safety of passengers and road users.\n\nCompensation ranges from $180,000 to $339,250 base salary plus equity and bonus.",
+    "responsibilities": [
+      "Develop deep learning models for autonomous vehicle perception (detection, segmentation, tracking).",
+      "Optimize models for real-time inference on NVIDIA DRIVE AGX hardware.",
+      "Design and implement training pipelines for large-scale perception datasets.",
+      "Collaborate with sensor fusion teams to integrate camera, lidar, and radar data.",
+      "Publish research and represent NVIDIA at academic conferences.",
+      "Mentor junior engineers and contribute to team technical direction."
+    ],
+    "required_skills": ["Python", "PyTorch", "TensorFlow", "Computer Vision", "Deep Learning", "CUDA", "Git", "Linux"],
+    "preferred_skills": ["TensorRT", "C++", "3D Object Detection", "Lidar", "Sensor Fusion", "ONNX", "Autonomous Vehicles", "Real-time Systems"],
+    "required_experience_years": 5,
+    "salary_range": "$180,000 - $339,250 + equity + bonus",
+    "benefits": ["Competitive equity grants", "Employee Stock Purchase Plan", "Comprehensive health coverage", "401(k) with match", "Flexible time off", "Parental leave", "On-site fitness and dining", "Tuition reimbursement"]
+  },
+  {
+    "company": "Salesforce",
+    "title": "Associate Software Engineer, Einstein AI",
+    "industry": "AI & Machine Learning",
+    "location": "San Francisco, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Entry Level",
+    "minimum_qualifications": [
+      "Bachelor's degree in Computer Science, Machine Learning, or related field.",
+      "0-2 years of software engineering experience.",
+      "Programming experience in Python and/or Java.",
+      "Coursework or project experience in machine learning.",
+      "Strong foundation in mathematics (linear algebra, statistics, calculus)."
+    ],
+    "preferred_qualifications": [
+      "Master's degree in ML, AI, or related field.",
+      "Experience with deep learning frameworks (PyTorch, TensorFlow).",
+      "Experience with NLP or computer vision projects.",
+      "Familiarity with cloud platforms (AWS, GCP, or Salesforce).",
+      "Contributions to open-source ML projects.",
+      "Strong communication skills."
+    ],
+    "about_the_job": "Salesforce Einstein brings AI to the world's #1 CRM platform, helping businesses make smarter decisions with predictions, recommendations, and automation. Over 150,000 companies use Salesforce to grow their business, and Einstein AI is at the heart of our product innovation.\n\nAs an Associate Software Engineer on the Einstein AI team, you'll work on machine learning systems that power predictions and recommendations across Sales Cloud, Service Cloud, Marketing Cloud, and more. This is an excellent opportunity for early-career engineers to learn ML engineering in a supportive, mentorship-focused environment.\n\nYou'll be part of our Futureforce New Grad program, which includes structured onboarding, executive mentorship, and a cohort of new grads to grow alongside. We believe in giving meaningful projects to engineers from day one.\n\nBase salary ranges from $96,500 to $132,600 plus equity and bonus.",
+    "responsibilities": [
+      "Develop and improve ML models for Einstein AI products.",
+      "Build data pipelines and feature engineering systems.",
+      "Write clean, well-tested code in Python and Java.",
+      "Learn ML engineering best practices from experienced mentors.",
+      "Participate in ML research reading groups and learning sessions.",
+      "Collaborate with product teams to understand customer needs."
+    ],
+    "required_skills": ["Python", "Java", "Machine Learning", "SQL", "Git", "Statistics", "Linear Algebra"],
+    "preferred_skills": ["PyTorch", "TensorFlow", "NLP", "Deep Learning", "Spark", "AWS", "Docker", "Scikit-learn"],
+    "required_experience_years": 0,
+    "salary_range": "$96,500 - $132,600 + equity + bonus",
+    "benefits": ["Generous equity package", "Employee Stock Purchase Plan", "7 days of paid volunteer time", "Comprehensive health benefits", "Parental leave (26 weeks)", "Wellness reimbursement", "Education reimbursement ($5,250/year)", "Employee resource groups"]
+  },
+  {
+    "company": "Databricks",
+    "title": "Software Engineer, Data Engineering",
+    "industry": "Data Engineering",
+    "location": "San Francisco, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's or Master's degree in Computer Science or related field.",
+      "3+ years of software engineering experience.",
+      "Strong programming skills in Scala, Java, or Python.",
+      "Experience with distributed systems and big data technologies.",
+      "Experience with Apache Spark or similar frameworks."
+    ],
+    "preferred_qualifications": [
+      "Experience building data platforms or lakehouse architectures.",
+      "Contributions to Apache Spark or Delta Lake.",
+      "Experience with cloud platforms (AWS, Azure, GCP).",
+      "Knowledge of query optimization and database internals.",
+      "Experience with streaming data processing.",
+      "PhD in databases, distributed systems, or related area."
+    ],
+    "about_the_job": "Databricks is pioneering the Data Lakehouse paradigm—combining the best features of data warehouses and data lakes. Founded by the original creators of Apache Spark, MLflow, and Delta Lake, we're building the unified platform for data and AI.\n\nAs a Software Engineer on the Data Engineering team, you will work on the core Databricks platform that processes exabytes of data for thousands of organizations. You'll build features for Delta Lake, optimize Spark query performance, and develop tools that help data engineers build reliable data pipelines.\n\nThis is an opportunity to work on industry-defining technology used by companies like Shell, Comcast, and the US Department of Defense. You'll collaborate with some of the best systems engineers in the world and contribute to widely-used open-source projects.\n\nCompensation ranges from $153,000 to $215,000 base salary plus equity.",
+    "responsibilities": [
+      "Build and optimize core features of the Databricks platform.",
+      "Develop features for Delta Lake and Databricks SQL.",
+      "Optimize Spark query execution and data processing performance.",
+      "Design systems for reliable, scalable data pipelines.",
+      "Contribute to open-source projects (Spark, Delta Lake, MLflow).",
+      "Collaborate with customers to understand and solve data challenges."
+    ],
+    "required_skills": ["Scala", "Python", "Apache Spark", "Distributed Systems", "SQL", "Git", "Linux", "Java"],
+    "preferred_skills": ["Delta Lake", "AWS", "Azure", "Kafka", "Query Optimization", "Data Lakes", "Parquet", "Streaming"],
+    "required_experience_years": 3,
+    "salary_range": "$153,000 - $215,000 + equity",
+    "benefits": ["Competitive equity (ISOs)", "Comprehensive health coverage", "Unlimited PTO", "Parental leave (16 weeks)", "$10,000 annual learning budget", "Home office stipend", "Commuter benefits", "401(k)"]
+  },
+  {
+    "company": "Cloudflare",
+    "title": "Systems Engineer, Edge Network",
+    "industry": "Cloud & Infrastructure",
+    "location": "Austin, TX, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's degree in Computer Science or equivalent experience.",
+      "3+ years of systems engineering experience.",
+      "Strong programming skills in Go, Rust, or C.",
+      "Experience with Linux systems programming and networking.",
+      "Understanding of TCP/IP, HTTP, DNS, and BGP."
+    ],
+    "preferred_qualifications": [
+      "Experience building CDN or edge computing systems.",
+      "Experience with performance optimization at scale.",
+      "Knowledge of web security (DDoS mitigation, WAF).",
+      "Experience with eBPF or kernel development.",
+      "Contributions to networking-related open-source projects.",
+      "Experience operating systems in a 24/7 environment."
+    ],
+    "about_the_job": "Cloudflare's mission is to help build a better Internet. Our global network spans 300+ cities and serves millions of web properties, from personal blogs to Fortune 500 companies. We block billions of cyber threats daily and help make the Internet faster and more reliable.\n\nAs a Systems Engineer on the Edge Network team, you will build the software that runs on Cloudflare's global edge. You'll work on our caching layer, load balancers, and the systems that terminate billions of HTTP connections daily. Your code will run in data centers on every continent.\n\nThis role requires deep systems knowledge and a passion for performance. You'll work on problems like optimizing TLS handshakes at scale, building efficient caching systems, and developing DDoS mitigation techniques. If you love understanding how computers really work, this is the role for you.\n\nSalary ranges from $137,000 to $167,000 depending on experience.",
+    "responsibilities": [
+      "Build and optimize edge computing systems serving billions of requests daily.",
+      "Develop caching, load balancing, and traffic management features.",
+      "Implement DDoS mitigation and security features at network scale.",
+      "Profile and optimize system performance for latency and throughput.",
+      "Debug complex distributed systems issues across global infrastructure.",
+      "Participate in on-call rotation supporting critical Internet infrastructure."
+    ],
+    "required_skills": ["Go", "Linux", "Networking", "TCP/IP", "HTTP", "Systems Programming", "Git", "C"],
+    "preferred_skills": ["Rust", "eBPF", "DNS", "BGP", "CDN", "DDoS Mitigation", "TLS", "Performance Optimization"],
+    "required_experience_years": 3,
+    "salary_range": "$137,000 - $167,000 + equity",
+    "benefits": ["Equity participation", "Health, dental, and vision coverage", "Flexible PTO", "Parental leave (16 weeks)", "$3,000 annual professional development", "Commuter benefits", "Free Cloudflare Pro plan", "Remote-friendly culture"]
+  },
+  {
+    "company": "LinkedIn",
+    "title": "Software Engineer, New Grad - Feed",
+    "industry": "Backend Development",
+    "location": "Sunnyvale, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Entry Level",
+    "minimum_qualifications": [
+      "Bachelor's or Master's degree in Computer Science or related field.",
+      "Graduating between December 2025 and August 2026.",
+      "Programming experience in Java, Python, or similar languages.",
+      "Understanding of data structures, algorithms, and software design.",
+      "Strong problem-solving and analytical skills."
+    ],
+    "preferred_qualifications": [
+      "Internship experience in software development.",
+      "Experience with distributed systems or backend development.",
+      "Familiarity with machine learning concepts.",
+      "Experience with databases (SQL and NoSQL).",
+      "Strong communication and teamwork skills.",
+      "Passion for LinkedIn's mission to connect professionals."
+    ],
+    "about_the_job": "LinkedIn is the world's largest professional network with 1 billion members. Our Feed team builds the personalized content experience that helps members stay informed and engaged with their professional network.\n\nAs a New Grad Software Engineer on the Feed team, you'll work on systems that serve billions of feed items daily. You'll build features that help members discover relevant content, learn from industry experts, and engage with their professional community.\n\nLinkedIn's New Grad program (called REACH) provides structured mentorship, technical training, and a supportive cohort experience. You'll work on meaningful projects from day one and have access to learning resources across Microsoft.\n\nBase salary ranges from $101,000 to $154,000. Total compensation includes signing bonus, stock, and annual bonus.",
+    "responsibilities": [
+      "Build backend services that power LinkedIn's feed experience.",
+      "Write clean, tested code in Java following LinkedIn engineering practices.",
+      "Learn distributed systems concepts and apply them to real-world problems.",
+      "Collaborate with ML teams to implement feed ranking features.",
+      "Participate in code reviews and learn from experienced engineers.",
+      "Contribute to team on-call rotation after ramp-up period."
+    ],
+    "required_skills": ["Java", "Data Structures", "Algorithms", "SQL", "Git", "Problem Solving"],
+    "preferred_skills": ["Python", "REST APIs", "Distributed Systems", "NoSQL", "Kafka", "Machine Learning", "Agile"],
+    "required_experience_years": 0,
+    "salary_range": "$101,000 - $154,000 + signing bonus + stock",
+    "benefits": ["Comprehensive health coverage", "401(k) with match", "Stock awards", "Generous PTO", "Parental leave (20 weeks)", "LinkedIn Learning access", "Matching gifts program", "Commuter benefits"]
+  },
+  {
+    "company": "Snowflake",
+    "title": "Software Engineer, Query Optimization",
+    "industry": "Data Engineering",
+    "location": "San Mateo, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Senior",
+    "minimum_qualifications": [
+      "Bachelor's or Master's degree in Computer Science or related field.",
+      "5+ years of software engineering experience.",
+      "Strong programming skills in Java, C++, or similar languages.",
+      "Experience with database systems and query processing.",
+      "Deep understanding of algorithms and data structures."
+    ],
+    "preferred_qualifications": [
+      "PhD in databases or related area.",
+      "Experience with query optimization or database internals.",
+      "Publications in database conferences (SIGMOD, VLDB, ICDE).",
+      "Experience with distributed query processing.",
+      "Knowledge of cost-based optimization and statistics.",
+      "Experience with cloud data warehouses."
+    ],
+    "about_the_job": "Snowflake delivers the Data Cloud—a global network where thousands of organizations mobilize data with near-unlimited scale, concurrency, and performance. We're revolutionizing the data warehousing industry with our cloud-native architecture.\n\nAs a Software Engineer on the Query Optimization team, you will work on the query compiler and optimizer that makes Snowflake the fastest cloud data warehouse. You'll develop optimization techniques for complex SQL queries, implement new query processing features, and ensure efficient execution across our distributed compute infrastructure.\n\nThis role is for engineers who love diving deep into systems. You'll work on compiler techniques, query planning algorithms, and distributed execution strategies. Your work will directly impact the performance of queries running across thousands of customers.\n\nCompensation ranges from $187,000 to $261,500 base salary plus equity.",
+    "responsibilities": [
+      "Design and implement query optimization algorithms for complex SQL workloads.",
+      "Build cost-based optimization features using statistics and machine learning.",
+      "Develop query compilation and code generation improvements.",
+      "Optimize distributed query execution for cloud-scale data processing.",
+      "Profile and improve query performance for customer workloads.",
+      "Mentor engineers and contribute to team technical direction."
+    ],
+    "required_skills": ["Java", "C++", "SQL", "Algorithms", "Database Systems", "Distributed Systems", "Git"],
+    "preferred_skills": ["Query Optimization", "Compiler Design", "Statistics", "Cost Models", "Vectorization", "LLVM", "Cloud Computing"],
+    "required_experience_years": 5,
+    "salary_range": "$187,000 - $261,500 + equity",
+    "benefits": ["Competitive equity package", "Comprehensive health benefits", "Flexible PTO", "Parental leave (20 weeks)", "401(k) with match", "Learning stipend", "Home office equipment", "Annual company events"]
+  },
+  {
+    "company": "Figma",
+    "title": "Software Engineer, Frontend Platform",
+    "industry": "Frontend Development",
+    "location": "San Francisco, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's degree in Computer Science or equivalent experience.",
+      "3+ years of frontend development experience.",
+      "Strong proficiency in TypeScript and React.",
+      "Experience building and maintaining design systems or component libraries.",
+      "Understanding of web performance optimization."
+    ],
+    "preferred_qualifications": [
+      "Experience with WebGL, Canvas, or graphics programming.",
+      "Experience with real-time collaboration systems.",
+      "Contributions to open-source frontend projects.",
+      "Experience with cross-browser compatibility challenges.",
+      "Knowledge of accessibility standards (WCAG).",
+      "Experience with build tools and bundlers."
+    ],
+    "about_the_job": "Figma is the leading collaborative design platform. Designers at companies like Google, Microsoft, and Airbnb use Figma to create user interfaces, design systems, and prototypes. Our browser-based editor handles complex vector graphics and real-time collaboration.\n\nAs a Software Engineer on the Frontend Platform team, you will build the infrastructure that powers Figma's web application. You'll work on our component library, performance optimization, and the foundational systems that enable our product engineers to build features quickly.\n\nFigma's engineering challenges are unique—we push the boundaries of what's possible in a browser. You'll work with WebGL, manage complex state in real-time, and optimize performance for design files with thousands of elements. If you love frontend engineering at its most challenging, this role is for you.\n\nCompensation ranges from $149,000 to $350,000 depending on experience.",
+    "responsibilities": [
+      "Build and maintain Figma's design system and component library.",
+      "Optimize web application performance for complex design documents.",
+      "Develop infrastructure for real-time collaboration features.",
+      "Create tools and frameworks that improve developer productivity.",
+      "Ensure accessibility and cross-browser compatibility.",
+      "Collaborate with product teams to deliver high-quality features."
+    ],
+    "required_skills": ["TypeScript", "React", "JavaScript", "HTML", "CSS", "Git", "Web Performance", "Design Systems"],
+    "preferred_skills": ["WebGL", "Canvas", "WebAssembly", "Real-time Systems", "Webpack", "Accessibility", "CRDT", "Performance Profiling"],
+    "required_experience_years": 3,
+    "salary_range": "$149,000 - $350,000 + equity",
+    "benefits": ["Competitive equity", "Comprehensive health coverage", "Flexible PTO", "Parental leave (20 weeks)", "$1,500 home office stipend", "Learning & development budget", "Wellness reimbursement", "Company retreats"]
+  },
+  {
+    "company": "Coinbase",
+    "title": "Software Engineer, Platform Security",
+    "industry": "Cybersecurity",
+    "location": "Remote, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's degree in Computer Science, Security, or equivalent experience.",
+      "3+ years of software engineering experience.",
+      "Experience with secure software development practices.",
+      "Proficiency in Go, Python, or similar languages.",
+      "Understanding of common security vulnerabilities and mitigations."
+    ],
+    "preferred_qualifications": [
+      "Experience in cryptocurrency or fintech security.",
+      "Security certifications (OSCP, CISSP, CEH).",
+      "Experience with blockchain technology and smart contracts.",
+      "Experience with penetration testing or red team activities.",
+      "Bug bounty or CTF participation.",
+      "Knowledge of regulatory compliance (SOC 2, PCI-DSS)."
+    ],
+    "about_the_job": "Coinbase is building the cryptoeconomy—a more fair, accessible, efficient, and transparent financial system enabled by crypto. As the most trusted cryptocurrency platform, we're responsible for securing billions of dollars in digital assets.\n\nAs a Software Engineer on the Platform Security team, you will build security infrastructure that protects Coinbase's systems and customer assets. You'll work on authentication systems, access controls, security monitoring, and the tools that help engineering teams build secure software.\n\nSecurity at Coinbase is a unique challenge. We're a high-value target for sophisticated attackers, and we secure assets that can't be reversed if stolen. You'll work on defense-in-depth strategies, implement zero-trust architecture, and build systems that detect and prevent attacks in real-time.\n\nCompensation ranges from $147,900 to $174,000 base salary plus equity and bonus.",
+    "responsibilities": [
+      "Build security infrastructure for authentication, authorization, and access control.",
+      "Develop security monitoring and anomaly detection systems.",
+      "Implement security tooling for secure development lifecycle.",
+      "Conduct security reviews and threat modeling for new features.",
+      "Respond to security incidents and lead remediation efforts.",
+      "Collaborate with engineering teams to improve security posture."
+    ],
+    "required_skills": ["Go", "Python", "Security Engineering", "Authentication", "Linux", "SQL", "Git", "REST APIs"],
+    "preferred_skills": ["Blockchain", "Cryptography", "AWS", "Kubernetes", "SIEM", "Penetration Testing", "Threat Modeling", "Zero Trust"],
+    "required_experience_years": 3,
+    "salary_range": "$147,900 - $174,000 + equity + bonus",
+    "benefits": ["Competitive equity package", "Remote-first culture", "Comprehensive health benefits", "Unlimited PTO", "Parental leave (18 weeks)", "$2,000 annual crypto stipend", "Home office setup budget", "Learning & development budget"]
+  },
+  {
+    "company": "Notion",
+    "title": "Software Engineer, Collaboration",
+    "industry": "Full Stack Development",
+    "location": "San Francisco, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's degree in Computer Science or equivalent experience.",
+      "2+ years of software engineering experience.",
+      "Strong programming skills in TypeScript and React.",
+      "Experience with real-time or collaborative applications.",
+      "Understanding of distributed systems concepts."
+    ],
+    "preferred_qualifications": [
+      "Experience with CRDTs or operational transformation.",
+      "Experience with WebSocket or real-time protocols.",
+      "Experience with offline-first applications.",
+      "Knowledge of database design and optimization.",
+      "Contributions to collaborative or productivity tools.",
+      "Strong product sense and attention to detail."
+    ],
+    "about_the_job": "Notion is the connected workspace where teams collaborate on docs, wikis, and projects. We're on a mission to make software that anyone can mold and shape to solve problems in their work and life.\n\nAs a Software Engineer on the Collaboration team, you will build the real-time features that make Notion feel magical. You'll work on multiplayer editing, presence indicators, comments, and the systems that keep everyone in sync. When two people edit the same page, your code makes it feel seamless.\n\nReal-time collaboration is one of the hardest problems in software engineering. You'll work with CRDTs, handle network partitions, and optimize for the latency of keystrokes. This role is for engineers who love building systems that feel instant and delightful.\n\nSalary ranges from $130,000 to $200,000 depending on experience.",
+    "responsibilities": [
+      "Build real-time collaboration features for Notion's workspace.",
+      "Implement CRDTs and conflict resolution for multiplayer editing.",
+      "Develop presence and awareness features for team collaboration.",
+      "Optimize sync performance for low latency and reliability.",
+      "Build offline support for seamless productivity anywhere.",
+      "Collaborate with design to create intuitive collaboration experiences."
+    ],
+    "required_skills": ["TypeScript", "React", "Node.js", "WebSockets", "SQL", "Git", "REST APIs"],
+    "preferred_skills": ["CRDTs", "Operational Transformation", "Postgres", "Redis", "Offline-First", "Performance Optimization", "System Design"],
+    "required_experience_years": 2,
+    "salary_range": "$130,000 - $200,000 + equity",
+    "benefits": ["Competitive equity", "Comprehensive health benefits", "Flexible PTO", "Parental leave (16 weeks)", "$500 monthly wellness stipend", "Learning & development budget", "Free lunch in office", "Home office setup"]
   }
 ]
