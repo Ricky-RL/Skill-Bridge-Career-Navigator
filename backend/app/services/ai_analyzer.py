@@ -8,18 +8,20 @@ from app.config import get_settings
 async def analyze_gap_with_ai(
     user_skills: list[str],
     target_role: dict,
-    resources: list[dict] = None
+    resources: list[dict] = None,
+    user_profile: dict = None
 ) -> dict:
     """
-    Analyze skill gap using Groq AI.
+    Analyze skill gap and profile fit using Groq AI.
 
     Args:
         user_skills: List of user's current skills
-        target_role: Target job role with required_skills
+        target_role: Target job role/posting with required_skills
         resources: Available learning resources
+        user_profile: Full user profile including education, experience, etc.
 
     Returns:
-        Analysis result with matching/missing skills and recommendations
+        Analysis result with matching/missing skills, recommendations, and profile summary
     """
     settings = get_settings()
     client = Groq(api_key=settings.groq_api_key)
@@ -34,20 +36,118 @@ async def analyze_gap_with_ai(
         for r in resources[:20]:  # Limit context size
             resource_context += f"- {r.get('resource_name', 'Unknown')} ({r.get('platform', 'Unknown')}): teaches {r.get('skill_name', 'Unknown')}\n"
 
-    prompt = f"""Analyze the skill gap between a user and their target role.
+    # Build comprehensive profile context
+    profile_context = ""
+    if user_profile:
+        profile_context = "\n\n--- CANDIDATE PROFILE ---\n"
 
-User's Current Skills: {', '.join(user_skills)}
+        if user_profile.get("name"):
+            profile_context += f"Name: {user_profile.get('name')}\n"
 
-Target Role: {target_role.get('title', 'Unknown')}
+        if user_profile.get("job_title"):
+            profile_context += f"Current Role: {user_profile.get('job_title')}\n"
+
+        if user_profile.get("years_of_experience"):
+            profile_context += f"Years of Experience: {user_profile.get('years_of_experience')}\n"
+
+        # Education
+        education = user_profile.get("education", [])
+        if education:
+            profile_context += "\nEducation:\n"
+            for edu in education:
+                profile_context += f"  - {edu.get('degree', 'Degree')} in {edu.get('field_of_study', 'N/A')} from {edu.get('institution', 'Unknown')}"
+                if edu.get('gpa'):
+                    profile_context += f" (GPA: {edu.get('gpa')})"
+                if edu.get('end_date'):
+                    profile_context += f" - {edu.get('end_date')}"
+                profile_context += "\n"
+
+        # Work Experience
+        work_exp = user_profile.get("work_experience", [])
+        if work_exp:
+            profile_context += "\nWork Experience:\n"
+            for exp in work_exp:
+                profile_context += f"  - {exp.get('title', 'Role')} at {exp.get('company', 'Company')}"
+                if exp.get('start_date') and exp.get('end_date'):
+                    profile_context += f" ({exp.get('start_date')} - {exp.get('end_date')})"
+                profile_context += "\n"
+                if exp.get('description'):
+                    profile_context += f"    {exp.get('description')[:200]}\n"
+                if exp.get('highlights'):
+                    for h in exp.get('highlights', [])[:3]:
+                        profile_context += f"    • {h}\n"
+
+        # Certifications
+        certs = user_profile.get("certifications", [])
+        if certs:
+            profile_context += "\nCertifications:\n"
+            for cert in certs:
+                profile_context += f"  - {cert.get('name', 'Certification')}"
+                if cert.get('issuer'):
+                    profile_context += f" ({cert.get('issuer')})"
+                profile_context += "\n"
+
+        # Projects
+        projects = user_profile.get("projects", [])
+        if projects:
+            profile_context += "\nProjects:\n"
+            for proj in projects:
+                profile_context += f"  - {proj.get('name', 'Project')}"
+                if proj.get('technologies'):
+                    profile_context += f" [{', '.join(proj.get('technologies', [])[:5])}]"
+                profile_context += "\n"
+                if proj.get('description'):
+                    profile_context += f"    {proj.get('description')[:150]}\n"
+
+    # Build job posting context
+    job_context = f"""
+--- JOB POSTING ---
+Title: {target_role.get('title', 'Unknown')}
+Company: {target_role.get('company', 'Unknown')}
+Experience Level: {target_role.get('experience_level', 'Not specified')}
+
 Required Skills: {', '.join(required_skills)}
 Nice to Have Skills: {', '.join(nice_to_have)}
+"""
+
+    if target_role.get('minimum_qualifications'):
+        job_context += f"\nMinimum Qualifications:\n"
+        for qual in target_role.get('minimum_qualifications', [])[:5]:
+            job_context += f"  - {qual}\n"
+
+    if target_role.get('preferred_qualifications'):
+        job_context += f"\nPreferred Qualifications:\n"
+        for qual in target_role.get('preferred_qualifications', [])[:5]:
+            job_context += f"  - {qual}\n"
+
+    if target_role.get('responsibilities'):
+        job_context += f"\nKey Responsibilities:\n"
+        for resp in target_role.get('responsibilities', [])[:5]:
+            job_context += f"  - {resp}\n"
+
+    prompt = f"""Perform a comprehensive analysis comparing a candidate's profile against a job posting.
+
+{job_context}
+{profile_context}
+
+User's Listed Skills: {', '.join(user_skills)}
 {resource_context}
 
 Provide a JSON response with exactly this structure:
 {{
     "matching_skills": ["list of skills the user already has that match required skills"],
     "missing_skills": ["list of required skills the user is missing"],
-    "match_percentage": <integer 0-100 representing how many required skills the user has>,
+    "match_percentage": <integer 0-100 - consider skills (60%), experience relevance (25%), and education fit (15%)>,
+    "profile_summary": "<A concise 2-3 sentence summary (under 150 words) that highlights key strengths and gaps. Mention specific relevant experience, education alignment, and the most critical skills to develop. Be encouraging but honest.>",
+    "experience_match": {{
+        "education_match": <true/false - does their education align with job requirements?>,
+        "education_details": "<brief note about education fit>",
+        "experience_match": <true/false - does their work experience align?>,
+        "experience_details": "<brief note about experience relevance>",
+        "certifications_match": <true/false - do they have relevant certifications?>,
+        "certifications_details": "<brief note about certifications>",
+        "projects_relevance": "<brief note about how their projects relate to the role>"
+    }},
     "recommendations": [
         {{
             "skill": "skill name",
@@ -64,17 +164,94 @@ Provide a JSON response with exactly this structure:
     "estimated_time": "estimated time to close the skill gap (e.g., '3-6 months')"
 }}
 
-Focus on actionable, specific recommendations. Prioritize the most critical missing skills first."""
+Important guidelines for profile_summary:
+- Be specific about what makes them a good or challenging fit
+- Reference actual experience, projects, or education from their profile
+- Identify 1-2 key strengths and 1-2 areas for growth
+- Keep it under 150 words and make it actionable
+- Avoid generic phrases - be specific to this candidate and role"""
 
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}],
         response_format={"type": "json_object"},
         temperature=0.3,
-        max_tokens=2000
+        max_tokens=2500
     )
 
     result = json.loads(response.choices[0].message.content)
     result["ai_generated"] = True
 
     return result
+
+
+async def generate_interview_questions(
+    job_title: str,
+    company: str,
+    required_skills: list[str],
+    responsibilities: list[str],
+    skills_to_focus: list[str] = None
+) -> list[dict]:
+    """
+    Generate mock interview questions for a job posting using AI.
+
+    Args:
+        job_title: The job title
+        company: The company name
+        required_skills: Skills required for the role
+        responsibilities: Job responsibilities
+        skills_to_focus: Specific skills to emphasize (e.g., skills the user is missing)
+
+    Returns:
+        List of interview questions with category, difficulty, and tips
+    """
+    settings = get_settings()
+    client = Groq(api_key=settings.groq_api_key)
+
+    focus_skills = skills_to_focus or required_skills[:5]
+
+    prompt = f"""Generate comprehensive mock interview questions for the following role:
+
+Job Title: {job_title}
+Company: {company}
+Required Skills: {', '.join(required_skills[:10])}
+Key Responsibilities: {'; '.join(responsibilities[:5])}
+Skills to Focus On: {', '.join(focus_skills[:5])}
+
+Generate 12-15 interview questions covering these categories:
+1. Technical Questions (about the required skills)
+2. Behavioral Questions (STAR method style)
+3. System Design / Problem Solving (if applicable)
+4. Company/Role Fit
+
+Return a JSON object with this exact structure:
+{{
+    "questions": [
+        {{
+            "category": "Technical" | "Behavioral" | "System Design" | "Role Fit",
+            "question": "The interview question",
+            "difficulty": "easy" | "medium" | "hard",
+            "tips": "Brief tips on how to approach answering this question"
+        }}
+    ]
+}}
+
+Guidelines:
+- Include 4-5 technical questions about specific skills
+- Include 3-4 behavioral questions (teamwork, conflict, failure, leadership)
+- Include 2-3 system design or problem-solving questions
+- Include 2-3 role/company fit questions
+- Make questions specific to the role and company
+- Provide actionable tips for each question
+- Vary difficulty levels appropriately"""
+
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[{"role": "user", "content": prompt}],
+        response_format={"type": "json_object"},
+        temperature=0.5,
+        max_tokens=3000
+    )
+
+    result = json.loads(response.choices[0].message.content)
+    return result.get("questions", [])

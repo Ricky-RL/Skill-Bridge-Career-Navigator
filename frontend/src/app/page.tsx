@@ -300,7 +300,6 @@ export default function Home() {
             </div>
             <div className="flex space-x-8 text-gray-400 text-sm">
               <Link href="/jobs" className="hover:text-white transition-colors">Jobs</Link>
-              <Link href="/roles" className="hover:text-white transition-colors">Career Paths</Link>
               <Link href="/profile" className="hover:text-white transition-colors">Profile</Link>
             </div>
           </div>

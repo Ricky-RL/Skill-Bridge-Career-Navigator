@@ -64,12 +64,6 @@ export default function Navbar() {
               >
                 Jobs & Internships
               </Link>
-              <Link
-                href="/roles"
-                className={`px-4 py-2 text-sm font-medium ${navTextColor} ${navHoverColor} transition-colors`}
-              >
-                Career Paths
-              </Link>
               {user && (
                 <>
                   <Link

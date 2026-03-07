@@ -4,31 +4,106 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
-import { JobPosting, AnalysisResult } from '@/lib/types';
+import { JobPosting, AnalysisResult, InterviewQuestion } from '@/lib/types';
 import Button from '@/components/ui/Button';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
 import JobPostingCard from '@/components/JobPostingCard';
 import GapDisplay from '@/components/GapDisplay';
 import RoadmapCard from '@/components/RoadmapCard';
+import InterviewQuestions from '@/components/InterviewQuestions';
 
 const COMPANIES = ['Google', 'Amazon', 'Palo Alto Networks', 'Apple', 'Meta'];
+
+const AVAILABLE_INDUSTRIES = [
+  'Cloud & Infrastructure',
+  'Cybersecurity',
+  'AI & Machine Learning',
+  'Frontend Development',
+  'Backend Development',
+  'Full Stack Development',
+  'Mobile Development',
+  'Data Engineering',
+  'DevOps & SRE',
+  'Product Management',
+];
 
 export default function JobsPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [postings, setPostings] = useState<JobPosting[]>([]);
   const [userSkills, setUserSkills] = useState<string[]>([]);
+  const [userId, setUserId] = useState<string | null>(null);
   const [targetIndustries, setTargetIndustries] = useState<string[]>([]);
   const [selectedPosting, setSelectedPosting] = useState<JobPosting | null>(null);
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [useAI, setUseAI] = useState(true);
+  const [completedSkills, setCompletedSkills] = useState<Set<string>>(new Set());
 
   // Filters
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCompany, setSelectedCompany] = useState<string>('');
   const [showSuggested, setShowSuggested] = useState(true);
+  const [editingIndustries, setEditingIndustries] = useState(false);
+  const [savingIndustries, setSavingIndustries] = useState(false);
+
+  // Toggle skill completion
+  const toggleSkillComplete = (skill: string) => {
+    setCompletedSkills((prev) => {
+      const next = new Set(prev);
+      if (next.has(skill)) {
+        next.delete(skill);
+      } else {
+        next.add(skill);
+      }
+      return next;
+    });
+  };
+
+  // Toggle industry selection
+  const toggleIndustry = (industry: string) => {
+    setTargetIndustries((prev) =>
+      prev.includes(industry)
+        ? prev.filter((i) => i !== industry)
+        : [...prev, industry]
+    );
+  };
+
+  // Save industries
+  const saveIndustries = async () => {
+    if (!userId) return;
+    setSavingIndustries(true);
+    try {
+      await api.updateProfile(userId, { target_industries: targetIndustries });
+      setEditingIndustries(false);
+      // Reload postings based on new industries
+      if (targetIndustries.length > 0) {
+        const suggested = await api.getSuggestedPostings(userId, 20);
+        setPostings(suggested);
+        setShowSuggested(true);
+      } else {
+        const allPostings = await api.getJobPostings({ limit: 20 });
+        setPostings(allPostings);
+        setShowSuggested(false);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to save industries');
+    } finally {
+      setSavingIndustries(false);
+    }
+  };
+
+  // Generate interview questions
+  const handleGenerateQuestions = async (): Promise<InterviewQuestion[]> => {
+    if (!selectedPosting) return [];
+    const missingSkills = analysis?.missing_skills || [];
+    return api.generateInterviewQuestions({
+      job_posting_id: selectedPosting.id,
+      skills_to_focus: missingSkills.slice(0, 5),
+    });
+  };
 
   useEffect(() => {
     const init = async () => {
@@ -38,6 +113,8 @@ export default function JobsPage() {
         router.push('/auth/login');
         return;
       }
+
+      setUserId(session.user.id);
 
       // Load user profile for skills and industries
       try {
@@ -95,6 +172,8 @@ export default function JobsPage() {
       const result = await api.analyzeSkills({
         user_skills: userSkills,
         job_posting_id: posting.id,
+        user_id: userId || undefined,
+        use_fallback: !useAI,
       });
       setAnalysis(result);
     } catch (err) {
@@ -192,19 +271,85 @@ export default function JobsPage() {
                 Search
               </Button>
             </div>
-            {targetIndustries.length > 0 && (
-              <div className="mt-4 flex flex-wrap gap-2 items-center">
-                <span className="text-sm text-gray-500">Your industries:</span>
-                {targetIndustries.map((industry) => (
-                  <span
-                    key={industry}
-                    className="px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-sm font-medium"
+            <div className="mt-4 flex flex-wrap gap-4 items-start justify-between">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-sm text-gray-500">Your industries:</span>
+                  <button
+                    onClick={() => setEditingIndustries(!editingIndustries)}
+                    className="text-xs text-violet-600 hover:text-violet-800 font-medium"
                   >
-                    {industry}
-                  </span>
-                ))}
+                    {editingIndustries ? 'Cancel' : 'Edit'}
+                  </button>
+                  {editingIndustries && (
+                    <button
+                      onClick={saveIndustries}
+                      disabled={savingIndustries}
+                      className="text-xs bg-violet-600 text-white px-2 py-1 rounded hover:bg-violet-700 disabled:opacity-50"
+                    >
+                      {savingIndustries ? 'Saving...' : 'Save'}
+                    </button>
+                  )}
+                </div>
+                {editingIndustries ? (
+                  <div className="flex flex-wrap gap-2">
+                    {AVAILABLE_INDUSTRIES.map((industry) => {
+                      const isSelected = targetIndustries.includes(industry);
+                      return (
+                        <button
+                          key={industry}
+                          type="button"
+                          onClick={() => toggleIndustry(industry)}
+                          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all border ${
+                            isSelected
+                              ? 'border-violet-500 bg-violet-100 text-violet-700'
+                              : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
+                          }`}
+                        >
+                          {industry}
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="flex flex-wrap gap-2">
+                    {targetIndustries.length > 0 ? (
+                      targetIndustries.map((industry) => (
+                        <span
+                          key={industry}
+                          className="px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-sm font-medium"
+                        >
+                          {industry}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-sm text-gray-400 italic">
+                        No industries selected. Click Edit to add some.
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
-            )}
+              {/* AI Toggle */}
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-gray-600">Analysis Mode:</span>
+                <button
+                  onClick={() => setUseAI(!useAI)}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                    useAI ? 'bg-violet-600' : 'bg-gray-300'
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                      useAI ? 'translate-x-6' : 'translate-x-1'
+                    }`}
+                  />
+                </button>
+                <span className={`text-sm font-medium ${useAI ? 'text-violet-600' : 'text-gray-500'}`}>
+                  {useAI ? 'AI Analysis' : 'Rule-based'}
+                </span>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
@@ -413,20 +558,42 @@ export default function JobsPage() {
                     {analysis.recommendations.length > 0 && (
                       <Card variant="elevated" className="bg-white">
                         <CardHeader>
-                          <CardTitle>Learning Roadmap</CardTitle>
-                          <p className="text-sm text-gray-500">
-                            {analysis.estimated_time
-                              ? `Estimated time: ${analysis.estimated_time}`
-                              : 'Start with high-priority skills'}
-                          </p>
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <CardTitle>Learning Roadmap</CardTitle>
+                              <p className="text-sm text-gray-500">
+                                {analysis.estimated_time
+                                  ? `Estimated time: ${analysis.estimated_time}`
+                                  : 'Start with high-priority skills'}
+                              </p>
+                            </div>
+                            {completedSkills.size > 0 && (
+                              <span className="text-sm font-medium text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                                {completedSkills.size} / {analysis.recommendations.length} completed
+                              </span>
+                            )}
+                          </div>
                         </CardHeader>
                         <CardContent className="space-y-4">
                           {analysis.recommendations.slice(0, 5).map((rec) => (
-                            <RoadmapCard key={rec.skill} recommendation={rec} />
+                            <RoadmapCard
+                              key={rec.skill}
+                              recommendation={rec}
+                              isCompleted={completedSkills.has(rec.skill)}
+                              onToggleComplete={toggleSkillComplete}
+                            />
                           ))}
                         </CardContent>
                       </Card>
                     )}
+
+                    {/* Interview Questions */}
+                    <InterviewQuestions
+                      jobTitle={selectedPosting.title}
+                      company={selectedPosting.company}
+                      skills={analysis.missing_skills}
+                      onGenerateQuestions={handleGenerateQuestions}
+                    />
                   </div>
                 ) : null}
               </>

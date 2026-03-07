@@ -4,12 +4,11 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
-import { JobRole, Education, Certificate, WorkExperience, Project } from '@/lib/types';
+import { Education, Certificate, WorkExperience, Project } from '@/lib/types';
 import Button from '@/components/ui/Button';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
 import SkillInput from '@/components/SkillInput';
-import RoleCard from '@/components/RoleCard';
 
 const AVAILABLE_INDUSTRIES = [
   'Cloud & Infrastructure',
@@ -29,7 +28,6 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
-  const [roles, setRoles] = useState<JobRole[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -43,7 +41,6 @@ export default function ProfilePage() {
   const [workExperience, setWorkExperience] = useState<WorkExperience[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [targetIndustries, setTargetIndustries] = useState<string[]>([]);
-  const [targetRoleId, setTargetRoleId] = useState<string | null>(null);
   const [hasProfile, setHasProfile] = useState(false);
   const [resumeUrl, setResumeUrl] = useState<string | null>(null);
   const [resumeText, setResumeText] = useState<string | null>(null);
@@ -61,14 +58,6 @@ export default function ProfilePage() {
 
       setUserId(session.user.id);
 
-      // Load roles
-      try {
-        const rolesData = await api.getRoles();
-        setRoles(rolesData);
-      } catch (err) {
-        console.error('Failed to load roles:', err);
-      }
-
       // Load existing profile
       try {
         const profile = await api.getProfile(session.user.id);
@@ -81,7 +70,6 @@ export default function ProfilePage() {
         setWorkExperience(profile.work_experience || []);
         setProjects(profile.projects || []);
         setTargetIndustries(profile.target_industries || []);
-        setTargetRoleId(profile.target_role_id);
         setResumeUrl(profile.resume_url);
         setResumeText(profile.resume_text);
         setHasProfile(true);
@@ -191,7 +179,6 @@ export default function ProfilePage() {
           work_experience: workExperience,
           projects,
           target_industries: targetIndustries,
-          target_role_id: targetRoleId || undefined,
           resume_url: resumeUrl || undefined,
           resume_text: resumeText || undefined,
         });
@@ -208,7 +195,6 @@ export default function ProfilePage() {
           work_experience: workExperience,
           projects,
           target_industries: targetIndustries,
-          target_role_id: targetRoleId || undefined,
           resume_url: resumeUrl || undefined,
           resume_text: resumeText || undefined,
         });
@@ -549,30 +535,6 @@ export default function ProfilePage() {
             )}
           </CardContent>
         </Card>
-
-        {/* Target Role (Legacy - kept for backward compatibility) */}
-        {roles.length > 0 && (
-          <Card variant="bordered">
-            <CardHeader>
-              <CardTitle>General Target Role (Optional)</CardTitle>
-              <p className="text-sm text-gray-500 mt-1">
-                Select a general role type for broader skill gap analysis
-              </p>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {roles.map((role) => (
-                  <RoleCard
-                    key={role.id}
-                    role={role}
-                    isSelected={targetRoleId === role.id}
-                    onSelect={(r) => setTargetRoleId(r.id)}
-                  />
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        )}
 
         {/* Actions */}
         <div className="flex justify-end gap-4">

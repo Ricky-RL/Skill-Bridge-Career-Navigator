@@ -112,6 +112,16 @@ export interface SkillRecommendation {
   resources: LearningResource[];
 }
 
+export interface ExperienceMatch {
+  education_match: boolean;
+  education_details: string | null;
+  experience_match: boolean;
+  experience_details: string | null;
+  certifications_match: boolean;
+  certifications_details: string | null;
+  projects_relevance: string | null;
+}
+
 export interface AnalysisResult {
   id?: string;
   matching_skills: string[];
@@ -119,6 +129,8 @@ export interface AnalysisResult {
   match_percentage: number;
   recommendations: SkillRecommendation[];
   estimated_time?: string;
+  profile_summary?: string;
+  experience_match?: ExperienceMatch;
   ai_generated: boolean;
   created_at?: string;
 }
@@ -127,6 +139,8 @@ export interface AnalysisRequest {
   user_skills: string[];
   target_role_id?: string;
   job_posting_id?: string;
+  user_id?: string;
+  use_fallback?: boolean;
 }
 
 export interface JobPosting {
@@ -169,4 +183,11 @@ export interface User {
     full_name?: string;
     avatar_url?: string;
   };
+}
+
+export interface InterviewQuestion {
+  category: string;
+  question: string;
+  difficulty: 'easy' | 'medium' | 'hard';
+  tips?: string;
 }

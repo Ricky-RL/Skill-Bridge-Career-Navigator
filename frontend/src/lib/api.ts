@@ -8,6 +8,7 @@ import {
   AnalysisRequest,
   LearningResource,
   ResumeUploadResponse,
+  InterviewQuestion,
 } from './types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
@@ -171,6 +172,17 @@ class ApiClient {
 
     const query = searchParams.toString();
     return this.request<LearningResource[]>(`/api/analyze/resources${query ? `?${query}` : ''}`);
+  }
+
+  async generateInterviewQuestions(params: {
+    job_posting_id: string;
+    skills_to_focus?: string[];
+  }): Promise<InterviewQuestion[]> {
+    const response = await this.request<{ questions: InterviewQuestion[] }>('/api/analyze/interview-questions', {
+      method: 'POST',
+      body: JSON.stringify(params),
+    });
+    return response.questions;
   }
 
   // Health check
