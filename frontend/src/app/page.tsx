@@ -66,7 +66,7 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/auth/login">
-                  <Button variant="outline" size="lg" rightIcon className="w-full sm:w-auto">
+                  <Button variant="outline-dark" size="lg" rightIcon className="w-full sm:w-auto">
                     Log In
                   </Button>
                 </Link>
@@ -282,7 +282,7 @@ export default function Home() {
               </Button>
             </Link>
             <Link href="/jobs">
-              <Button variant="outline" size="lg" rightIcon>
+              <Button variant="outline-dark" size="lg" rightIcon>
                 Browse Jobs
               </Button>
             </Link>

@@ -155,6 +155,7 @@ export default function AnalyzeRolePage() {
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [parsedJob, setParsedJob] = useState<ParsedJobInfo | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
+  const [loadingJob, setLoadingJob] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [useAI, setUseAI] = useState(true);
   const [completedSkills, setCompletedSkills] = useState<Set<string>>(new Set());
@@ -189,7 +190,7 @@ export default function AnalyzeRolePage() {
     init();
   }, [router]);
 
-  const handleLoadJob = () => {
+  const handleLoadJob = async () => {
     if (inputMode === 'link' && !jobLink.trim()) {
       setError('Please enter a job posting URL');
       return;
@@ -202,11 +203,16 @@ export default function AnalyzeRolePage() {
     setError(null);
     setJobLoaded(true);
 
-    // Check for cached analysis
-    const cached = getCachedAnalysis(userSkills, DEMO_JOB_POSTING.id);
-    if (cached) {
-      setAnalysis(cached);
-      setUsedCache(true);
+    // For paste mode, immediately run analysis with the job description
+    if (inputMode === 'paste' && jobDescription.trim()) {
+      await runAnalysis();
+    } else {
+      // For link mode (demo), check for cached analysis
+      const cached = getCachedAnalysis(userSkills, DEMO_JOB_POSTING.id);
+      if (cached) {
+        setAnalysis(cached);
+        setUsedCache(true);
+      }
     }
   };
 
@@ -541,6 +547,24 @@ export default function AnalyzeRolePage() {
                     onChange={(e) => setJobLink(e.target.value)}
                     helperText="Paste a link to any job posting"
                   />
+                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mt-4">
+                    <div className="flex items-start gap-3">
+                      <svg className="w-5 h-5 text-amber-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      <div>
+                        <p className="text-sm font-medium text-amber-800">Demo Mode</p>
+                        <p className="text-sm text-amber-700">
+                          For this demo, any link will analyze against the Palo Alto Networks Senior Software Engineer role. Use "Paste Description" for custom job descriptions.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ) : (
                 <div className="space-y-2">
@@ -551,29 +575,9 @@ export default function AnalyzeRolePage() {
                     value={jobDescription}
                     onChange={(e) => setJobDescription(e.target.value)}
                   />
-                  <p className="text-sm text-gray-500">Include the job title, requirements, and responsibilities</p>
+                  <p className="text-sm text-gray-500">Include the job title, requirements, and responsibilities. AI will parse and analyze the description.</p>
                 </div>
               )}
-
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                <div className="flex items-start gap-3">
-                  <svg className="w-5 h-5 text-amber-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  <div>
-                    <p className="text-sm font-medium text-amber-800">Demo Mode</p>
-                    <p className="text-sm text-amber-700">
-                      For this demo, any link or description will analyze against the Palo Alto Networks Senior Software
-                      Engineer role to showcase the analysis features.
-                    </p>
-                  </div>
-                </div>
-              </div>
 
               <Button onClick={handleLoadJob} className="w-full sm:w-auto">
                 Load Job & Analyze
@@ -589,18 +593,35 @@ export default function AnalyzeRolePage() {
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div>
-                      <CardTitle className="text-xl">{DEMO_JOB_POSTING.title}</CardTitle>
-                      <p className="text-violet-600 font-medium mt-1">{DEMO_JOB_POSTING.company}</p>
+                      <CardTitle className="text-xl">
+                        {parsedJob ? parsedJob.title : DEMO_JOB_POSTING.title}
+                      </CardTitle>
+                      {(parsedJob?.company || (!parsedJob && DEMO_JOB_POSTING.company)) && (
+                        <p className="text-violet-600 font-medium mt-1">
+                          {parsedJob?.company || DEMO_JOB_POSTING.company}
+                        </p>
+                      )}
                       <div className="flex flex-wrap gap-2 mt-2">
-                        <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
-                          {DEMO_JOB_POSTING.location}
-                        </span>
-                        <span className="px-2 py-1 bg-violet-100 text-violet-700 rounded text-xs">
-                          {DEMO_JOB_POSTING.experience_level}
-                        </span>
-                        <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs">
-                          {DEMO_JOB_POSTING.salary_range}
-                        </span>
+                        {!parsedJob && (
+                          <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
+                            {DEMO_JOB_POSTING.location}
+                          </span>
+                        )}
+                        {(parsedJob?.experience_level || (!parsedJob && DEMO_JOB_POSTING.experience_level)) && (
+                          <span className="px-2 py-1 bg-violet-100 text-violet-700 rounded text-xs">
+                            {parsedJob?.experience_level || DEMO_JOB_POSTING.experience_level}
+                          </span>
+                        )}
+                        {!parsedJob && (
+                          <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs">
+                            {DEMO_JOB_POSTING.salary_range}
+                          </span>
+                        )}
+                        {parsedJob && (
+                          <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">
+                            AI Parsed
+                          </span>
+                        )}
                       </div>
                     </div>
                     <Button variant="ghost" size="sm" onClick={handleReset}>
@@ -609,15 +630,19 @@ export default function AnalyzeRolePage() {
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">About the Role</h4>
-                    <p className="text-sm text-gray-600 whitespace-pre-line">{DEMO_JOB_POSTING.about_the_job}</p>
-                  </div>
+                  {(parsedJob?.description || (!parsedJob && DEMO_JOB_POSTING.about_the_job)) && (
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">About the Role</h4>
+                      <p className="text-sm text-gray-600 whitespace-pre-line">
+                        {parsedJob?.description || DEMO_JOB_POSTING.about_the_job}
+                      </p>
+                    </div>
+                  )}
 
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Required Skills</h4>
                     <div className="flex flex-wrap gap-2">
-                      {DEMO_JOB_POSTING.required_skills.map((skill) => (
+                      {(parsedJob?.required_skills || DEMO_JOB_POSTING.required_skills).map((skill) => (
                         <span
                           key={skill}
                           className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -634,17 +659,41 @@ export default function AnalyzeRolePage() {
                     </div>
                   </div>
 
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Responsibilities</h4>
-                    <ul className="space-y-2">
-                      {DEMO_JOB_POSTING.responsibilities.map((resp, idx) => (
-                        <li key={idx} className="text-sm text-gray-600 flex items-start gap-2">
-                          <span className="text-violet-500 mt-1">•</span>
-                          {resp}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {parsedJob?.nice_to_have_skills && parsedJob.nice_to_have_skills.length > 0 && (
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Nice to Have</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {parsedJob.nice_to_have_skills.map((skill) => (
+                          <span
+                            key={skill}
+                            className={`px-3 py-1 rounded-full text-sm font-medium ${
+                              userSkills.some(
+                                (us) => us.toLowerCase().includes(skill.toLowerCase()) || skill.toLowerCase().includes(us.toLowerCase())
+                              )
+                                ? 'bg-green-100 text-green-700'
+                                : 'bg-gray-100 text-gray-700'
+                            }`}
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {(parsedJob?.responsibilities?.length || (!parsedJob && DEMO_JOB_POSTING.responsibilities.length)) ? (
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Responsibilities</h4>
+                      <ul className="space-y-2">
+                        {(parsedJob?.responsibilities || DEMO_JOB_POSTING.responsibilities).map((resp, idx) => (
+                          <li key={idx} className="text-sm text-gray-600 flex items-start gap-2">
+                            <span className="text-violet-500 mt-1">•</span>
+                            {resp}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
                 </CardContent>
               </Card>
             </div>
@@ -723,8 +772,8 @@ export default function AnalyzeRolePage() {
 
                   {/* Interview Questions */}
                   <InterviewQuestions
-                    jobTitle={DEMO_JOB_POSTING.title}
-                    company={DEMO_JOB_POSTING.company}
+                    jobTitle={parsedJob?.title || DEMO_JOB_POSTING.title}
+                    company={parsedJob?.company || DEMO_JOB_POSTING.company}
                     skills={analysis.missing_skills}
                     onGenerateQuestions={handleGenerateQuestions}
                   />

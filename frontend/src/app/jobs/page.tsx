@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
@@ -119,6 +119,7 @@ export default function JobsPage() {
   const [completedSkills, setCompletedSkills] = useState<Set<string>>(new Set());
   const [usedCache, setUsedCache] = useState(false);
   const [userExperienceLevel, setUserExperienceLevel] = useState<ExperienceLevel | null>(null);
+  const analysisRef = useRef<HTMLDivElement>(null);
 
   // Filters
   const [searchQuery, setSearchQuery] = useState('');
@@ -225,6 +226,11 @@ export default function JobsPage() {
     init();
   }, [router]);
 
+  // Debug: Monitor state changes
+  useEffect(() => {
+    console.log('State changed - analysis:', analysis ? 'set' : 'null', 'analyzing:', analyzing);
+  }, [analysis, analyzing]);
+
   const handleSearch = async () => {
     setLoading(true);
     setShowSuggested(false);
@@ -244,6 +250,7 @@ export default function JobsPage() {
   };
 
   const handleAnalyze = useCallback(async (posting: JobPosting, forceRefresh = false) => {
+    console.log('handleAnalyze called:', { postingId: posting.id, forceRefresh });
     setSelectedPosting(posting);
     setCompletedSkills(new Set());
     setError(null);
@@ -252,33 +259,46 @@ export default function JobsPage() {
     if (!forceRefresh) {
       const cached = getCachedJobAnalysis(posting.id, userSkills);
       if (cached) {
+        console.log('Using cached analysis');
         setAnalysis(cached);
         setUsedCache(true);
         return;
       }
     }
 
+    console.log('Clearing analysis and starting API call');
     setAnalysis(null);
     setAnalyzing(true);
     setUsedCache(false);
 
     try {
+      console.log('Making analysis API call for job:', posting.id);
       const result = await api.analyzeSkills({
         user_skills: userSkills,
         job_posting_id: posting.id,
         user_id: userId || undefined,
         use_fallback: !useAI,
       });
+      console.log('Analysis result received:', result);
+      console.log('Setting analysis state...');
       setAnalysis(result);
+      console.log('Analysis state set');
       setCachedJobAnalysis(posting.id, userSkills, result);
+      // Scroll to analysis section after a short delay
+      setTimeout(() => {
+        analysisRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 150);
     } catch (err) {
+      console.error('Analysis error:', err);
       setError(err instanceof Error ? err.message : 'Failed to analyze skills');
     } finally {
+      console.log('Setting analyzing to false');
       setAnalyzing(false);
     }
   }, [userSkills, userId, useAI]);
 
   const handleReanalyze = () => {
+    console.log('handleReanalyze called, selectedPosting:', selectedPosting?.id);
     if (selectedPosting) {
       handleAnalyze(selectedPosting, true);
     }
@@ -514,9 +534,10 @@ export default function JobsPage() {
           </div>
 
           {/* Analysis Panel */}
-          <div className="lg:sticky lg:top-4 h-fit space-y-6">
+          <div className="lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto space-y-6 pb-4">
             {selectedPosting ? (
               <>
+                {/* Job Details Card - Collapsed when analysis is ready */}
                 <Card variant="elevated" className="bg-white overflow-hidden">
                   <div className={`h-2 ${getCompanyColor(selectedPosting.company)}`} />
                   <CardHeader className="flex flex-row items-start justify-between pt-5">
@@ -528,7 +549,7 @@ export default function JobsPage() {
                       ✕
                     </Button>
                   </CardHeader>
-                  <CardContent className="space-y-5 max-h-[70vh] overflow-y-auto">
+                  <CardContent className={`space-y-5 overflow-y-auto ${analysis ? 'max-h-[30vh]' : 'max-h-[70vh]'}`}>
                     <div className="flex flex-wrap gap-2">
                       <span className="px-3 py-1.5 bg-gray-100 rounded-full text-sm font-medium text-gray-700">
                         📍 {selectedPosting.location}
@@ -673,6 +694,11 @@ export default function JobsPage() {
                 </Card>
 
                 {/* Analysis Results */}
+                {error && (
+                  <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">
+                    {error}
+                  </div>
+                )}
                 {analyzing ? (
                   <Card variant="elevated" className="bg-white">
                     <CardContent className="p-8 flex flex-col items-center justify-center">
@@ -682,7 +708,7 @@ export default function JobsPage() {
                     </CardContent>
                   </Card>
                 ) : analysis ? (
-                  <div className="space-y-6">
+                  <div ref={analysisRef} className="space-y-6">
                     {/* Cache indicator and re-analyze button */}
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
@@ -691,14 +717,24 @@ export default function JobsPage() {
                             Cached result
                           </span>
                         )}
+                        {analysis.ai_generated && !usedCache && (
+                          <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded animate-pulse">
+                            Fresh Analysis
+                          </span>
+                        )}
                         {analysis.ai_generated && (
                           <span className="text-xs text-violet-600 bg-violet-50 px-2 py-1 rounded">
                             AI Analysis
                           </span>
                         )}
                       </div>
-                      <Button variant="ghost" size="sm" onClick={handleReanalyze}>
-                        Re-analyze
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleReanalyze}
+                        isLoading={analyzing}
+                      >
+                        {analyzing ? 'Analyzing...' : 'Re-analyze'}
                       </Button>
                     </div>
 
