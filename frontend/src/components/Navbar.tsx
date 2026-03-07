@@ -98,6 +98,12 @@ export default function Navbar() {
                   >
                     Saved Jobs
                   </Link>
+                  <Link
+                    href="/mentors"
+                    className={`px-4 py-2 text-sm font-medium ${navTextColor} ${navHoverColor} transition-colors`}
+                  >
+                    Mentors
+                  </Link>
                 </>
               )}
             </div>

@@ -18,6 +18,16 @@ import {
   ChatResponse,
   BulkComparisonRequest,
   BulkComparisonResult,
+  MentorProfile,
+  MentorProfileCreate,
+  MentorProfileUpdate,
+  MentorMatch,
+  MentorshipRequestCreate,
+  MentorshipConnection,
+  SessionCreate,
+  MentorshipSession,
+  MenteeDetails,
+  MentorDetails,
 } from './types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
@@ -256,6 +266,87 @@ class ApiClient {
 
   async getRoleTypes(): Promise<{ role_types: string[] }> {
     return this.request<{ role_types: string[] }>('/api/compare/role-types');
+  }
+
+  // Mentorship
+  async becomeMentor(profile: MentorProfileCreate): Promise<MentorProfile> {
+    return this.request<MentorProfile>('/api/mentorship/mentors', {
+      method: 'POST',
+      body: JSON.stringify(profile),
+    });
+  }
+
+  async listMentors(params?: { expertise?: string; industry?: string; limit?: number }): Promise<MentorProfile[]> {
+    const searchParams = new URLSearchParams();
+    if (params?.expertise) searchParams.append('expertise', params.expertise);
+    if (params?.industry) searchParams.append('industry', params.industry);
+    if (params?.limit) searchParams.append('limit', params.limit.toString());
+    const query = searchParams.toString();
+    return this.request<MentorProfile[]>(`/api/mentorship/mentors${query ? `?${query}` : ''}`);
+  }
+
+  async findMentorMatches(userId: string, limit?: number): Promise<MentorMatch[]> {
+    const params = limit ? `?limit=${limit}` : '';
+    return this.request<MentorMatch[]>(`/api/mentorship/mentors/matches/${userId}${params}`);
+  }
+
+  async getMentor(mentorId: string): Promise<MentorProfile> {
+    return this.request<MentorProfile>(`/api/mentorship/mentors/${mentorId}`);
+  }
+
+  async getUserMentorProfile(userId: string): Promise<MentorProfile | null> {
+    return this.request<MentorProfile | null>(`/api/mentorship/mentor-profile/${userId}`);
+  }
+
+  async updateMentorProfile(userId: string, update: MentorProfileUpdate): Promise<MentorProfile> {
+    return this.request<MentorProfile>(`/api/mentorship/mentor-profile/${userId}`, {
+      method: 'PUT',
+      body: JSON.stringify(update),
+    });
+  }
+
+  async requestMentorship(request: MentorshipRequestCreate): Promise<MentorshipConnection> {
+    return this.request<MentorshipConnection>('/api/mentorship/connections', {
+      method: 'POST',
+      body: JSON.stringify(request),
+    });
+  }
+
+  async acceptMentorship(connectionId: string): Promise<{ message: string }> {
+    return this.request<{ message: string }>(`/api/mentorship/connections/${connectionId}/accept`, {
+      method: 'PUT',
+    });
+  }
+
+  async declineMentorship(connectionId: string): Promise<{ message: string }> {
+    return this.request<{ message: string }>(`/api/mentorship/connections/${connectionId}/decline`, {
+      method: 'PUT',
+    });
+  }
+
+  async getConnections(userId: string, role?: 'mentor' | 'mentee' | 'both'): Promise<MentorshipConnection[]> {
+    const params = new URLSearchParams({ user_id: userId });
+    if (role) params.append('role', role);
+    return this.request<MentorshipConnection[]>(`/api/mentorship/connections?${params.toString()}`);
+  }
+
+  async scheduleSession(session: SessionCreate): Promise<MentorshipSession> {
+    return this.request<MentorshipSession>('/api/mentorship/sessions', {
+      method: 'POST',
+      body: JSON.stringify(session),
+    });
+  }
+
+  async getSessions(connectionId: string): Promise<MentorshipSession[]> {
+    return this.request<MentorshipSession[]>(`/api/mentorship/sessions?connection_id=${connectionId}`);
+  }
+
+  async getMenteeDetails(connectionId: string): Promise<MenteeDetails> {
+    return this.request<MenteeDetails>(`/api/mentorship/mentee/${connectionId}`);
+  }
+
+  async getMentorDetails(connectionId: string): Promise<MentorDetails> {
+    return this.request<MentorDetails>(`/api/mentorship/mentor-details/${connectionId}`);
   }
 }
 

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
-from app.routers import profiles, roles, analyze, job_postings, saved_analyses, chat, bulk_comparison
+from app.routers import profiles, roles, analyze, job_postings, saved_analyses, chat, bulk_comparison, mentorship
 
 settings = get_settings()
 
@@ -28,6 +28,7 @@ app.include_router(job_postings.router, prefix="/api/job-postings", tags=["job-p
 app.include_router(saved_analyses.router)
 app.include_router(chat.router, prefix="/api/chat", tags=["chat"])
 app.include_router(bulk_comparison.router, prefix="/api/compare", tags=["bulk-comparison"])
+app.include_router(mentorship.router, prefix="/api/mentorship", tags=["mentorship"])
 
 
 @app.get("/")

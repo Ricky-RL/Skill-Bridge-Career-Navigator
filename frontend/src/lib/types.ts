@@ -335,3 +335,131 @@ export interface BulkComparisonResult {
   avg_match_percentage: number;
   best_fit_industries: string[];
 }
+
+// Mentorship types
+export type MentorStatus = 'available' | 'busy' | 'inactive';
+export type SessionStatus = 'pending' | 'confirmed' | 'completed' | 'cancelled';
+export type ConnectionStatus = 'pending' | 'active' | 'completed' | 'declined';
+
+export interface MentorProfileCreate {
+  user_id: string;
+  bio: string;
+  expertise_areas: string[];
+  industries: string[];
+  years_experience: number;
+  job_title: string;
+  company?: string;
+  linkedin_url?: string;
+  max_mentees?: number;
+  availability_hours_per_week?: number;
+  preferred_meeting_type?: string;
+}
+
+export interface MentorProfileUpdate {
+  bio?: string;
+  expertise_areas?: string[];
+  industries?: string[];
+  years_experience?: number;
+  job_title?: string;
+  company?: string;
+  linkedin_url?: string;
+  max_mentees?: number;
+  availability_hours_per_week?: number;
+  preferred_meeting_type?: string;
+  status?: MentorStatus;
+}
+
+export interface MentorProfile {
+  id: string;
+  user_id: string | null;  // Optional for sample mentors
+  name: string;
+  bio: string;
+  expertise_areas: string[];
+  industries: string[];
+  years_experience: number;
+  job_title: string;
+  company: string | null;
+  linkedin_url: string | null;
+  max_mentees: number;
+  current_mentees: number;
+  availability_hours_per_week: number;
+  preferred_meeting_type: string;
+  status: MentorStatus;
+  rating: number | null;
+  total_sessions: number;
+  created_at: string;
+}
+
+export interface MentorMatch {
+  mentor: MentorProfile;
+  match_score: number;
+  matching_skills: string[];
+  matching_industries: string[];
+  reason: string;
+}
+
+export interface MentorshipRequestCreate {
+  mentee_id: string;
+  mentor_id: string;
+  message: string;
+  goals: string[];
+}
+
+export interface MentorshipConnection {
+  id: string;
+  mentor_id: string;
+  mentee_id: string;
+  mentor_name: string;
+  mentee_name: string;
+  status: ConnectionStatus;
+  goals: string[];
+  message: string;
+  sessions_completed: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface SessionCreate {
+  connection_id: string;
+  scheduled_time: string;
+  duration_minutes?: number;
+  topic: string;
+  notes?: string;
+}
+
+export interface MentorshipSession {
+  id: string;
+  connection_id: string;
+  mentor_name: string;
+  mentee_name: string;
+  scheduled_time: string;
+  duration_minutes: number;
+  topic: string;
+  notes: string | null;
+  status: SessionStatus;
+  meeting_link: string | null;
+  feedback: string | null;
+  rating: number | null;
+}
+
+export interface MenteeSavedAnalysis {
+  id: string;
+  job_title: string;
+  company: string | null;
+  match_percentage: number;
+  missing_skills: string[];
+  created_at: string;
+}
+
+export interface MenteeDetails {
+  connection: MentorshipConnection;
+  profile: UserProfile | null;
+  saved_analyses: MenteeSavedAnalysis[];
+  sessions: MentorshipSession[];
+}
+
+export interface MentorDetails {
+  connection: MentorshipConnection;
+  mentor: MentorProfile;
+  sessions: MentorshipSession[];
+}
