@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
@@ -28,6 +28,80 @@ const AVAILABLE_INDUSTRIES = [
   'Product Management',
 ];
 
+// Cache for job analysis results
+const JOBS_CACHE_KEY = 'skillbridge_jobs_analysis_cache';
+
+interface JobAnalysisCache {
+  [jobId: string]: {
+    skills: string[];
+    analysis: AnalysisResult;
+    timestamp: number;
+  };
+}
+
+function getAnalysisCache(): JobAnalysisCache {
+  try {
+    const cached = localStorage.getItem(JOBS_CACHE_KEY);
+    return cached ? JSON.parse(cached) : {};
+  } catch {
+    return {};
+  }
+}
+
+function getCachedJobAnalysis(jobId: string, skills: string[]): AnalysisResult | null {
+  try {
+    const cache = getAnalysisCache();
+    const entry = cache[jobId];
+    if (!entry) return null;
+
+    // Check if skills match
+    const skillsMatch =
+      skills.length === entry.skills.length &&
+      skills.every((s) => entry.skills.includes(s));
+
+    // Check if cache is not older than 1 hour
+    const isRecent = Date.now() - entry.timestamp < 60 * 60 * 1000;
+
+    if (skillsMatch && isRecent) {
+      return entry.analysis;
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function setCachedJobAnalysis(jobId: string, skills: string[], analysis: AnalysisResult): void {
+  try {
+    const cache = getAnalysisCache();
+    cache[jobId] = {
+      skills,
+      analysis,
+      timestamp: Date.now(),
+    };
+    // Keep only last 20 entries to prevent localStorage bloat
+    const entries = Object.entries(cache);
+    if (entries.length > 20) {
+      const sorted = entries.sort((a, b) => b[1].timestamp - a[1].timestamp);
+      const trimmed = Object.fromEntries(sorted.slice(0, 20));
+      localStorage.setItem(JOBS_CACHE_KEY, JSON.stringify(trimmed));
+    } else {
+      localStorage.setItem(JOBS_CACHE_KEY, JSON.stringify(cache));
+    }
+  } catch {
+    // Ignore cache errors
+  }
+}
+
+function clearJobAnalysisCache(): void {
+  try {
+    localStorage.removeItem(JOBS_CACHE_KEY);
+  } catch {
+    // Ignore
+  }
+}
+
 export default function JobsPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
@@ -41,6 +115,7 @@ export default function JobsPage() {
   const [error, setError] = useState<string | null>(null);
   const [useAI, setUseAI] = useState(true);
   const [completedSkills, setCompletedSkills] = useState<Set<string>>(new Set());
+  const [usedCache, setUsedCache] = useState(false);
 
   // Filters
   const [searchQuery, setSearchQuery] = useState('');
@@ -162,11 +237,24 @@ export default function JobsPage() {
     setLoading(false);
   };
 
-  const handleAnalyze = async (posting: JobPosting) => {
+  const handleAnalyze = useCallback(async (posting: JobPosting, forceRefresh = false) => {
     setSelectedPosting(posting);
+    setCompletedSkills(new Set());
+    setError(null);
+
+    // Check cache first (unless force refresh)
+    if (!forceRefresh) {
+      const cached = getCachedJobAnalysis(posting.id, userSkills);
+      if (cached) {
+        setAnalysis(cached);
+        setUsedCache(true);
+        return;
+      }
+    }
+
     setAnalysis(null);
     setAnalyzing(true);
-    setError(null);
+    setUsedCache(false);
 
     try {
       const result = await api.analyzeSkills({
@@ -176,16 +264,25 @@ export default function JobsPage() {
         use_fallback: !useAI,
       });
       setAnalysis(result);
+      setCachedJobAnalysis(posting.id, userSkills, result);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to analyze skills');
     } finally {
       setAnalyzing(false);
+    }
+  }, [userSkills, userId, useAI]);
+
+  const handleReanalyze = () => {
+    if (selectedPosting) {
+      handleAnalyze(selectedPosting, true);
     }
   };
 
   const clearSelection = () => {
     setSelectedPosting(null);
     setAnalysis(null);
+    setUsedCache(false);
+    setCompletedSkills(new Set());
   };
 
   const getCompanyColor = (company: string) => {
@@ -553,6 +650,25 @@ export default function JobsPage() {
                   </Card>
                 ) : analysis ? (
                   <div className="space-y-6">
+                    {/* Cache indicator and re-analyze button */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        {usedCache && (
+                          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                            Cached result
+                          </span>
+                        )}
+                        {analysis.ai_generated && (
+                          <span className="text-xs text-violet-600 bg-violet-50 px-2 py-1 rounded">
+                            AI Analysis
+                          </span>
+                        )}
+                      </div>
+                      <Button variant="ghost" size="sm" onClick={handleReanalyze}>
+                        Re-analyze
+                      </Button>
+                    </div>
+
                     <GapDisplay analysis={analysis} />
 
                     {analysis.recommendations.length > 0 && (

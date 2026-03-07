@@ -76,7 +76,7 @@ export default function Navbar() {
                     href="/dashboard"
                     className={`px-4 py-2 text-sm font-medium ${navTextColor} ${navHoverColor} transition-colors`}
                   >
-                    Dashboard
+                    Analyze Role
                   </Link>
                 </>
               )}
