@@ -3,7 +3,7 @@ from typing import Optional
 from supabase import Client
 from app.models.profile import ProfileCreate, ProfileUpdate, ProfileResponse
 from app.services.supabase_client import get_db
-from app.services.resume_parser import extract_text_from_pdf, extract_skills_from_resume
+from app.services.resume_parser import extract_text_from_pdf, extract_profile_from_resume
 from datetime import datetime
 import uuid
 
@@ -18,7 +18,12 @@ async def create_profile(profile: ProfileCreate, db: Client = Depends(get_db)):
             "user_id": profile.user_id,
             "name": profile.name,
             "job_title": profile.job_title,
+            "years_of_experience": profile.years_of_experience,
             "skills": profile.skills,
+            "education": profile.education,
+            "certifications": profile.certifications,
+            "work_experience": profile.work_experience,
+            "projects": profile.projects,
             "target_industries": profile.target_industries,
             "target_role_id": profile.target_role_id,
             "resume_url": profile.resume_url,
@@ -75,14 +80,19 @@ async def upload_resume(
         # Get public URL
         resume_url = db.storage.from_("resumes").get_public_url(file_name)
 
-        # Extract skills using AI
-        extracted_skills = await extract_skills_from_resume(resume_text)
+        # Extract comprehensive profile data using AI
+        extracted_profile = await extract_profile_from_resume(resume_text)
 
         return {
             "resume_url": resume_url,
             "resume_text": resume_text[:5000],  # Limit stored text
-            "extracted_skills": extracted_skills,
-            "message": "Resume uploaded successfully"
+            "extracted_skills": extracted_profile.get("skills", []),
+            "years_of_experience": extracted_profile.get("years_of_experience"),
+            "education": extracted_profile.get("education", []),
+            "certifications": extracted_profile.get("certifications", []),
+            "work_experience": extracted_profile.get("work_experience", []),
+            "projects": extracted_profile.get("projects", []),
+            "message": "Resume uploaded and analyzed successfully"
         }
 
     except HTTPException:

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
-import { JobRole } from '@/lib/types';
+import { JobRole, Education, Certificate, WorkExperience, Project } from '@/lib/types';
 import Button from '@/components/ui/Button';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
@@ -36,7 +36,12 @@ export default function ProfilePage() {
   // Form state
   const [name, setName] = useState('');
   const [jobTitle, setJobTitle] = useState('');
+  const [yearsOfExperience, setYearsOfExperience] = useState<number | null>(null);
   const [skills, setSkills] = useState<string[]>([]);
+  const [education, setEducation] = useState<Education[]>([]);
+  const [certifications, setCertifications] = useState<Certificate[]>([]);
+  const [workExperience, setWorkExperience] = useState<WorkExperience[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [targetIndustries, setTargetIndustries] = useState<string[]>([]);
   const [targetRoleId, setTargetRoleId] = useState<string | null>(null);
   const [hasProfile, setHasProfile] = useState(false);
@@ -69,7 +74,12 @@ export default function ProfilePage() {
         const profile = await api.getProfile(session.user.id);
         setName(profile.name);
         setJobTitle(profile.job_title || '');
+        setYearsOfExperience(profile.years_of_experience);
         setSkills(profile.skills);
+        setEducation(profile.education || []);
+        setCertifications(profile.certifications || []);
+        setWorkExperience(profile.work_experience || []);
+        setProjects(profile.projects || []);
         setTargetIndustries(profile.target_industries || []);
         setTargetRoleId(profile.target_role_id);
         setResumeUrl(profile.resume_url);
@@ -112,10 +122,40 @@ export default function ProfilePage() {
       if (result.extracted_skills.length > 0) {
         const newSkills = [...new Set([...skills, ...result.extracted_skills])];
         setSkills(newSkills);
-        setSuccess(`Resume uploaded! Found ${result.extracted_skills.length} skills.`);
-      } else {
-        setSuccess('Resume uploaded successfully!');
       }
+
+      // Set years of experience if extracted
+      if (result.years_of_experience) {
+        setYearsOfExperience(result.years_of_experience);
+      }
+
+      // Merge education data
+      if (result.education?.length > 0) {
+        setEducation(result.education);
+      }
+
+      // Merge certifications
+      if (result.certifications?.length > 0) {
+        setCertifications(result.certifications);
+      }
+
+      // Merge work experience
+      if (result.work_experience?.length > 0) {
+        setWorkExperience(result.work_experience);
+      }
+
+      // Merge projects
+      if (result.projects?.length > 0) {
+        setProjects(result.projects);
+      }
+
+      const totalItems = (result.extracted_skills?.length || 0) +
+                         (result.education?.length || 0) +
+                         (result.certifications?.length || 0) +
+                         (result.work_experience?.length || 0) +
+                         (result.projects?.length || 0);
+
+      setSuccess(`Resume analyzed! Found ${result.extracted_skills?.length || 0} skills, ${result.education?.length || 0} education entries, ${result.certifications?.length || 0} certifications, ${result.work_experience?.length || 0} work experiences, and ${result.projects?.length || 0} projects.`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to upload resume');
     } finally {
@@ -144,7 +184,12 @@ export default function ProfilePage() {
         await api.updateProfile(userId, {
           name,
           job_title: jobTitle || undefined,
+          years_of_experience: yearsOfExperience || undefined,
           skills,
+          education,
+          certifications,
+          work_experience: workExperience,
+          projects,
           target_industries: targetIndustries,
           target_role_id: targetRoleId || undefined,
           resume_url: resumeUrl || undefined,
@@ -156,7 +201,12 @@ export default function ProfilePage() {
           user_id: userId,
           name,
           job_title: jobTitle || undefined,
+          years_of_experience: yearsOfExperience || undefined,
           skills,
+          education,
+          certifications,
+          work_experience: workExperience,
+          projects,
           target_industries: targetIndustries,
           target_role_id: targetRoleId || undefined,
           resume_url: resumeUrl || undefined,
@@ -286,6 +336,183 @@ export default function ProfilePage() {
             />
           </CardContent>
         </Card>
+
+        {/* Education */}
+        {education.length > 0 && (
+          <Card variant="bordered">
+            <CardHeader>
+              <CardTitle>Education</CardTitle>
+              <p className="text-sm text-gray-500 mt-1">
+                Extracted from your resume
+              </p>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {education.map((edu, index) => (
+                  <div key={index} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h4 className="font-semibold text-gray-900">{edu.degree}</h4>
+                        <p className="text-violet-600 font-medium">{edu.institution}</p>
+                        {edu.field_of_study && (
+                          <p className="text-gray-600 text-sm">{edu.field_of_study}</p>
+                        )}
+                      </div>
+                      <div className="text-right text-sm text-gray-500">
+                        {edu.start_date && <span>{edu.start_date}</span>}
+                        {edu.start_date && edu.end_date && <span> - </span>}
+                        {edu.end_date && <span>{edu.end_date}</span>}
+                        {edu.gpa && <p className="text-gray-600">GPA: {edu.gpa}</p>}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Certifications */}
+        {certifications.length > 0 && (
+          <Card variant="bordered">
+            <CardHeader>
+              <CardTitle>Certifications</CardTitle>
+              <p className="text-sm text-gray-500 mt-1">
+                Professional certifications and credentials
+              </p>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {certifications.map((cert, index) => (
+                  <div key={index} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h4 className="font-semibold text-gray-900">{cert.name}</h4>
+                        {cert.issuer && <p className="text-violet-600 font-medium">{cert.issuer}</p>}
+                        {cert.credential_id && (
+                          <p className="text-gray-500 text-sm">ID: {cert.credential_id}</p>
+                        )}
+                      </div>
+                      <div className="text-right text-sm text-gray-500">
+                        {cert.date_obtained && <p>Obtained: {cert.date_obtained}</p>}
+                        {cert.expiry_date && <p>Expires: {cert.expiry_date}</p>}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Work Experience */}
+        {workExperience.length > 0 && (
+          <Card variant="bordered">
+            <CardHeader>
+              <CardTitle>Work Experience</CardTitle>
+              <p className="text-sm text-gray-500 mt-1">
+                Your professional experience
+              </p>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {workExperience.map((exp, index) => (
+                  <div key={index} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div className="flex justify-between items-start mb-2">
+                      <div>
+                        <h4 className="font-semibold text-gray-900">{exp.title}</h4>
+                        <p className="text-violet-600 font-medium">{exp.company}</p>
+                      </div>
+                      <div className="text-right text-sm text-gray-500">
+                        {exp.start_date && <span>{exp.start_date}</span>}
+                        {exp.start_date && exp.end_date && <span> - </span>}
+                        {exp.end_date && <span>{exp.end_date}</span>}
+                      </div>
+                    </div>
+                    {exp.description && (
+                      <p className="text-gray-600 text-sm mb-2">{exp.description}</p>
+                    )}
+                    {exp.highlights && exp.highlights.length > 0 && (
+                      <ul className="space-y-1">
+                        {exp.highlights.map((highlight, hIndex) => (
+                          <li key={hIndex} className="text-sm text-gray-600 flex items-start gap-2">
+                            <span className="text-violet-500 mt-1">•</span>
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Projects */}
+        {projects.length > 0 && (
+          <Card variant="bordered">
+            <CardHeader>
+              <CardTitle>Projects</CardTitle>
+              <p className="text-sm text-gray-500 mt-1">
+                Personal and professional projects
+              </p>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {projects.map((project, index) => (
+                  <div key={index} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div className="flex justify-between items-start mb-2">
+                      <div>
+                        <h4 className="font-semibold text-gray-900">{project.name}</h4>
+                        {project.url && (
+                          <a
+                            href={project.url.startsWith('http') ? project.url : `https://${project.url}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-violet-600 text-sm hover:underline"
+                          >
+                            {project.url}
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    {project.description && (
+                      <p className="text-gray-600 text-sm mb-2">{project.description}</p>
+                    )}
+                    {project.technologies && project.technologies.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map((tech, tIndex) => (
+                          <span
+                            key={tIndex}
+                            className="px-2 py-1 bg-violet-100 text-violet-700 rounded text-xs font-medium"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Years of Experience */}
+        {yearsOfExperience !== null && (
+          <Card variant="bordered">
+            <CardHeader>
+              <CardTitle>Experience Summary</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="bg-violet-50 rounded-lg p-4 text-center">
+                <span className="text-3xl font-bold text-violet-600">{yearsOfExperience}</span>
+                <span className="text-gray-600 ml-2">years of experience</span>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Target Industries */}
         <Card variant="bordered">

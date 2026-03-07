@@ -11,12 +11,50 @@ export interface JobRole {
   created_at?: string;
 }
 
+export interface Education {
+  institution: string;
+  degree: string;
+  field_of_study: string | null;
+  start_date: string | null;
+  end_date: string | null;
+  gpa: string | null;
+}
+
+export interface Certificate {
+  name: string;
+  issuer: string | null;
+  date_obtained: string | null;
+  expiry_date: string | null;
+  credential_id: string | null;
+}
+
+export interface WorkExperience {
+  company: string;
+  title: string;
+  start_date: string | null;
+  end_date: string | null;
+  description: string | null;
+  highlights: string[];
+}
+
+export interface Project {
+  name: string;
+  description: string | null;
+  technologies: string[];
+  url: string | null;
+}
+
 export interface UserProfile {
   id: string;
   user_id: string;
   name: string;
   job_title: string | null;
+  years_of_experience: number | null;
   skills: string[];
+  education: Education[];
+  certifications: Certificate[];
+  work_experience: WorkExperience[];
+  projects: Project[];
   target_industries: string[];
   target_role_id: string | null;
   resume_url: string | null;
@@ -29,7 +67,12 @@ export interface ProfileCreate {
   user_id: string;
   name: string;
   job_title?: string;
+  years_of_experience?: number;
   skills: string[];
+  education?: Education[];
+  certifications?: Certificate[];
+  work_experience?: WorkExperience[];
+  projects?: Project[];
   target_industries?: string[];
   target_role_id?: string;
   resume_url?: string;
@@ -39,7 +82,12 @@ export interface ProfileCreate {
 export interface ProfileUpdate {
   name?: string;
   job_title?: string;
+  years_of_experience?: number;
   skills?: string[];
+  education?: Education[];
+  certifications?: Certificate[];
+  work_experience?: WorkExperience[];
+  projects?: Project[];
   target_industries?: string[];
   target_role_id?: string;
   resume_url?: string;
@@ -50,6 +98,11 @@ export interface ResumeUploadResponse {
   resume_url: string;
   resume_text: string;
   extracted_skills: string[];
+  years_of_experience: number | null;
+  education: Education[];
+  certifications: Certificate[];
+  work_experience: WorkExperience[];
+  projects: Project[];
   message: string;
 }
 

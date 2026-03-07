@@ -421,8 +421,8 @@ export default function JobsPage() {
                           </p>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          {analysis.recommendations.slice(0, 5).map((rec, index) => (
-                            <RoadmapCard key={rec.skill} recommendation={rec} index={index} />
+                          {analysis.recommendations.slice(0, 5).map((rec) => (
+                            <RoadmapCard key={rec.skill} recommendation={rec} />
                           ))}
                         </CardContent>
                       </Card>
