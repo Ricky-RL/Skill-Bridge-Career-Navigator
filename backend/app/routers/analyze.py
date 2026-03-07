@@ -338,7 +338,12 @@ class InterviewQuestion(BaseModel):
 
 
 class InterviewQuestionsRequest(BaseModel):
-    job_posting_id: str
+    job_posting_id: Optional[str] = None
+    # Allow passing job info directly (for saved analyses that don't have a job_posting_id)
+    job_title: Optional[str] = None
+    job_company: Optional[str] = None
+    job_required_skills: list[str] = Field(default_factory=list)
+    job_responsibilities: list[str] = Field(default_factory=list)
     skills_to_focus: list[str] = Field(default_factory=list)
 
 
@@ -353,19 +358,31 @@ async def get_interview_questions(
 ):
     """Generate mock interview questions for a job posting."""
     try:
-        # Get job posting details
-        posting_result = db.table("job_postings").select("*").eq("id", request.job_posting_id).execute()
-        if not posting_result.data:
-            raise HTTPException(status_code=404, detail="Job posting not found")
+        job_title = request.job_title
+        job_company = request.job_company
+        required_skills = request.job_required_skills
+        responsibilities = request.job_responsibilities
 
-        job_posting = posting_result.data[0]
+        # If job_posting_id is provided, fetch from database
+        if request.job_posting_id:
+            posting_result = db.table("job_postings").select("*").eq("id", request.job_posting_id).execute()
+            if posting_result.data:
+                job_posting = posting_result.data[0]
+                job_title = job_posting.get("title", job_title)
+                job_company = job_posting.get("company", job_company)
+                required_skills = job_posting.get("required_skills", required_skills) or required_skills
+                responsibilities = job_posting.get("responsibilities", responsibilities) or responsibilities
+
+        # Validate we have enough info to generate questions
+        if not job_title:
+            raise HTTPException(status_code=400, detail="Job title is required")
 
         # Generate questions using AI
         questions = await generate_interview_questions(
-            job_title=job_posting.get("title", ""),
-            company=job_posting.get("company", ""),
-            required_skills=job_posting.get("required_skills", []),
-            responsibilities=job_posting.get("responsibilities", []),
+            job_title=job_title,
+            company=job_company or "",
+            required_skills=required_skills or [],
+            responsibilities=responsibilities or [],
             skills_to_focus=request.skills_to_focus
         )
 

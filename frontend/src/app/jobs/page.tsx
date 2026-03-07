@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
-import { JobPosting, AnalysisResult, InterviewQuestion, ExperienceLevel, ParsedJobInfo } from '@/lib/types';
+import { JobPosting, AnalysisResult, InterviewQuestion, ExperienceLevel, ParsedJobInfo, UserProfile } from '@/lib/types';
 import Button from '@/components/ui/Button';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
@@ -12,6 +12,8 @@ import JobPostingCard from '@/components/JobPostingCard';
 import GapDisplay from '@/components/GapDisplay';
 import RoadmapCard from '@/components/RoadmapCard';
 import InterviewQuestions from '@/components/InterviewQuestions';
+import Chatbot from '@/components/Chatbot';
+import { buildChatContext } from '@/lib/chatContext';
 
 const COMPANIES = ['Google', 'Amazon', 'Palo Alto Networks', 'Apple', 'Meta', 'Microsoft', 'Netflix', 'Stripe', 'Uber', 'Airbnb', 'Spotify', 'NVIDIA', 'Salesforce', 'Databricks', 'Cloudflare', 'LinkedIn', 'Snowflake', 'Figma', 'Coinbase', 'Notion'];
 
@@ -123,6 +125,7 @@ export default function JobsPage() {
   const [saved, setSaved] = useState(false);
   const [learningSkill, setLearningSkill] = useState<string | null>(null);
   const analysisRef = useRef<HTMLDivElement>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
   // Filters
   const [searchQuery, setSearchQuery] = useState('');
@@ -132,17 +135,48 @@ export default function JobsPage() {
   const [editingIndustries, setEditingIndustries] = useState(false);
   const [savingIndustries, setSavingIndustries] = useState(false);
 
-  // Toggle skill completion
-  const toggleSkillComplete = (skill: string) => {
-    setCompletedSkills((prev) => {
-      const next = new Set(prev);
-      if (next.has(skill)) {
-        next.delete(skill);
-      } else {
-        next.add(skill);
+  // Toggle skill completion (including removing from profile when unchecking)
+  const toggleSkillComplete = async (skill: string) => {
+    if (!userId || !selectedPosting || !analysis) return;
+
+    const isCurrentlyCompleted = completedSkills.has(skill);
+
+    if (isCurrentlyCompleted) {
+      // Unchecking - remove skill from profile
+      setLearningSkill(skill);
+      try {
+        const updatedSkills = userSkills.filter(
+          (s) => s.toLowerCase() !== skill.toLowerCase()
+        );
+        await api.updateProfile(userId, { skills: updatedSkills });
+        setUserSkills(updatedSkills);
+
+        // Update local state
+        setCompletedSkills((prev) => {
+          const next = new Set(prev);
+          next.delete(skill);
+          return next;
+        });
+
+        // Clear cache and re-run analysis
+        clearJobAnalysisCache();
+        const result = await api.analyzeSkills({
+          user_skills: updatedSkills,
+          job_posting_id: selectedPosting.id,
+          user_id: userId,
+          use_fallback: !useAI,
+        });
+        setAnalysis(result);
+        setCachedJobAnalysis(selectedPosting.id, updatedSkills, result);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to remove skill from profile');
+      } finally {
+        setLearningSkill(null);
       }
-      return next;
-    });
+    } else {
+      // Checking - just update local state (onMarkLearned handles the persist)
+      setCompletedSkills((prev) => new Set([...prev, skill]));
+    }
   };
 
   // Toggle industry selection
@@ -202,6 +236,7 @@ export default function JobsPage() {
       // Load user profile for skills and industries
       try {
         const profile = await api.getProfile(session.user.id);
+        setUserProfile(profile);
         setUserSkills(profile.skills || []);
         setTargetIndustries(profile.target_industries || []);
         setUserExperienceLevel(profile.target_experience_level || null);
@@ -927,6 +962,16 @@ export default function JobsPage() {
           </div>
         </div>
       </div>
+
+      {/* Chatbot */}
+      <Chatbot
+        context={buildChatContext({
+          profile: userProfile,
+          jobPosting: selectedPosting,
+          analysis: analysis,
+        })}
+        userId={userId || undefined}
+      />
     </div>
   );
 }

@@ -14,6 +14,8 @@ import {
   SavedAnalysisCreate,
   SavedAnalysis,
   SavedAnalysisListItem,
+  ChatRequest,
+  ChatResponse,
 } from './types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
@@ -187,7 +189,11 @@ class ApiClient {
   }
 
   async generateInterviewQuestions(params: {
-    job_posting_id: string;
+    job_posting_id?: string;
+    job_title?: string;
+    job_company?: string;
+    job_required_skills?: string[];
+    job_responsibilities?: string[];
     skills_to_focus?: string[];
   }): Promise<InterviewQuestion[]> {
     const response = await this.request<{ questions: InterviewQuestion[] }>('/api/analyze/interview-questions', {
@@ -224,6 +230,14 @@ class ApiClient {
   // Health check
   async healthCheck(): Promise<{ status: string }> {
     return this.request<{ status: string }>('/health');
+  }
+
+  // Chat
+  async sendChatMessage(request: ChatRequest): Promise<ChatResponse> {
+    return this.request<ChatResponse>('/api/chat', {
+      method: 'POST',
+      body: JSON.stringify(request),
+    });
   }
 }
 

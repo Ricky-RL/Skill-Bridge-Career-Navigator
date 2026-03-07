@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
-import { AnalysisResult, InterviewQuestion, ParsedJobInfo, SavedAnalysisCreate } from '@/lib/types';
+import { AnalysisResult, InterviewQuestion, ParsedJobInfo, SavedAnalysisCreate, UserProfile } from '@/lib/types';
 import Button from '@/components/ui/Button';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
@@ -12,6 +12,8 @@ import GapDisplay from '@/components/GapDisplay';
 import RoadmapCard from '@/components/RoadmapCard';
 import InterviewQuestions from '@/components/InterviewQuestions';
 import SkillInput from '@/components/SkillInput';
+import Chatbot from '@/components/Chatbot';
+import { buildChatContext } from '@/lib/chatContext';
 
 // Demo job posting from Palo Alto Networks
 const DEMO_JOB_POSTING = {
@@ -163,6 +165,7 @@ export default function AnalyzeRolePage() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [learningSkill, setLearningSkill] = useState<string | null>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
   useEffect(() => {
     const init = async () => {
@@ -178,6 +181,7 @@ export default function AnalyzeRolePage() {
       // Load user profile for skills
       try {
         const profile = await api.getProfile(session.user.id);
+        setUserProfile(profile);
         setUserSkills(profile.skills || []);
         setTempSkills(profile.skills || []);
         setUserName(profile.name || '');
@@ -259,16 +263,77 @@ export default function AnalyzeRolePage() {
     }
   };
 
-  const toggleSkillComplete = (skill: string) => {
-    setCompletedSkills((prev) => {
-      const next = new Set(prev);
-      if (next.has(skill)) {
-        next.delete(skill);
-      } else {
-        next.add(skill);
+  const toggleSkillComplete = async (skill: string) => {
+    if (!userId) return;
+
+    const isCurrentlyCompleted = completedSkills.has(skill);
+
+    if (isCurrentlyCompleted) {
+      // Unchecking - remove skill from profile
+      setLearningSkill(skill);
+      try {
+        const updatedSkills = userSkills.filter(
+          (s) => s.toLowerCase() !== skill.toLowerCase()
+        );
+        await api.updateProfile(userId, { skills: updatedSkills });
+        setUserSkills(updatedSkills);
+        setTempSkills(updatedSkills);
+
+        // Update local state
+        setCompletedSkills((prev) => {
+          const next = new Set(prev);
+          next.delete(skill);
+          return next;
+        });
+
+        // Clear cache
+        localStorage.removeItem(ANALYSIS_CACHE_KEY);
+
+        // Re-run analysis with updated skills
+        if (inputMode === 'paste' && jobDescription.trim()) {
+          const result = await api.analyzeFromDescription({
+            user_skills: updatedSkills,
+            job_description: jobDescription,
+            user_id: userId,
+            use_fallback: !useAI,
+          });
+          setParsedJob(result.parsed_job);
+          setAnalysis(result.analysis);
+        } else {
+          // For demo mode, recalculate locally
+          const requiredSkills = DEMO_JOB_POSTING.required_skills.map((s) => s.toLowerCase());
+          const userSkillsLower = updatedSkills.map((s) => s.toLowerCase());
+
+          const matching = requiredSkills.filter((reqSkill) =>
+            userSkillsLower.some((us) => us.includes(reqSkill) || reqSkill.includes(us))
+          );
+          const missing = requiredSkills.filter(
+            (reqSkill) => !userSkillsLower.some((us) => us.includes(reqSkill) || reqSkill.includes(us))
+          );
+
+          const matchPercentage = Math.round((matching.length / requiredSkills.length) * 100);
+
+          setAnalysis((prev) => prev ? {
+            ...prev,
+            matching_skills: matching.map((s) => DEMO_JOB_POSTING.required_skills.find((rs) => rs.toLowerCase() === s) || s),
+            missing_skills: missing.map((s) => DEMO_JOB_POSTING.required_skills.find((rs) => rs.toLowerCase() === s) || s),
+            match_percentage: matchPercentage,
+            recommendations: missing.slice(0, 5).map((reqSkill, idx) => ({
+              skill: DEMO_JOB_POSTING.required_skills.find((rs) => rs.toLowerCase() === reqSkill) || reqSkill,
+              priority: idx + 1,
+              resources: [],
+            })),
+          } : null);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to remove skill from profile');
+      } finally {
+        setLearningSkill(null);
       }
-      return next;
-    });
+    } else {
+      // Checking - just update local state (onMarkLearned handles the persist)
+      setCompletedSkills((prev) => new Set([...prev, skill]));
+    }
   };
 
   const runAnalysis = useCallback(async (forceRefresh = false) => {
@@ -985,6 +1050,16 @@ export default function AnalyzeRolePage() {
           </div>
         )}
       </div>
+
+      {/* Chatbot */}
+      <Chatbot
+        context={buildChatContext({
+          profile: userProfile,
+          parsedJob: parsedJob || undefined,
+          analysis: analysis,
+        })}
+        userId={userId || undefined}
+      />
     </div>
   );
 }

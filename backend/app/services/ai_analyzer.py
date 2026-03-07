@@ -380,3 +380,131 @@ Guidelines:
 
     result = json.loads(response.choices[0].message.content)
     return result.get("questions", [])
+
+
+def build_chat_system_context(context: dict) -> str:
+    """Build a system prompt with all available context for the chatbot."""
+    parts = [
+        "You are a helpful career advisor assistant for SkillBridge Career Navigator.",
+        "Your role is to help users with career advice, skill development, and job search strategies.",
+        "Always be encouraging, specific, and actionable in your responses.",
+        "",
+        "Respond in JSON format with exactly this structure:",
+        '{"response": "your helpful response here", "suggestions": ["follow up question 1", "follow up question 2", "follow up question 3"]}',
+        "",
+        "Keep responses concise but helpful (under 200 words).",
+        "Generate exactly 3 relevant follow-up question suggestions."
+    ]
+
+    # Add user profile context if available
+    if context.get("user_name"):
+        parts.append(f"\n--- USER PROFILE ---")
+        parts.append(f"Name: {context['user_name']}")
+
+    if context.get("user_skills"):
+        parts.append(f"Current Skills: {', '.join(context['user_skills'][:15])}")
+
+    if context.get("years_of_experience"):
+        parts.append(f"Experience: {context['years_of_experience']} years")
+
+    if context.get("education"):
+        edu_str = "; ".join([
+            f"{e.get('degree', 'Degree')} in {e.get('field_of_study', 'N/A')}"
+            for e in context['education'][:2]
+        ])
+        parts.append(f"Education: {edu_str}")
+
+    if context.get("work_experience"):
+        work_str = "; ".join([
+            f"{w.get('title', 'Role')} at {w.get('company', 'Company')}"
+            for w in context['work_experience'][:3]
+        ])
+        parts.append(f"Work History: {work_str}")
+
+    # Add job context if viewing a job
+    if context.get("job_title"):
+        parts.append(f"\n--- CURRENT JOB BEING VIEWED ---")
+        parts.append(f"Position: {context['job_title']}")
+        if context.get("job_company"):
+            parts.append(f"Company: {context['job_company']}")
+        if context.get("job_experience_level"):
+            parts.append(f"Level: {context['job_experience_level']}")
+        if context.get("job_required_skills"):
+            parts.append(f"Required Skills: {', '.join(context['job_required_skills'][:10])}")
+
+    # Add analysis context if available
+    if context.get("match_percentage") is not None:
+        parts.append(f"\n--- SKILL ANALYSIS RESULTS ---")
+        parts.append(f"Match Percentage: {context['match_percentage']}%")
+        if context.get("matching_skills"):
+            parts.append(f"Matching Skills: {', '.join(context['matching_skills'][:8])}")
+        if context.get("missing_skills"):
+            parts.append(f"Skills to Develop: {', '.join(context['missing_skills'][:8])}")
+        if context.get("profile_summary"):
+            parts.append(f"Summary: {context['profile_summary'][:300]}")
+
+    parts.append("\n--- GUIDELINES ---")
+    parts.append("- Reference the user's specific situation and data when relevant")
+    parts.append("- Provide concrete, actionable advice")
+    parts.append("- If discussing skills to learn, prioritize the missing skills from their analysis")
+
+    return "\n".join(parts)
+
+
+async def generate_chat_response(
+    user_message: str,
+    context: dict,
+    history: list[dict]
+) -> dict:
+    """
+    Generate a contextual chat response using Groq AI.
+
+    Args:
+        user_message: The user's current message
+        context: ChatContext dictionary with profile, job, and analysis info
+        history: List of previous messages in the conversation
+
+    Returns:
+        Dictionary with 'message' and 'suggestions' keys
+    """
+    settings = get_settings()
+    client = Groq(api_key=settings.groq_api_key)
+
+    # Build system context
+    system_context = build_chat_system_context(context)
+
+    # Build conversation messages
+    messages = [
+        {"role": "system", "content": system_context}
+    ]
+
+    # Add history (limit to last 10 messages for context window)
+    for msg in history[-10:]:
+        messages.append({
+            "role": msg.get("role", "user"),
+            "content": msg.get("content", "")
+        })
+
+    # Add current user message
+    messages.append({"role": "user", "content": user_message})
+
+    try:
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=messages,
+            response_format={"type": "json_object"},
+            temperature=0.7,
+            max_tokens=1000
+        )
+
+        result = json.loads(response.choices[0].message.content)
+        return {
+            "message": result.get("response", "I apologize, I couldn't generate a response."),
+            "suggestions": result.get("suggestions", [])[:3]
+        }
+    except Exception as e:
+        # Fallback response
+        return {
+            "message": "I'm having trouble processing your request. Please try again.",
+            "suggestions": ["What skills should I learn?", "How can I improve my resume?", "Tell me about this role"]
+        }

@@ -253,3 +253,48 @@ export interface SavedAnalysisListItem {
   match_percentage: number;
   created_at: string;
 }
+
+// Chat types
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp?: string;
+}
+
+export interface ChatContext {
+  // User profile
+  user_name?: string;
+  user_skills: string[];
+  years_of_experience?: number;
+  education: Education[];
+  certifications: Certificate[];
+  work_experience: WorkExperience[];
+  projects: Project[];
+
+  // Job context
+  job_title?: string;
+  job_company?: string;
+  job_required_skills: string[];
+  job_nice_to_have_skills: string[];
+  job_responsibilities: string[];
+  job_experience_level?: string;
+
+  // Analysis context
+  matching_skills: string[];
+  missing_skills: string[];
+  match_percentage?: number;
+  profile_summary?: string;
+  recommendations: SkillRecommendation[];
+}
+
+export interface ChatRequest {
+  message: string;
+  context: ChatContext;
+  history: ChatMessage[];
+  user_id?: string;
+}
+
+export interface ChatResponse {
+  message: string;
+  suggestions: string[];
+}

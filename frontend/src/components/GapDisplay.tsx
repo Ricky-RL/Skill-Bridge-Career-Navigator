@@ -8,14 +8,20 @@ interface GapDisplayProps {
 
 export default function GapDisplay({ analysis }: GapDisplayProps) {
   const {
-    matching_skills,
-    missing_skills,
-    match_percentage,
+    matching_skills: rawMatchingSkills,
+    missing_skills: rawMissingSkills,
+    match_percentage: rawMatchPercentage,
     ai_generated,
     estimated_time,
     profile_summary,
     experience_match
   } = analysis;
+
+  // Dedupe skills arrays to prevent React key errors
+  const matching_skills = [...new Set(rawMatchingSkills || [])];
+  const missing_skills = [...new Set(rawMissingSkills || [])];
+  // Cap match percentage at 100
+  const match_percentage = Math.min(rawMatchPercentage, 100);
 
   // Determine color based on match percentage
   const getPercentageColor = () => {

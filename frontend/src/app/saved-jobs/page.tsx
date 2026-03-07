@@ -4,11 +4,14 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
-import { SavedAnalysis, SavedAnalysisListItem, AnalysisResult, ParsedJobInfo } from '@/lib/types';
+import { SavedAnalysis, SavedAnalysisListItem, AnalysisResult, InterviewQuestion, UserProfile } from '@/lib/types';
 import Button from '@/components/ui/Button';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import GapDisplay from '@/components/GapDisplay';
 import RoadmapCard from '@/components/RoadmapCard';
+import InterviewQuestions from '@/components/InterviewQuestions';
+import Chatbot from '@/components/Chatbot';
+import { buildChatContext } from '@/lib/chatContext';
 
 export default function SavedJobsPage() {
   const router = useRouter();
@@ -22,17 +25,76 @@ export default function SavedJobsPage() {
   const [completedSkills, setCompletedSkills] = useState<Set<string>>(new Set());
   const [userSkills, setUserSkills] = useState<string[]>([]);
   const [learningSkill, setLearningSkill] = useState<string | null>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
-  const toggleSkillComplete = (skill: string) => {
-    setCompletedSkills((prev) => {
-      const next = new Set(prev);
-      if (next.has(skill)) {
-        next.delete(skill);
-      } else {
-        next.add(skill);
+  const toggleSkillComplete = async (skill: string) => {
+    if (!userId || !selectedJob) return;
+
+    const isCurrentlyCompleted = completedSkills.has(skill);
+
+    if (isCurrentlyCompleted) {
+      // Unchecking - remove skill from profile
+      setLearningSkill(skill);
+      try {
+        const updatedSkills = userSkills.filter(
+          (s) => s.toLowerCase() !== skill.toLowerCase()
+        );
+        await api.updateProfile(userId, { skills: updatedSkills });
+        setUserSkills(updatedSkills);
+
+        // Update local state
+        setCompletedSkills((prev) => {
+          const next = new Set(prev);
+          next.delete(skill);
+          return next;
+        });
+
+        // Recalculate match percentage
+        const currentAnalysis = selectedJob.analysis_result;
+        const newMatchingSkills = (currentAnalysis.matching_skills || []).filter(
+          (s: string) => s.toLowerCase() !== skill.toLowerCase()
+        );
+        // Avoid adding duplicate missing skills
+        const alreadyMissing = (currentAnalysis.missing_skills || []).some(
+          (s: string) => s.toLowerCase() === skill.toLowerCase()
+        );
+        const newMissingSkills = alreadyMissing
+          ? currentAnalysis.missing_skills || []
+          : [...(currentAnalysis.missing_skills || []), skill];
+
+        const totalRequiredSkills = selectedJob.job_info.required_skills?.length ||
+          (newMatchingSkills.length + newMissingSkills.length);
+        const newMatchPercentage = totalRequiredSkills > 0
+          ? Math.min(100, Math.round((newMatchingSkills.length / totalRequiredSkills) * 100))
+          : 0;
+
+        setSelectedJob({
+          ...selectedJob,
+          analysis_result: {
+            ...currentAnalysis,
+            matching_skills: newMatchingSkills,
+            missing_skills: newMissingSkills,
+            match_percentage: newMatchPercentage,
+          },
+        });
+
+        setSavedJobs((prev) =>
+          prev.map((job) =>
+            job.id === selectedJob.id
+              ? { ...job, match_percentage: newMatchPercentage }
+              : job
+          )
+        );
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to remove skill from profile');
+      } finally {
+        setLearningSkill(null);
       }
-      return next;
-    });
+    } else {
+      // Checking - this is handled by handleMarkSkillLearned
+      // Just update local state for now (onMarkLearned will handle the persist)
+      setCompletedSkills((prev) => new Set([...prev, skill]));
+    }
   };
 
   const handleMarkSkillLearned = async (skill: string) => {
@@ -40,8 +102,10 @@ export default function SavedJobsPage() {
 
     setLearningSkill(skill);
     try {
-      // Add skill to user's profile
-      const updatedSkills = [...userSkills, skill];
+      // Add skill to user's profile (avoid duplicates)
+      const updatedSkills = userSkills.some((s) => s.toLowerCase() === skill.toLowerCase())
+        ? userSkills
+        : [...userSkills, skill];
       await api.updateProfile(userId, { skills: updatedSkills });
       setUserSkills(updatedSkills);
 
@@ -50,7 +114,13 @@ export default function SavedJobsPage() {
 
       // Update the selected job's analysis result locally to reflect the new match
       const currentAnalysis = selectedJob.analysis_result;
-      const newMatchingSkills = [...(currentAnalysis.matching_skills || []), skill];
+      // Avoid adding duplicate matching skills
+      const existingMatch = (currentAnalysis.matching_skills || []).some(
+        (s: string) => s.toLowerCase() === skill.toLowerCase()
+      );
+      const newMatchingSkills = existingMatch
+        ? currentAnalysis.matching_skills || []
+        : [...(currentAnalysis.matching_skills || []), skill];
       const newMissingSkills = (currentAnalysis.missing_skills || []).filter(
         (s: string) => s.toLowerCase() !== skill.toLowerCase()
       );
@@ -59,7 +129,7 @@ export default function SavedJobsPage() {
       const totalRequiredSkills = selectedJob.job_info.required_skills?.length ||
         (newMatchingSkills.length + newMissingSkills.length);
       const newMatchPercentage = totalRequiredSkills > 0
-        ? Math.round((newMatchingSkills.length / totalRequiredSkills) * 100)
+        ? Math.min(100, Math.round((newMatchingSkills.length / totalRequiredSkills) * 100))
         : 0;
 
       // Update the selected job detail
@@ -106,8 +176,9 @@ export default function SavedJobsPage() {
           api.getProfile(session.user.id).catch(() => null),
         ]);
         setSavedJobs(jobs);
-        if (profile?.skills) {
-          setUserSkills(profile.skills);
+        if (profile) {
+          setUserProfile(profile);
+          setUserSkills(profile.skills || []);
         }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load saved jobs');
@@ -166,6 +237,21 @@ export default function SavedJobsPage() {
       month: 'short',
       day: 'numeric',
       year: 'numeric',
+    });
+  };
+
+  // Generate interview questions for the selected job
+  const handleGenerateQuestions = async (): Promise<InterviewQuestion[]> => {
+    if (!selectedJob) return [];
+    const missingSkills = selectedJob.analysis_result.missing_skills || [];
+    const jobInfo = selectedJob.job_info;
+    // Pass job info directly since saved analyses don't have a real job_posting_id
+    return api.generateInterviewQuestions({
+      job_title: jobInfo.title,
+      job_company: jobInfo.company || undefined,
+      job_required_skills: jobInfo.required_skills || [],
+      job_responsibilities: jobInfo.responsibilities || [],
+      skills_to_focus: missingSkills.slice(0, 5),
     });
   };
 
@@ -393,6 +479,14 @@ export default function SavedJobsPage() {
                       </CardContent>
                     </Card>
                   )}
+
+                  {/* Interview Questions */}
+                  <InterviewQuestions
+                    jobTitle={selectedJob.job_info.title}
+                    company={selectedJob.job_info.company || ''}
+                    skills={selectedJob.analysis_result.missing_skills || []}
+                    onGenerateQuestions={handleGenerateQuestions}
+                  />
                 </>
               ) : (
                 <Card variant="elevated" className="bg-white">
@@ -413,6 +507,16 @@ export default function SavedJobsPage() {
           </div>
         )}
       </div>
+
+      {/* Chatbot */}
+      <Chatbot
+        context={buildChatContext({
+          profile: userProfile,
+          parsedJob: selectedJob?.job_info,
+          analysis: selectedJob?.analysis_result as AnalysisResult | undefined,
+        })}
+        userId={userId || undefined}
+      />
     </div>
   );
 }
