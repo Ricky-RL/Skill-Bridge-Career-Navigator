@@ -126,3 +126,26 @@ class MentorshipSession(BaseModel):
     meeting_link: Optional[str] = None
     feedback: Optional[str] = None
     rating: Optional[int] = None
+
+
+class ChatMessageCreate(BaseModel):
+    """Request to send a chat message."""
+    connection_id: str
+    content: str = Field(..., min_length=1, max_length=2000)
+
+
+class ChatMessage(BaseModel):
+    """Chat message in a mentorship connection."""
+    id: str
+    connection_id: str
+    sender_id: str
+    sender_name: str
+    content: str
+    is_read: bool
+    created_at: str
+
+
+class ChatMessagesResponse(BaseModel):
+    """Response containing chat messages and unread count."""
+    messages: list[ChatMessage]
+    unread_count: int

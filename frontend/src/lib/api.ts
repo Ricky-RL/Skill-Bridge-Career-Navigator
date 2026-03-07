@@ -28,6 +28,9 @@ import {
   MentorshipSession,
   MenteeDetails,
   MentorDetails,
+  MentorshipChatMessage,
+  MentorshipChatMessagesResponse,
+  UnreadMessageCounts,
 } from './types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
@@ -55,7 +58,12 @@ class ApiClient {
 
     if (!response.ok) {
       const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
-      throw new Error(error.detail || `HTTP error! status: ${response.status}`);
+      const errorMessage = typeof error.detail === 'string'
+        ? error.detail
+        : typeof error.detail === 'object'
+          ? JSON.stringify(error.detail)
+          : `HTTP error! status: ${response.status}`;
+      throw new Error(errorMessage);
     }
 
     return response.json();
@@ -98,7 +106,12 @@ class ApiClient {
 
     if (!response.ok) {
       const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
-      throw new Error(error.detail || `HTTP error! status: ${response.status}`);
+      const errorMessage = typeof error.detail === 'string'
+        ? error.detail
+        : typeof error.detail === 'object'
+          ? JSON.stringify(error.detail)
+          : `HTTP error! status: ${response.status}`;
+      throw new Error(errorMessage);
     }
 
     return response.json();
@@ -347,6 +360,30 @@ class ApiClient {
 
   async getMentorDetails(connectionId: string): Promise<MentorDetails> {
     return this.request<MentorDetails>(`/api/mentorship/mentor-details/${connectionId}`);
+  }
+
+  // Mentorship Chat
+  async sendMentorshipMessage(connectionId: string, content: string, senderId: string): Promise<MentorshipChatMessage> {
+    return this.request<MentorshipChatMessage>(`/api/mentorship/messages?sender_id=${senderId}`, {
+      method: 'POST',
+      body: JSON.stringify({ connection_id: connectionId, content }),
+    });
+  }
+
+  async getMentorshipMessages(connectionId: string, userId: string, limit?: number): Promise<MentorshipChatMessagesResponse> {
+    const params = new URLSearchParams({ user_id: userId });
+    if (limit) params.append('limit', limit.toString());
+    return this.request<MentorshipChatMessagesResponse>(`/api/mentorship/messages/${connectionId}?${params.toString()}`);
+  }
+
+  async markMessagesAsRead(connectionId: string, userId: string): Promise<{ message: string }> {
+    return this.request<{ message: string }>(`/api/mentorship/messages/${connectionId}/read?user_id=${userId}`, {
+      method: 'PUT',
+    });
+  }
+
+  async getUnreadMessageCounts(userId: string): Promise<UnreadMessageCounts> {
+    return this.request<UnreadMessageCounts>(`/api/mentorship/unread-counts?user_id=${userId}`);
   }
 }
 

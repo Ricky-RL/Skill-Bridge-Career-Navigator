@@ -463,3 +463,24 @@ export interface MentorDetails {
   mentor: MentorProfile;
   sessions: MentorshipSession[];
 }
+
+// Mentorship Chat types
+export interface MentorshipChatMessage {
+  id: string;
+  connection_id: string;
+  sender_id: string;
+  sender_name: string;
+  content: string;
+  is_read: boolean;
+  created_at: string;
+}
+
+export interface MentorshipChatMessagesResponse {
+  messages: MentorshipChatMessage[];
+  unread_count: number;
+}
+
+export interface UnreadMessageCounts {
+  total_unread: number;
+  by_connection: Record<string, number>;
+}

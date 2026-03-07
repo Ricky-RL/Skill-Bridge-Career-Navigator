@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
-import { MentorProfile, MentorMatch, MentorshipConnection, UserProfile, MenteeDetails, MentorDetails, MentorshipSession } from '@/lib/types';
+import { MentorProfile, MentorMatch, MentorshipConnection, UserProfile, MenteeDetails, MentorDetails, MentorshipSession, UnreadMessageCounts } from '@/lib/types';
 import Button from '@/components/ui/Button';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
+import MentorshipChat from '@/components/MentorshipChat';
 
 type TabType = 'find' | 'connections' | 'become';
 
@@ -83,6 +84,10 @@ export default function MentorsPage() {
   const [mentorDetails, setMentorDetails] = useState<MentorDetails | null>(null);
   const [loadingMentorDetails, setLoadingMentorDetails] = useState(false);
 
+  // Chat
+  const [chattingConnection, setChattingConnection] = useState<MentorshipConnection | null>(null);
+  const [unreadCounts, setUnreadCounts] = useState<UnreadMessageCounts | null>(null);
+
   useEffect(() => {
     const init = async () => {
       const response = await supabase.auth.getSession();
@@ -113,6 +118,14 @@ export default function MentorsPage() {
         // Load connections
         const conns = await api.getConnections(session.user.id, 'both');
         setConnections(conns);
+
+        // Load unread message counts
+        try {
+          const counts = await api.getUnreadMessageCounts(session.user.id);
+          setUnreadCounts(counts);
+        } catch (err) {
+          console.error('Error loading unread counts:', err);
+        }
       } catch (err) {
         console.error('Error loading mentor data:', err);
       }
@@ -122,6 +135,22 @@ export default function MentorsPage() {
 
     init();
   }, [router]);
+
+  // Refresh unread counts periodically
+  useEffect(() => {
+    if (!userId) return;
+
+    const interval = setInterval(async () => {
+      try {
+        const counts = await api.getUnreadMessageCounts(userId);
+        setUnreadCounts(counts);
+      } catch (err) {
+        // Ignore errors on poll
+      }
+    }, 30000); // Every 30 seconds
+
+    return () => clearInterval(interval);
+  }, [userId]);
 
   const handleSearchMentors = async () => {
     setLoading(true);
@@ -786,6 +815,21 @@ export default function MentorsPage() {
                               </p>
                             </div>
                             <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
+                              {(conn.status === 'active' || conn.status === 'pending') && (
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => setChattingConnection(conn)}
+                                  className="relative"
+                                >
+                                  Chat
+                                  {(unreadCounts?.by_connection[conn.id] ?? 0) > 0 && (
+                                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                      {unreadCounts?.by_connection[conn.id]}
+                                    </span>
+                                  )}
+                                </Button>
+                              )}
                               <Button
                                 variant="outline"
                                 size="sm"
@@ -1130,6 +1174,16 @@ export default function MentorsPage() {
                           >
                             Close
                           </Button>
+                          <Button
+                            variant="outline"
+                            className="flex-1"
+                            onClick={() => {
+                              setViewingMentee(null);
+                              setChattingConnection(menteeDetails.connection);
+                            }}
+                          >
+                            Chat
+                          </Button>
                           {menteeDetails.connection.status === 'active' && (
                             <Button
                               variant="primary"
@@ -1329,6 +1383,16 @@ export default function MentorsPage() {
                           >
                             Close
                           </Button>
+                          <Button
+                            variant="outline"
+                            className="flex-1"
+                            onClick={() => {
+                              setViewingMentor(null);
+                              setChattingConnection(mentorDetails.connection);
+                            }}
+                          >
+                            Chat
+                          </Button>
                           {mentorDetails.connection.status === 'active' && (
                             <Button
                               variant="primary"
@@ -1349,6 +1413,20 @@ export default function MentorsPage() {
                   </CardContent>
                 </Card>
               </div>
+            )}
+
+            {/* Chat Modal */}
+            {chattingConnection && userId && (
+              <MentorshipChat
+                connection={chattingConnection}
+                userId={userId}
+                isMentor={myMentorProfile?.id === chattingConnection.mentor_id}
+                onClose={() => {
+                  setChattingConnection(null);
+                  // Refresh unread counts after closing chat
+                  api.getUnreadMessageCounts(userId).then(setUnreadCounts).catch(() => {});
+                }}
+              />
             )}
           </div>
         )}

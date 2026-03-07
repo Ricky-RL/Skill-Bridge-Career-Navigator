@@ -14,6 +14,9 @@ from app.models.mentorship import (
     MentorshipSession,
     MentorStatus,
     SessionStatus,
+    ChatMessageCreate,
+    ChatMessage,
+    ChatMessagesResponse,
 )
 from typing import Optional
 from datetime import datetime
@@ -601,4 +604,177 @@ async def get_mentor_details_for_mentee(
         raise
     except Exception as e:
         logger.error(f"Error getting mentor details: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ================== CHAT ENDPOINTS ==================
+
+
+@router.post("/messages", response_model=ChatMessage)
+async def send_message(
+    message: ChatMessageCreate,
+    sender_id: str = Query(...),
+    db: Client = Depends(get_db)
+):
+    """Send a chat message in a mentorship connection."""
+    try:
+        # Verify connection exists and user is part of it
+        conn_response = db.table("mentorship_connections").select("*").eq("id", message.connection_id).execute()
+        if not conn_response.data:
+            raise HTTPException(status_code=404, detail="Connection not found")
+
+        connection = conn_response.data[0]
+
+        # Check if sender is mentor or mentee
+        mentor_response = db.table("mentor_profiles").select("id, user_id").eq("id", connection["mentor_id"]).execute()
+        mentor_user_id = mentor_response.data[0]["user_id"] if mentor_response.data else None
+
+        is_mentor = mentor_user_id == sender_id
+        is_mentee = connection["mentee_id"] == sender_id
+
+        if not is_mentor and not is_mentee:
+            raise HTTPException(status_code=403, detail="You are not part of this connection")
+
+        # Get sender name
+        if is_mentor:
+            sender_name = connection["mentor_name"]
+        else:
+            sender_name = connection["mentee_name"]
+
+        message_data = {
+            "id": str(uuid.uuid4()),
+            "connection_id": message.connection_id,
+            "sender_id": sender_id,
+            "sender_name": sender_name,
+            "content": message.content,
+            "is_read": False,
+            "created_at": datetime.utcnow().isoformat(),
+        }
+
+        response = db.table("mentorship_messages").insert(message_data).execute()
+        return ChatMessage(**response.data[0])
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error sending message: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/messages/{connection_id}", response_model=ChatMessagesResponse)
+async def get_messages(
+    connection_id: str,
+    user_id: str = Query(...),
+    limit: int = Query(default=50, ge=1, le=200),
+    db: Client = Depends(get_db)
+):
+    """Get chat messages for a mentorship connection."""
+    try:
+        # Verify connection exists and user is part of it
+        conn_response = db.table("mentorship_connections").select("*").eq("id", connection_id).execute()
+        if not conn_response.data:
+            raise HTTPException(status_code=404, detail="Connection not found")
+
+        connection = conn_response.data[0]
+
+        # Check if user is mentor or mentee
+        mentor_response = db.table("mentor_profiles").select("id, user_id").eq("id", connection["mentor_id"]).execute()
+        mentor_user_id = mentor_response.data[0]["user_id"] if mentor_response.data else None
+
+        is_mentor = mentor_user_id == user_id
+        is_mentee = connection["mentee_id"] == user_id
+
+        if not is_mentor and not is_mentee:
+            raise HTTPException(status_code=403, detail="You are not part of this connection")
+
+        # Get messages
+        messages_response = db.table("mentorship_messages").select("*").eq("connection_id", connection_id).order("created_at", desc=False).limit(limit).execute()
+
+        messages = [ChatMessage(**m) for m in messages_response.data or []]
+
+        # Count unread messages not sent by this user
+        unread_count = sum(1 for m in messages if not m.is_read and m.sender_id != user_id)
+
+        return ChatMessagesResponse(messages=messages, unread_count=unread_count)
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting messages: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.put("/messages/{connection_id}/read")
+async def mark_messages_read(
+    connection_id: str,
+    user_id: str = Query(...),
+    db: Client = Depends(get_db)
+):
+    """Mark all messages in a connection as read for the user."""
+    try:
+        # Verify connection exists and user is part of it
+        conn_response = db.table("mentorship_connections").select("*").eq("id", connection_id).execute()
+        if not conn_response.data:
+            raise HTTPException(status_code=404, detail="Connection not found")
+
+        connection = conn_response.data[0]
+
+        # Check if user is mentor or mentee
+        mentor_response = db.table("mentor_profiles").select("id, user_id").eq("id", connection["mentor_id"]).execute()
+        mentor_user_id = mentor_response.data[0]["user_id"] if mentor_response.data else None
+
+        is_mentor = mentor_user_id == user_id
+        is_mentee = connection["mentee_id"] == user_id
+
+        if not is_mentor and not is_mentee:
+            raise HTTPException(status_code=403, detail="You are not part of this connection")
+
+        # Mark messages as read (messages NOT sent by the user)
+        db.table("mentorship_messages").update({"is_read": True}).eq("connection_id", connection_id).neq("sender_id", user_id).execute()
+
+        return {"message": "Messages marked as read"}
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error marking messages as read: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/unread-counts")
+async def get_unread_message_counts(
+    user_id: str = Query(...),
+    db: Client = Depends(get_db)
+):
+    """Get unread message counts for all connections of a user."""
+    try:
+        # Get all connections for user
+        connections = []
+
+        # As mentor
+        mentor_response = db.table("mentor_profiles").select("id").eq("user_id", user_id).execute()
+        if mentor_response.data:
+            mentor_id = mentor_response.data[0]["id"]
+            mentor_conns = db.table("mentorship_connections").select("id").eq("mentor_id", mentor_id).in_("status", ["active", "pending"]).execute()
+            connections.extend([c["id"] for c in mentor_conns.data or []])
+
+        # As mentee
+        mentee_conns = db.table("mentorship_connections").select("id").eq("mentee_id", user_id).in_("status", ["active", "pending"]).execute()
+        connections.extend([c["id"] for c in mentee_conns.data or []])
+
+        # Get unread counts for each connection
+        unread_counts = {}
+        for conn_id in set(connections):
+            messages = db.table("mentorship_messages").select("id").eq("connection_id", conn_id).eq("is_read", False).neq("sender_id", user_id).execute()
+            unread_counts[conn_id] = len(messages.data or [])
+
+        total_unread = sum(unread_counts.values())
+
+        return {
+            "total_unread": total_unread,
+            "by_connection": unread_counts
+        }
+
+    except Exception as e:
+        logger.error(f"Error getting unread counts: {e}")
         raise HTTPException(status_code=500, detail=str(e))
