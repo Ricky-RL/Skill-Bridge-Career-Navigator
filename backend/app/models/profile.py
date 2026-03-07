@@ -47,6 +47,7 @@ class ProfileCreate(BaseModel):
     work_experience: list[dict] = Field(default_factory=list)
     projects: list[dict] = Field(default_factory=list)
     target_industries: list[str] = Field(default_factory=list)
+    target_experience_level: Optional[str] = None
     target_role_id: Optional[str] = None
     resume_url: Optional[str] = None
     resume_text: Optional[str] = None
@@ -62,6 +63,7 @@ class ProfileUpdate(BaseModel):
     work_experience: Optional[list[dict]] = None
     projects: Optional[list[dict]] = None
     target_industries: Optional[list[str]] = None
+    target_experience_level: Optional[str] = None
     target_role_id: Optional[str] = None
     resume_url: Optional[str] = None
     resume_text: Optional[str] = None
@@ -79,6 +81,7 @@ class ProfileResponse(BaseModel):
     work_experience: list[dict] = Field(default_factory=list)
     projects: list[dict] = Field(default_factory=list)
     target_industries: list[str] = Field(default_factory=list)
+    target_experience_level: Optional[str] = None
     target_role_id: Optional[str] = None
     resume_url: Optional[str] = None
     resume_text: Optional[str] = None

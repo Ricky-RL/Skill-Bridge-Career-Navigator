@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
-import { AnalysisResult, InterviewQuestion } from '@/lib/types';
+import { AnalysisResult, InterviewQuestion, ParsedJobInfo } from '@/lib/types';
 import Button from '@/components/ui/Button';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
@@ -153,6 +153,7 @@ export default function AnalyzeRolePage() {
 
   // Analysis state
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
+  const [parsedJob, setParsedJob] = useState<ParsedJobInfo | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [useAI, setUseAI] = useState(true);
@@ -227,7 +228,32 @@ export default function AnalyzeRolePage() {
       return;
     }
 
-    // Check cache first (unless force refresh)
+    // For paste mode with job description, use the API to parse and analyze
+    if (inputMode === 'paste' && jobDescription.trim()) {
+      setAnalyzing(true);
+      setError(null);
+      setUsedCache(false);
+
+      try {
+        const result = await api.analyzeFromDescription({
+          user_skills: userSkills,
+          job_description: jobDescription,
+          user_id: userId,
+          use_fallback: !useAI,
+        });
+
+        setParsedJob(result.parsed_job);
+        setAnalysis(result.analysis);
+      } catch (err) {
+        console.error('Description analysis error:', err);
+        setError(err instanceof Error ? err.message : 'Failed to analyze job description');
+      } finally {
+        setAnalyzing(false);
+      }
+      return;
+    }
+
+    // For link mode (demo), check cache first
     if (!forceRefresh) {
       const cached = getCachedAnalysis(userSkills, DEMO_JOB_POSTING.id);
       if (cached) {
@@ -241,56 +267,43 @@ export default function AnalyzeRolePage() {
     setError(null);
     setUsedCache(false);
 
-    try {
-      // Use the demo job posting's skills for analysis
-      const result = await api.analyzeSkills({
-        user_skills: userSkills,
-        user_id: userId,
-        use_fallback: !useAI,
-      });
+    // For demo mode, use local analysis since we don't have a real job_posting_id in the database
+    const requiredSkills = DEMO_JOB_POSTING.required_skills.map((s) => s.toLowerCase());
+    const userSkillsLower = userSkills.map((s) => s.toLowerCase());
 
-      setAnalysis(result);
-      setCachedAnalysis(userSkills, DEMO_JOB_POSTING.id, result);
-    } catch {
-      // Fallback: create a local analysis comparing user skills to demo job
-      const requiredSkills = DEMO_JOB_POSTING.required_skills.map((s) => s.toLowerCase());
-      const userSkillsLower = userSkills.map((s) => s.toLowerCase());
+    const matching = requiredSkills.filter((skill) =>
+      userSkillsLower.some((us) => us.includes(skill) || skill.includes(us))
+    );
+    const missing = requiredSkills.filter(
+      (skill) => !userSkillsLower.some((us) => us.includes(skill) || skill.includes(us))
+    );
 
-      const matching = requiredSkills.filter((skill) =>
-        userSkillsLower.some((us) => us.includes(skill) || skill.includes(us))
-      );
-      const missing = requiredSkills.filter(
-        (skill) => !userSkillsLower.some((us) => us.includes(skill) || skill.includes(us))
-      );
+    const matchPercentage = Math.round((matching.length / requiredSkills.length) * 100);
 
-      const matchPercentage = Math.round((matching.length / requiredSkills.length) * 100);
+    const localAnalysis: AnalysisResult = {
+      matching_skills: matching.map((s) => DEMO_JOB_POSTING.required_skills.find((rs) => rs.toLowerCase() === s) || s),
+      missing_skills: missing.map((s) => DEMO_JOB_POSTING.required_skills.find((rs) => rs.toLowerCase() === s) || s),
+      match_percentage: matchPercentage,
+      recommendations: missing.slice(0, 5).map((skill, idx) => ({
+        skill: DEMO_JOB_POSTING.required_skills.find((rs) => rs.toLowerCase() === skill) || skill,
+        priority: idx + 1,
+        resources: [],
+      })),
+      estimated_time: `${missing.length * 2}-${missing.length * 4} weeks`,
+      profile_summary: `Based on your current skills, you have a ${matchPercentage}% match with the ${DEMO_JOB_POSTING.title} role at ${DEMO_JOB_POSTING.company}. ${
+        matchPercentage >= 70
+          ? "You're well-positioned for this role!"
+          : matchPercentage >= 50
+            ? 'With some focused learning, you could be a strong candidate.'
+            : 'This role may require significant upskilling, but the skills are valuable and transferable.'
+      }`,
+      ai_generated: false,
+    };
 
-      const fallbackAnalysis: AnalysisResult = {
-        matching_skills: matching.map((s) => DEMO_JOB_POSTING.required_skills.find((rs) => rs.toLowerCase() === s) || s),
-        missing_skills: missing.map((s) => DEMO_JOB_POSTING.required_skills.find((rs) => rs.toLowerCase() === s) || s),
-        match_percentage: matchPercentage,
-        recommendations: missing.slice(0, 5).map((skill, idx) => ({
-          skill: DEMO_JOB_POSTING.required_skills.find((rs) => rs.toLowerCase() === skill) || skill,
-          priority: idx + 1,
-          resources: [],
-        })),
-        estimated_time: `${missing.length * 2}-${missing.length * 4} weeks`,
-        profile_summary: `Based on your current skills, you have a ${matchPercentage}% match with the ${DEMO_JOB_POSTING.title} role at ${DEMO_JOB_POSTING.company}. ${
-          matchPercentage >= 70
-            ? "You're well-positioned for this role!"
-            : matchPercentage >= 50
-              ? 'With some focused learning, you could be a strong candidate.'
-              : 'This role may require significant upskilling, but the skills are valuable and transferable.'
-        }`,
-        ai_generated: false,
-      };
-
-      setAnalysis(fallbackAnalysis);
-      setCachedAnalysis(userSkills, DEMO_JOB_POSTING.id, fallbackAnalysis);
-    } finally {
-      setAnalyzing(false);
-    }
-  }, [userId, userSkills, useAI]);
+    setAnalysis(localAnalysis);
+    setCachedAnalysis(userSkills, DEMO_JOB_POSTING.id, localAnalysis);
+    setAnalyzing(false);
+  }, [userId, userSkills, useAI, inputMode, jobDescription]);
 
   const handleGenerateQuestions = async (): Promise<InterviewQuestion[]> => {
     // For demo, return mock questions since we don't have a real job posting ID
@@ -357,6 +370,7 @@ export default function AnalyzeRolePage() {
     setJobLink('');
     setJobDescription('');
     setAnalysis(null);
+    setParsedJob(null);
     setCompletedSkills(new Set());
     setError(null);
     setUsedCache(false);

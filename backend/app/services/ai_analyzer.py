@@ -5,6 +5,82 @@ from groq import Groq
 from app.config import get_settings
 
 
+# Experience level hierarchy for comparison
+EXPERIENCE_LEVELS = {
+    "Entry Level": {"min_years": 0, "max_years": 2, "rank": 1},
+    "Mid": {"min_years": 2, "max_years": 5, "rank": 2},
+    "Senior": {"min_years": 5, "max_years": 8, "rank": 3},
+    "Staff": {"min_years": 8, "max_years": 12, "rank": 4},
+    "Principal": {"min_years": 12, "max_years": 20, "rank": 5},
+    "Management": {"min_years": 5, "max_years": 20, "rank": 3},  # Can vary
+}
+
+
+def calculate_user_experience_level(years_of_experience: int, work_experience: list) -> str:
+    """Determine user's experience level based on years and work history."""
+    if years_of_experience is None:
+        # Try to calculate from work experience
+        if work_experience:
+            total_years = 0
+            for exp in work_experience:
+                start = exp.get('start_date', '')
+                end = exp.get('end_date', '') or '2026'
+                try:
+                    start_year = int(start[:4]) if start else 0
+                    end_year = int(end[:4]) if end else 2026
+                    total_years += max(0, end_year - start_year)
+                except (ValueError, TypeError):
+                    pass
+            years_of_experience = min(total_years, 20)  # Cap at 20
+        else:
+            years_of_experience = 0
+
+    if years_of_experience < 2:
+        return "Entry Level"
+    elif years_of_experience < 5:
+        return "Mid"
+    elif years_of_experience < 8:
+        return "Senior"
+    elif years_of_experience < 12:
+        return "Staff"
+    else:
+        return "Principal"
+
+
+def evaluate_level_qualification(user_profile: dict, target_level: str, required_years: int) -> dict:
+    """Evaluate if user is qualified for the target experience level."""
+    years_of_experience = user_profile.get('years_of_experience', 0) or 0
+    work_experience = user_profile.get('work_experience', [])
+
+    user_level = calculate_user_experience_level(years_of_experience, work_experience)
+
+    target_info = EXPERIENCE_LEVELS.get(target_level, EXPERIENCE_LEVELS["Mid"])
+    user_info = EXPERIENCE_LEVELS.get(user_level, EXPERIENCE_LEVELS["Entry Level"])
+
+    # Calculate years gap
+    years_gap = target_info["min_years"] - years_of_experience if years_of_experience < target_info["min_years"] else 0
+
+    # Determine if qualified
+    qualified = user_info["rank"] >= target_info["rank"] or years_of_experience >= target_info["min_years"]
+
+    # Generate details
+    if qualified:
+        if user_info["rank"] > target_info["rank"]:
+            details = f"You're overqualified for this role. With {years_of_experience} years of experience, you may want to target more senior positions."
+        else:
+            details = f"Your experience level ({user_level}, {years_of_experience} years) aligns well with the {target_level} requirements."
+    else:
+        details = f"This role requires {target_level} experience ({target_info['min_years']}+ years). You have {years_of_experience} years. Consider gaining {years_gap} more years of experience or targeting {user_level} positions."
+
+    return {
+        "qualified": qualified,
+        "user_level": user_level,
+        "target_level": target_level,
+        "years_gap": years_gap if years_gap > 0 else None,
+        "details": details
+    }
+
+
 async def analyze_gap_with_ai(
     user_skills: list[str],
     target_role: dict,
@@ -183,6 +259,55 @@ Important guidelines for profile_summary:
     result["ai_generated"] = True
 
     return result
+
+
+async def parse_job_description(job_description: str) -> dict:
+    """
+    Parse a raw job description text to extract structured job information.
+
+    Args:
+        job_description: Raw job description text
+
+    Returns:
+        Dictionary with parsed job details (title, company, skills, etc.)
+    """
+    settings = get_settings()
+    client = Groq(api_key=settings.groq_api_key)
+
+    prompt = f"""Parse the following job description and extract structured information.
+
+--- JOB DESCRIPTION ---
+{job_description}
+--- END ---
+
+Return a JSON object with this exact structure:
+{{
+    "title": "The job title (e.g., 'Senior Software Engineer')",
+    "company": "Company name if mentioned, or null",
+    "experience_level": "Entry Level" | "Mid" | "Senior" | "Staff" | "Principal" | "Management" | null,
+    "required_skills": ["List of required technical skills (programming languages, frameworks, tools)"],
+    "nice_to_have_skills": ["List of preferred/nice-to-have skills"],
+    "responsibilities": ["List of key job responsibilities"],
+    "minimum_qualifications": ["List of minimum qualifications (education, years of experience, etc.)"],
+    "preferred_qualifications": ["List of preferred qualifications"],
+    "description": "Brief 2-3 sentence summary of the role"
+}}
+
+Guidelines:
+- Extract specific technical skills (Python, React, AWS, etc.)
+- Infer experience_level from years of experience mentioned or seniority in title
+- Keep skill lists concise (max 10 required, 5 nice-to-have)
+- If something isn't mentioned, use an empty list or null"""
+
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[{"role": "user", "content": prompt}],
+        response_format={"type": "json_object"},
+        temperature=0.2,
+        max_tokens=1500
+    )
+
+    return json.loads(response.choices[0].message.content)
 
 
 async def generate_interview_questions(

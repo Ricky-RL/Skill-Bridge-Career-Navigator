@@ -4,11 +4,13 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
-import { Education, Certificate, WorkExperience, Project } from '@/lib/types';
+import { Education, Certificate, WorkExperience, Project, ExperienceLevel } from '@/lib/types';
 import Button from '@/components/ui/Button';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
 import SkillInput from '@/components/SkillInput';
+
+const EXPERIENCE_LEVELS: ExperienceLevel[] = ['Entry Level', 'Mid', 'Senior', 'Staff', 'Principal', 'Management'];
 
 const AVAILABLE_INDUSTRIES = [
   'Cloud & Infrastructure',
@@ -75,6 +77,7 @@ export default function ProfilePage() {
   const [workExperience, setWorkExperience] = useState<WorkExperience[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [targetIndustries, setTargetIndustries] = useState<string[]>([]);
+  const [targetExperienceLevel, setTargetExperienceLevel] = useState<ExperienceLevel | null>(null);
   const [hasProfile, setHasProfile] = useState(false);
   const [resumeUrl, setResumeUrl] = useState<string | null>(null);
   const [resumeText, setResumeText] = useState<string | null>(null);
@@ -116,6 +119,7 @@ export default function ProfilePage() {
         setWorkExperience(profile.work_experience || []);
         setProjects(profile.projects || []);
         setTargetIndustries(profile.target_industries || []);
+        setTargetExperienceLevel(profile.target_experience_level || null);
         setResumeUrl(profile.resume_url);
         setResumeText(profile.resume_text);
         setHasProfile(true);
@@ -376,6 +380,7 @@ export default function ProfilePage() {
           work_experience: workExperience,
           projects,
           target_industries: targetIndustries,
+          target_experience_level: targetExperienceLevel || undefined,
           resume_url: resumeUrl || undefined,
           resume_text: resumeText || undefined,
         });
@@ -392,6 +397,7 @@ export default function ProfilePage() {
           work_experience: workExperience,
           projects,
           target_industries: targetIndustries,
+          target_experience_level: targetExperienceLevel || undefined,
           resume_url: resumeUrl || undefined,
           resume_text: resumeText || undefined,
         });
@@ -1062,6 +1068,37 @@ export default function ProfilePage() {
                     }`}
                   >
                     {industry}
+                  </button>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Target Experience Level */}
+        <Card variant="bordered">
+          <CardHeader>
+            <CardTitle>Target Experience Level</CardTitle>
+            <p className="text-sm text-gray-500 mt-1">
+              What level of positions are you targeting?
+            </p>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+              {EXPERIENCE_LEVELS.map((level) => {
+                const isSelected = targetExperienceLevel === level;
+                return (
+                  <button
+                    key={level}
+                    type="button"
+                    onClick={() => setTargetExperienceLevel(isSelected ? null : level)}
+                    className={`px-4 py-3 rounded-lg text-sm font-medium transition-all border-2 ${
+                      isSelected
+                        ? 'border-violet-500 bg-violet-50 text-violet-700'
+                        : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-50'
+                    }`}
+                  >
+                    {level}
                   </button>
                 );
               })}

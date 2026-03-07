@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
-import { JobPosting, AnalysisResult, InterviewQuestion } from '@/lib/types';
+import { JobPosting, AnalysisResult, InterviewQuestion, ExperienceLevel } from '@/lib/types';
 import Button from '@/components/ui/Button';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
@@ -13,7 +13,9 @@ import GapDisplay from '@/components/GapDisplay';
 import RoadmapCard from '@/components/RoadmapCard';
 import InterviewQuestions from '@/components/InterviewQuestions';
 
-const COMPANIES = ['Google', 'Amazon', 'Palo Alto Networks', 'Apple', 'Meta'];
+const COMPANIES = ['Google', 'Amazon', 'Palo Alto Networks', 'Apple', 'Meta', 'Microsoft', 'Netflix', 'Stripe', 'Uber', 'Airbnb', 'Spotify', 'NVIDIA', 'Salesforce', 'Databricks', 'Cloudflare', 'LinkedIn', 'Snowflake', 'Figma', 'Coinbase', 'Notion'];
+
+const EXPERIENCE_LEVELS: ExperienceLevel[] = ['Entry Level', 'Mid', 'Senior', 'Staff', 'Principal', 'Management'];
 
 const AVAILABLE_INDUSTRIES = [
   'Cloud & Infrastructure',
@@ -116,10 +118,12 @@ export default function JobsPage() {
   const [useAI, setUseAI] = useState(true);
   const [completedSkills, setCompletedSkills] = useState<Set<string>>(new Set());
   const [usedCache, setUsedCache] = useState(false);
+  const [userExperienceLevel, setUserExperienceLevel] = useState<ExperienceLevel | null>(null);
 
   // Filters
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCompany, setSelectedCompany] = useState<string>('');
+  const [selectedExperienceLevel, setSelectedExperienceLevel] = useState<string>('');
   const [showSuggested, setShowSuggested] = useState(true);
   const [editingIndustries, setEditingIndustries] = useState(false);
   const [savingIndustries, setSavingIndustries] = useState(false);
@@ -196,6 +200,7 @@ export default function JobsPage() {
         const profile = await api.getProfile(session.user.id);
         setUserSkills(profile.skills || []);
         setTargetIndustries(profile.target_industries || []);
+        setUserExperienceLevel(profile.target_experience_level || null);
 
         // Load suggested postings based on target industries
         if (profile.target_industries?.length) {
@@ -228,6 +233,7 @@ export default function JobsPage() {
         search: searchQuery || undefined,
         company: selectedCompany || undefined,
         industries: targetIndustries.length ? targetIndustries : undefined,
+        experience_level: selectedExperienceLevel || undefined,
         limit: 20,
       });
       setPostings(results);
@@ -287,11 +293,26 @@ export default function JobsPage() {
 
   const getCompanyColor = (company: string) => {
     const colors: Record<string, string> = {
-      'Google': 'bg-blue-500',
-      'Amazon': 'bg-orange-500',
-      'Meta': 'bg-blue-600',
-      'Apple': 'bg-gray-800',
-      'Palo Alto Networks': 'bg-red-500',
+      'Google': 'bg-[#4285F4]',
+      'Amazon': 'bg-[#FF9900]',
+      'Meta': 'bg-[#0668E1]',
+      'Apple': 'bg-black',
+      'Palo Alto Networks': 'bg-[#FA582D]',
+      'Microsoft': 'bg-[#00A4EF]',
+      'Netflix': 'bg-[#E50914]',
+      'Stripe': 'bg-[#635BFF]',
+      'Uber': 'bg-black',
+      'Airbnb': 'bg-[#FF5A5F]',
+      'Spotify': 'bg-[#1DB954]',
+      'NVIDIA': 'bg-[#76B900]',
+      'Salesforce': 'bg-[#00A1E0]',
+      'Databricks': 'bg-[#FF3621]',
+      'Cloudflare': 'bg-[#F38020]',
+      'LinkedIn': 'bg-[#0A66C2]',
+      'Snowflake': 'bg-[#29B5E8]',
+      'Figma': 'bg-[#F24E1E]',
+      'Coinbase': 'bg-[#0052FF]',
+      'Notion': 'bg-black',
     };
     return colors[company] || 'bg-violet-500';
   };
@@ -361,6 +382,18 @@ export default function JobsPage() {
                 {COMPANIES.map((company) => (
                   <option key={company} value={company}>
                     {company}
+                  </option>
+                ))}
+              </select>
+              <select
+                className="px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 bg-white"
+                value={selectedExperienceLevel}
+                onChange={(e) => setSelectedExperienceLevel(e.target.value)}
+              >
+                <option value="">All Levels</option>
+                {EXPERIENCE_LEVELS.map((level) => (
+                  <option key={level} value={level}>
+                    {level}
                   </option>
                 ))}
               </select>

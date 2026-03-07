@@ -2,9 +2,9 @@ from fastapi import APIRouter, HTTPException, Depends, Query
 from typing import Optional
 from pydantic import BaseModel, Field
 from supabase import Client
-from app.models.analysis import AnalysisRequest, AnalysisResponse, LearningResource, ExperienceMatch
+from app.models.analysis import AnalysisRequest, AnalysisResponse, LearningResource, ExperienceMatch, LevelQualification
 from app.services.supabase_client import get_db
-from app.services.ai_analyzer import analyze_gap_with_ai, generate_interview_questions
+from app.services.ai_analyzer import analyze_gap_with_ai, generate_interview_questions, evaluate_level_qualification
 from app.services.fallback_analyzer import analyze_gap_fallback
 from datetime import datetime
 import logging
@@ -112,6 +112,21 @@ async def analyze_skills(request: AnalysisRequest, db: Client = Depends(get_db))
                 projects_relevance=exp.get("projects_relevance")
             )
 
+        # Add level qualification evaluation
+        level_qual = None
+        if user_profile and target_role.get("experience_level"):
+            level_qual_data = evaluate_level_qualification(
+                user_profile=user_profile,
+                target_level=target_role.get("experience_level"),
+                required_years=target_role.get("required_experience_years", 0) if request.job_posting_id else 0
+            )
+            level_qual = LevelQualification(**level_qual_data)
+
+            if experience_match:
+                experience_match.level_qualification = level_qual
+            else:
+                experience_match = ExperienceMatch(level_qualification=level_qual)
+
         return AnalysisResponse(
             matching_skills=analysis.get("matching_skills", []),
             missing_skills=analysis.get("missing_skills", []),
@@ -157,6 +172,161 @@ async def get_resources(
 
         return result.data or []
     except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class DescriptionAnalysisRequest(BaseModel):
+    user_skills: list[str] = Field(..., min_length=1)
+    job_description: str = Field(..., min_length=50)
+    user_id: Optional[str] = None
+    use_fallback: bool = False
+
+
+class ParsedJobInfo(BaseModel):
+    title: str
+    company: Optional[str] = None
+    required_skills: list[str]
+    nice_to_have_skills: list[str] = Field(default_factory=list)
+    experience_level: Optional[str] = None
+    responsibilities: list[str] = Field(default_factory=list)
+    minimum_qualifications: list[str] = Field(default_factory=list)
+    description: Optional[str] = None
+
+
+class DescriptionAnalysisResponse(BaseModel):
+    parsed_job: ParsedJobInfo
+    analysis: AnalysisResponse
+
+
+@router.post("/from-description", response_model=DescriptionAnalysisResponse)
+async def analyze_from_description(request: DescriptionAnalysisRequest, db: Client = Depends(get_db)):
+    """
+    Analyze skill gap from a raw job description text.
+
+    Parses the job description using AI to extract job details, then performs analysis.
+    """
+    try:
+        from app.services.ai_analyzer import parse_job_description
+
+        # Fetch user profile if user_id is provided
+        user_profile = None
+        if request.user_id:
+            try:
+                profile_result = db.table("user_profiles").select("*").eq("user_id", request.user_id).execute()
+                if profile_result.data:
+                    user_profile = profile_result.data[0]
+                    logger.info("Loaded user profile for comprehensive analysis")
+            except Exception as e:
+                logger.warning(f"Could not load user profile: {e}")
+
+        # Parse the job description using AI
+        logger.info("Parsing job description with AI...")
+        parsed_job = await parse_job_description(request.job_description)
+        logger.info(f"Parsed job: {parsed_job.get('title', 'Unknown')}")
+
+        # Build target role from parsed job
+        target_role = {
+            "title": parsed_job.get("title", "Unknown Role"),
+            "company": parsed_job.get("company"),
+            "required_skills": parsed_job.get("required_skills", []),
+            "nice_to_have_skills": parsed_job.get("nice_to_have_skills", []),
+            "description": parsed_job.get("description", request.job_description[:500]),
+            "experience_level": parsed_job.get("experience_level"),
+            "responsibilities": parsed_job.get("responsibilities", []),
+            "minimum_qualifications": parsed_job.get("minimum_qualifications", []),
+            "preferred_qualifications": parsed_job.get("preferred_qualifications", [])
+        }
+
+        # Get learning resources
+        resources_result = db.table("learning_resources").select("*").execute()
+        resources = resources_result.data or []
+
+        # Run analysis
+        if request.use_fallback:
+            analysis = analyze_gap_fallback(
+                user_skills=request.user_skills,
+                required_skills=target_role.get("required_skills", []),
+                nice_to_have_skills=target_role.get("nice_to_have_skills", []),
+                resources=resources,
+                user_profile=user_profile,
+                target_role=target_role
+            )
+        else:
+            try:
+                analysis = await analyze_gap_with_ai(
+                    user_skills=request.user_skills,
+                    target_role=target_role,
+                    resources=resources,
+                    user_profile=user_profile
+                )
+            except Exception as ai_error:
+                logger.warning(f"AI analysis failed, using fallback: {ai_error}")
+                analysis = analyze_gap_fallback(
+                    user_skills=request.user_skills,
+                    required_skills=target_role.get("required_skills", []),
+                    nice_to_have_skills=target_role.get("nice_to_have_skills", []),
+                    resources=resources,
+                    user_profile=user_profile,
+                    target_role=target_role
+                )
+
+        # Build experience match
+        experience_match = None
+        if analysis.get("experience_match"):
+            exp = analysis["experience_match"]
+            experience_match = ExperienceMatch(
+                education_match=exp.get("education_match", False),
+                education_details=exp.get("education_details"),
+                experience_match=exp.get("experience_match", False),
+                experience_details=exp.get("experience_details"),
+                certifications_match=exp.get("certifications_match", False),
+                certifications_details=exp.get("certifications_details"),
+                projects_relevance=exp.get("projects_relevance")
+            )
+
+        # Add level qualification evaluation
+        if user_profile and target_role.get("experience_level"):
+            level_qual_data = evaluate_level_qualification(
+                user_profile=user_profile,
+                target_level=target_role.get("experience_level"),
+                required_years=0
+            )
+            level_qual = LevelQualification(**level_qual_data)
+            if experience_match:
+                experience_match.level_qualification = level_qual
+            else:
+                experience_match = ExperienceMatch(level_qualification=level_qual)
+
+        analysis_response = AnalysisResponse(
+            matching_skills=analysis.get("matching_skills", []),
+            missing_skills=analysis.get("missing_skills", []),
+            match_percentage=analysis.get("match_percentage", 0),
+            recommendations=analysis.get("recommendations", []),
+            estimated_time=analysis.get("estimated_time"),
+            profile_summary=analysis.get("profile_summary"),
+            experience_match=experience_match,
+            ai_generated=analysis.get("ai_generated", False),
+            created_at=datetime.utcnow()
+        )
+
+        return DescriptionAnalysisResponse(
+            parsed_job=ParsedJobInfo(
+                title=parsed_job.get("title", "Unknown Role"),
+                company=parsed_job.get("company"),
+                required_skills=parsed_job.get("required_skills", []),
+                nice_to_have_skills=parsed_job.get("nice_to_have_skills", []),
+                experience_level=parsed_job.get("experience_level"),
+                responsibilities=parsed_job.get("responsibilities", []),
+                minimum_qualifications=parsed_job.get("minimum_qualifications", []),
+                description=parsed_job.get("description")
+            ),
+            analysis=analysis_response
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Description analysis error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

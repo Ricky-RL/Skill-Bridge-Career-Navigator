@@ -44,6 +44,8 @@ export interface Project {
   url: string | null;
 }
 
+export type ExperienceLevel = 'Entry Level' | 'Mid' | 'Senior' | 'Staff' | 'Principal' | 'Management';
+
 export interface UserProfile {
   id: string;
   user_id: string;
@@ -56,6 +58,7 @@ export interface UserProfile {
   work_experience: WorkExperience[];
   projects: Project[];
   target_industries: string[];
+  target_experience_level: ExperienceLevel | null;
   target_role_id: string | null;
   resume_url: string | null;
   resume_text: string | null;
@@ -74,6 +77,7 @@ export interface ProfileCreate {
   work_experience?: WorkExperience[];
   projects?: Project[];
   target_industries?: string[];
+  target_experience_level?: ExperienceLevel;
   target_role_id?: string;
   resume_url?: string;
   resume_text?: string;
@@ -89,6 +93,7 @@ export interface ProfileUpdate {
   work_experience?: WorkExperience[];
   projects?: Project[];
   target_industries?: string[];
+  target_experience_level?: ExperienceLevel;
   target_role_id?: string;
   resume_url?: string;
   resume_text?: string;
@@ -112,6 +117,14 @@ export interface SkillRecommendation {
   resources: LearningResource[];
 }
 
+export interface LevelQualification {
+  qualified: boolean;
+  user_level: string;
+  target_level: string;
+  years_gap: number | null;
+  details: string;
+}
+
 export interface ExperienceMatch {
   education_match: boolean;
   education_details: string | null;
@@ -120,6 +133,7 @@ export interface ExperienceMatch {
   certifications_match: boolean;
   certifications_details: string | null;
   projects_relevance: string | null;
+  level_qualification: LevelQualification | null;
 }
 
 export interface AnalysisResult {
@@ -141,6 +155,29 @@ export interface AnalysisRequest {
   job_posting_id?: string;
   user_id?: string;
   use_fallback?: boolean;
+}
+
+export interface DescriptionAnalysisRequest {
+  user_skills: string[];
+  job_description: string;
+  user_id?: string;
+  use_fallback?: boolean;
+}
+
+export interface ParsedJobInfo {
+  title: string;
+  company: string | null;
+  required_skills: string[];
+  nice_to_have_skills: string[];
+  experience_level: string | null;
+  responsibilities: string[];
+  minimum_qualifications: string[];
+  description: string | null;
+}
+
+export interface DescriptionAnalysisResponse {
+  parsed_job: ParsedJobInfo;
+  analysis: AnalysisResult;
 }
 
 export interface JobPosting {

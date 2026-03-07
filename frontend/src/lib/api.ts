@@ -9,6 +9,8 @@ import {
   LearningResource,
   ResumeUploadResponse,
   InterviewQuestion,
+  DescriptionAnalysisRequest,
+  DescriptionAnalysisResponse,
 } from './types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
@@ -153,6 +155,13 @@ class ApiClient {
   // Analysis endpoints
   async analyzeSkills(request: AnalysisRequest): Promise<AnalysisResult> {
     return this.request<AnalysisResult>('/api/analyze', {
+      method: 'POST',
+      body: JSON.stringify(request),
+    });
+  }
+
+  async analyzeFromDescription(request: DescriptionAnalysisRequest): Promise<DescriptionAnalysisResponse> {
+    return this.request<DescriptionAnalysisResponse>('/api/analyze/from-description', {
       method: 'POST',
       body: JSON.stringify(request),
     });
