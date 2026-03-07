@@ -11,6 +11,7 @@ import GapDisplay from '@/components/GapDisplay';
 import RoadmapCard from '@/components/RoadmapCard';
 import InterviewQuestions from '@/components/InterviewQuestions';
 import Chatbot from '@/components/Chatbot';
+import AskMentorModal from '@/components/AskMentorModal';
 import { buildChatContext } from '@/lib/chatContext';
 
 export default function SavedJobsPage() {
@@ -27,6 +28,10 @@ export default function SavedJobsPage() {
   const [learningSkill, setLearningSkill] = useState<string | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [reanalyzing, setReanalyzing] = useState(false);
+
+  // Mentor connections for "Ask Mentor" feature
+  const [hasActiveMentor, setHasActiveMentor] = useState(false);
+  const [showAskMentorModal, setShowAskMentorModal] = useState(false);
 
   const toggleSkillComplete = async (skill: string) => {
     if (!userId || !selectedJob) return;
@@ -180,6 +185,15 @@ export default function SavedJobsPage() {
         if (profile) {
           setUserProfile(profile);
           setUserSkills(profile.skills || []);
+        }
+
+        // Check for active mentor connections
+        try {
+          const connections = await api.getConnections(session.user.id, 'mentee');
+          const activeConnections = connections.filter(c => c.status === 'active');
+          setHasActiveMentor(activeConnections.length > 0);
+        } catch {
+          // Ignore - user may not have any connections
         }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load saved jobs');
@@ -449,14 +463,28 @@ export default function SavedJobsPage() {
                           <p className="text-sm font-medium text-gray-900">Re-analyze with your current skills</p>
                           <p className="text-xs text-gray-500">Your profile may have changed since this was saved</p>
                         </div>
-                        <Button
-                          variant="primary"
-                          size="sm"
+                        <button
                           onClick={handleReanalyze}
-                          isLoading={reanalyzing}
+                          disabled={reanalyzing}
+                          className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-violet-600 hover:bg-violet-50 rounded-lg transition-colors disabled:opacity-50"
                         >
-                          {reanalyzing ? 'Analyzing...' : 'Re-analyze'}
-                        </Button>
+                          {reanalyzing ? (
+                            <span className="flex items-center gap-1">
+                              <svg className="animate-spin h-3 w-3" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                              </svg>
+                              Analyzing...
+                            </span>
+                          ) : (
+                            <span className="flex items-center gap-1">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                              </svg>
+                              Re-analyze
+                            </span>
+                          )}
+                        </button>
                       </div>
                     </CardContent>
                   </Card>
@@ -528,7 +556,12 @@ export default function SavedJobsPage() {
                   </Card>
 
                   {/* Analysis Results */}
-                  <GapDisplay analysis={selectedJob.analysis_result as AnalysisResult} />
+                  <GapDisplay
+                    analysis={selectedJob.analysis_result as AnalysisResult}
+                    jobInfo={selectedJob.job_info}
+                    hasMentor={hasActiveMentor}
+                    onAskMentor={() => setShowAskMentorModal(true)}
+                  />
 
                   {/* Learning Roadmap */}
                   {selectedJob.analysis_result.recommendations && selectedJob.analysis_result.recommendations.length > 0 && (
@@ -595,6 +628,20 @@ export default function SavedJobsPage() {
         })}
         userId={userId || undefined}
       />
+
+      {/* Ask Mentor Modal */}
+      {showAskMentorModal && userId && selectedJob && (
+        <AskMentorModal
+          userId={userId}
+          jobContext={{
+            title: selectedJob.job_info.title,
+            company: selectedJob.job_info.company,
+            matchPercentage: selectedJob.analysis_result.match_percentage,
+            missingSkills: selectedJob.analysis_result.missing_skills,
+          }}
+          onClose={() => setShowAskMentorModal(false)}
+        />
+      )}
     </div>
   );
 }

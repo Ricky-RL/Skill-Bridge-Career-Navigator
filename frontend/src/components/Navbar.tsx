@@ -11,6 +11,7 @@ export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [avatarError, setAvatarError] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
@@ -102,7 +103,7 @@ export default function Navbar() {
                     href="/mentors"
                     className={`px-4 py-2 text-sm font-medium ${navTextColor} ${navHoverColor} transition-colors`}
                   >
-                    Mentors
+                    Mentorship
                   </Link>
                 </>
               )}
@@ -117,11 +118,12 @@ export default function Navbar() {
                   onClick={() => setShowDropdown(!showDropdown)}
                   className="flex items-center space-x-2 focus:outline-none"
                 >
-                  {user.user_metadata?.avatar_url ? (
+                  {user.user_metadata?.avatar_url && !avatarError ? (
                     <img
                       src={user.user_metadata.avatar_url}
                       alt="Avatar"
                       className="w-9 h-9 rounded-full border-2 border-white/50 hover:border-violet-400 transition-colors cursor-pointer"
+                      onError={() => setAvatarError(true)}
                     />
                   ) : (
                     <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isHomePage ? 'bg-white/20 text-white' : 'bg-violet-100 text-violet-600'} font-medium`}>

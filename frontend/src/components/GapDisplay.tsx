@@ -1,12 +1,16 @@
-import { AnalysisResult } from '@/lib/types';
+import { AnalysisResult, ParsedJobInfo } from '@/lib/types';
 import SkillTag from './ui/SkillTag';
 import Card, { CardHeader, CardTitle, CardContent } from './ui/Card';
+import Button from './ui/Button';
 
 interface GapDisplayProps {
   analysis: AnalysisResult;
+  jobInfo?: ParsedJobInfo | { title: string; company?: string | null };
+  onAskMentor?: () => void;
+  hasMentor?: boolean;
 }
 
-export default function GapDisplay({ analysis }: GapDisplayProps) {
+export default function GapDisplay({ analysis, jobInfo, onAskMentor, hasMentor }: GapDisplayProps) {
   const {
     matching_skills: rawMatchingSkills,
     missing_skills: rawMissingSkills,
@@ -278,6 +282,30 @@ export default function GapDisplay({ analysis }: GapDisplayProps) {
           </CardContent>
         </Card>
       </div>
+
+      {/* Ask Mentor Section */}
+      {hasMentor && onAskMentor && (
+        <Card variant="bordered" className="border-violet-200 bg-gradient-to-r from-violet-50 to-purple-50">
+          <CardContent className="py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">Need guidance on this role?</h3>
+                  <p className="text-sm text-gray-600">Ask your mentor for advice about this job posting</p>
+                </div>
+              </div>
+              <Button variant="primary" onClick={onAskMentor}>
+                Ask Your Mentor
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

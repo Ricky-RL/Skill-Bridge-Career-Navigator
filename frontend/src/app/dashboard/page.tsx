@@ -13,6 +13,7 @@ import RoadmapCard from '@/components/RoadmapCard';
 import InterviewQuestions from '@/components/InterviewQuestions';
 import SkillInput from '@/components/SkillInput';
 import Chatbot from '@/components/Chatbot';
+import AskMentorModal from '@/components/AskMentorModal';
 import { buildChatContext } from '@/lib/chatContext';
 
 // Demo job posting from Palo Alto Networks
@@ -167,6 +168,10 @@ export default function AnalyzeRolePage() {
   const [learningSkill, setLearningSkill] = useState<string | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
+  // Mentor connections for "Ask Mentor" feature
+  const [hasActiveMentor, setHasActiveMentor] = useState(false);
+  const [showAskMentorModal, setShowAskMentorModal] = useState(false);
+
   useEffect(() => {
     const init = async () => {
       const response = await supabase.auth.getSession();
@@ -185,6 +190,15 @@ export default function AnalyzeRolePage() {
         setUserSkills(profile.skills || []);
         setTempSkills(profile.skills || []);
         setUserName(profile.name || '');
+
+        // Check for active mentor connections
+        try {
+          const connections = await api.getConnections(session.user.id, 'mentee');
+          const activeConnections = connections.filter(c => c.status === 'active');
+          setHasActiveMentor(activeConnections.length > 0);
+        } catch {
+          // Ignore - user may not have any connections
+        }
       } catch {
         // No profile, redirect to create one
         router.push('/profile');
@@ -941,9 +955,34 @@ export default function AnalyzeRolePage() {
                       {usedCache && (
                         <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Cached</span>
                       )}
-                      <Button onClick={() => runAnalysis(true)} isLoading={analyzing} variant={analysis ? 'outline' : 'primary'}>
-                        {analysis ? 'Re-analyze' : 'Analyze My Fit'}
-                      </Button>
+                      {analysis ? (
+                        <button
+                          onClick={() => runAnalysis(true)}
+                          disabled={analyzing}
+                          className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-violet-600 hover:bg-violet-50 rounded-lg transition-colors disabled:opacity-50"
+                        >
+                          {analyzing ? (
+                            <span className="flex items-center gap-1">
+                              <svg className="animate-spin h-3 w-3" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                              </svg>
+                              Analyzing...
+                            </span>
+                          ) : (
+                            <span className="flex items-center gap-1">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                              </svg>
+                              Re-analyze
+                            </span>
+                          )}
+                        </button>
+                      ) : (
+                        <Button onClick={() => runAnalysis(true)} isLoading={analyzing}>
+                          Analyze My Fit
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </CardContent>
@@ -959,7 +998,7 @@ export default function AnalyzeRolePage() {
                           <p className="text-sm font-medium text-gray-900">Save this analysis</p>
                           <p className="text-xs text-gray-500">Come back later to review your progress</p>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2">
                           {saved && (
                             <span className="text-sm text-green-600 flex items-center gap-1">
                               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -982,7 +1021,12 @@ export default function AnalyzeRolePage() {
                     </CardContent>
                   </Card>
 
-                  <GapDisplay analysis={analysis} />
+                  <GapDisplay
+                    analysis={analysis}
+                    jobInfo={parsedJob || undefined}
+                    hasMentor={hasActiveMentor}
+                    onAskMentor={() => setShowAskMentorModal(true)}
+                  />
 
                   {analysis.recommendations.length > 0 && (
                     <Card variant="elevated" className="bg-white">
@@ -1060,6 +1104,20 @@ export default function AnalyzeRolePage() {
         })}
         userId={userId || undefined}
       />
+
+      {/* Ask Mentor Modal */}
+      {showAskMentorModal && userId && parsedJob && (
+        <AskMentorModal
+          userId={userId}
+          jobContext={{
+            title: parsedJob.title,
+            company: parsedJob.company,
+            matchPercentage: analysis?.match_percentage,
+            missingSkills: analysis?.missing_skills,
+          }}
+          onClose={() => setShowAskMentorModal(false)}
+        />
+      )}
     </div>
   );
 }

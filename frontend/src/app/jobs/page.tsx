@@ -13,13 +13,27 @@ import GapDisplay from '@/components/GapDisplay';
 import RoadmapCard from '@/components/RoadmapCard';
 import InterviewQuestions from '@/components/InterviewQuestions';
 import Chatbot from '@/components/Chatbot';
+import AskMentorModal from '@/components/AskMentorModal';
 import { buildChatContext } from '@/lib/chatContext';
 
-const COMPANIES = ['Google', 'Amazon', 'Palo Alto Networks', 'Apple', 'Meta', 'Microsoft', 'Netflix', 'Stripe', 'Uber', 'Airbnb', 'Spotify', 'NVIDIA', 'Salesforce', 'Databricks', 'Cloudflare', 'LinkedIn', 'Snowflake', 'Figma', 'Coinbase', 'Notion'];
+const COMPANIES = [
+  'Google', 'Amazon', 'Palo Alto Networks', 'Apple', 'Meta', 'Microsoft', 'Netflix', 'Stripe', 'Uber', 'Airbnb',
+  'Spotify', 'NVIDIA', 'Salesforce', 'Databricks', 'Cloudflare', 'LinkedIn', 'Snowflake', 'Figma', 'Coinbase', 'Notion',
+  // Finance & Consulting
+  'Goldman Sachs', 'JPMorgan Chase', 'Morgan Stanley', 'BlackRock', 'Citadel Securities', 'Two Sigma', 'Renaissance Technologies',
+  'Bridgewater Associates', 'Point72', 'Fidelity Investments', 'McKinsey & Company', 'Boston Consulting Group', 'Bain & Company',
+  'Deloitte', 'Accenture',
+  // Research & Science
+  'OpenAI', 'Harvard Medical School', 'Moderna', 'Pfizer', 'NASA Jet Propulsion Laboratory', 'Allen Institute for AI',
+  'Johns Hopkins Applied Physics Laboratory', 'World Bank Group', 'Federal Reserve Board', 'Stanford Research Institute (SRI International)',
+  // Other
+  'Tesla', 'Procter & Gamble',
+];
 
 const EXPERIENCE_LEVELS: ExperienceLevel[] = ['Entry Level', 'Mid', 'Senior', 'Staff', 'Principal', 'Management'];
 
 const AVAILABLE_INDUSTRIES = [
+  // Tech
   'Cloud & Infrastructure',
   'Cybersecurity',
   'AI & Machine Learning',
@@ -30,10 +44,35 @@ const AVAILABLE_INDUSTRIES = [
   'Data Engineering',
   'DevOps & SRE',
   'Product Management',
+  'Enterprise Software',
+  'FinTech',
+  'AI Research',
+  // Finance
+  'Finance & Trading',
+  'Investment Banking',
+  'Asset Management',
+  'Hedge Fund',
+  'Equity Research',
+  'Wealth Management',
+  // Consulting
+  'Management Consulting',
+  // Research & Science
+  'Academic Research',
+  'Research & Development',
+  'Biotechnology Research',
+  'Pharmaceutical Research',
+  'Aerospace Research',
+  'Defense Research',
+  'Economic Research',
+  // Business
+  'Consumer Products',
+  'Supply Chain',
 ];
 
 // Cache for job analysis results
 const JOBS_CACHE_KEY = 'skillbridge_jobs_analysis_cache';
+const INITIAL_DISPLAY_COUNT = 20;
+const LOAD_MORE_COUNT = 20;
 
 interface JobAnalysisCache {
   [jobId: string]: {
@@ -128,6 +167,10 @@ function JobsPageContent() {
   const analysisRef = useRef<HTMLDivElement>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
+  // Mentor connections for "Ask Mentor" feature
+  const [hasActiveMentor, setHasActiveMentor] = useState(false);
+  const [showAskMentorModal, setShowAskMentorModal] = useState(false);
+
   // Filters
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCompany, setSelectedCompany] = useState<string>('');
@@ -135,6 +178,9 @@ function JobsPageContent() {
   const [showSuggested, setShowSuggested] = useState(true);
   const [editingIndustries, setEditingIndustries] = useState(false);
   const [savingIndustries, setSavingIndustries] = useState(false);
+  const [displayCount, setDisplayCount] = useState(INITIAL_DISPLAY_COUNT);
+  const [hasMoreJobs, setHasMoreJobs] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   // Toggle skill completion (including removing from profile when unchecking)
   const toggleSkillComplete = async (skill: string) => {
@@ -196,14 +242,17 @@ function JobsPageContent() {
     try {
       await api.updateProfile(userId, { target_industries: targetIndustries });
       setEditingIndustries(false);
+      setDisplayCount(INITIAL_DISPLAY_COUNT);
       // Reload postings based on new industries
       if (targetIndustries.length > 0) {
-        const suggested = await api.getSuggestedPostings(userId, 20);
+        const suggested = await api.getSuggestedPostings(userId, 100);
         setPostings(suggested);
+        setHasMoreJobs(suggested.length > INITIAL_DISPLAY_COUNT);
         setShowSuggested(true);
       } else {
-        const allPostings = await api.getJobPostings({ limit: 20 });
+        const allPostings = await api.getJobPostings({ limit: 100 });
         setPostings(allPostings);
+        setHasMoreJobs(allPostings.length > INITIAL_DISPLAY_COUNT);
         setShowSuggested(false);
       }
     } catch (err) {
@@ -244,18 +293,30 @@ function JobsPageContent() {
 
         // Load suggested postings based on target industries
         if (profile.target_industries?.length) {
-          const suggested = await api.getSuggestedPostings(session.user.id, 20);
+          const suggested = await api.getSuggestedPostings(session.user.id, 100);
           setPostings(suggested);
+          setHasMoreJobs(suggested.length > INITIAL_DISPLAY_COUNT);
         } else {
           // Load all postings if no industries selected
-          const allPostings = await api.getJobPostings({ limit: 20 });
+          const allPostings = await api.getJobPostings({ limit: 100 });
           setPostings(allPostings);
+          setHasMoreJobs(allPostings.length > INITIAL_DISPLAY_COUNT);
           setShowSuggested(false);
+        }
+
+        // Check for active mentor connections
+        try {
+          const connections = await api.getConnections(session.user.id, 'mentee');
+          const activeConnections = connections.filter(c => c.status === 'active');
+          setHasActiveMentor(activeConnections.length > 0);
+        } catch {
+          // Ignore - user may not have any connections
         }
       } catch (err) {
         // No profile, load all postings
-        const allPostings = await api.getJobPostings({ limit: 20 });
+        const allPostings = await api.getJobPostings({ limit: 100 });
         setPostings(allPostings);
+        setHasMoreJobs(allPostings.length > INITIAL_DISPLAY_COUNT);
         setShowSuggested(false);
       }
 
@@ -273,19 +334,32 @@ function JobsPageContent() {
   const handleSearch = async () => {
     setLoading(true);
     setShowSuggested(false);
+    setDisplayCount(INITIAL_DISPLAY_COUNT);
     try {
       const results = await api.getJobPostings({
         search: searchQuery || undefined,
         company: selectedCompany || undefined,
         industries: targetIndustries.length ? targetIndustries : undefined,
         experience_level: selectedExperienceLevel || undefined,
-        limit: 20,
+        limit: 100,
       });
       setPostings(results);
+      setHasMoreJobs(results.length > INITIAL_DISPLAY_COUNT);
     } catch (err) {
       setError('Failed to search job postings');
     }
     setLoading(false);
+  };
+
+  const handleLoadMore = () => {
+    setLoadingMore(true);
+    // Simulate a brief delay for better UX
+    setTimeout(() => {
+      const newCount = displayCount + LOAD_MORE_COUNT;
+      setDisplayCount(newCount);
+      setHasMoreJobs(newCount < postings.length);
+      setLoadingMore(false);
+    }, 300);
   };
 
   const handleAnalyze = useCallback(async (posting: JobPosting, forceRefresh = false) => {
@@ -661,7 +735,7 @@ function JobsPageContent() {
               </h2>
             </div>
             <div className="space-y-4">
-              {postings.map((posting) => (
+              {postings.slice(0, displayCount).map((posting) => (
                 <JobPostingCard
                   key={posting.id}
                   posting={posting}
@@ -670,6 +744,28 @@ function JobsPageContent() {
                   isSelected={selectedPosting?.id === posting.id}
                 />
               ))}
+
+              {/* Show More Button */}
+              {hasMoreJobs && displayCount < postings.length && (
+                <div className="flex justify-center pt-4">
+                  <Button
+                    variant="outline"
+                    onClick={handleLoadMore}
+                    isLoading={loadingMore}
+                    className="px-8"
+                  >
+                    {loadingMore ? 'Loading...' : `Show More Jobs (${postings.length - displayCount} remaining)`}
+                  </Button>
+                </div>
+              )}
+
+              {/* Showing count */}
+              {postings.length > 0 && (
+                <div className="text-center text-sm text-gray-500 pt-2">
+                  Showing {Math.min(displayCount, postings.length)} of {postings.length} jobs
+                </div>
+              )}
+
               {postings.length === 0 && (
                 <Card variant="bordered" className="bg-white">
                   <CardContent className="p-8 text-center text-gray-500">
@@ -862,11 +958,25 @@ function JobsPageContent() {
                     <Card variant="elevated" className="bg-white">
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between flex-wrap gap-4">
-                          <div>
-                            <p className="text-sm font-medium text-gray-900">Save this analysis</p>
-                            <p className="text-xs text-gray-500">Come back later to review your progress</p>
-                          </div>
                           <div className="flex items-center gap-3">
+                            <div>
+                              <p className="text-sm font-medium text-gray-900">Save this analysis</p>
+                              <p className="text-xs text-gray-500">Come back later to review your progress</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {usedCache && (
+                                <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                  Cached
+                                </span>
+                              )}
+                              {analysis.ai_generated && (
+                                <span className="text-xs text-violet-600 bg-violet-50 px-2 py-1 rounded">
+                                  AI
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
                             {saved && (
                               <span className="text-sm text-green-600 flex items-center gap-1">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -875,6 +985,28 @@ function JobsPageContent() {
                                 Saved
                               </span>
                             )}
+                            <button
+                              onClick={handleReanalyze}
+                              disabled={analyzing}
+                              className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-violet-600 hover:bg-violet-50 rounded-lg transition-colors disabled:opacity-50"
+                            >
+                              {analyzing ? (
+                                <span className="flex items-center gap-1">
+                                  <svg className="animate-spin h-3 w-3" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                                  </svg>
+                                  Analyzing...
+                                </span>
+                              ) : (
+                                <span className="flex items-center gap-1">
+                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                  </svg>
+                                  Re-analyze
+                                </span>
+                              )}
+                            </button>
                             <Button
                               variant={saved ? 'outline' : 'primary'}
                               size="sm"
@@ -889,36 +1021,12 @@ function JobsPageContent() {
                       </CardContent>
                     </Card>
 
-                    {/* Cache indicator and re-analyze button */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        {usedCache && (
-                          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
-                            Cached result
-                          </span>
-                        )}
-                        {analysis.ai_generated && !usedCache && (
-                          <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded animate-pulse">
-                            Fresh Analysis
-                          </span>
-                        )}
-                        {analysis.ai_generated && (
-                          <span className="text-xs text-violet-600 bg-violet-50 px-2 py-1 rounded">
-                            AI Analysis
-                          </span>
-                        )}
-                      </div>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={handleReanalyze}
-                        isLoading={analyzing}
-                      >
-                        {analyzing ? 'Analyzing...' : 'Re-analyze'}
-                      </Button>
-                    </div>
-
-                    <GapDisplay analysis={analysis} />
+                    <GapDisplay
+                      analysis={analysis}
+                      jobInfo={{ title: selectedPosting.title, company: selectedPosting.company }}
+                      hasMentor={hasActiveMentor}
+                      onAskMentor={() => setShowAskMentorModal(true)}
+                    />
 
                     {analysis.recommendations.length > 0 && (
                       <Card variant="elevated" className="bg-white">
@@ -1005,6 +1113,20 @@ function JobsPageContent() {
         })}
         userId={userId || undefined}
       />
+
+      {/* Ask Mentor Modal */}
+      {showAskMentorModal && userId && selectedPosting && (
+        <AskMentorModal
+          userId={userId}
+          jobContext={{
+            title: selectedPosting.title,
+            company: selectedPosting.company,
+            matchPercentage: analysis?.match_percentage,
+            missingSkills: analysis?.missing_skills,
+          }}
+          onClose={() => setShowAskMentorModal(false)}
+        />
+      )}
     </div>
   );
 }

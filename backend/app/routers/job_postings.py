@@ -23,7 +23,7 @@ async def get_job_postings(
         query = db.table("job_postings").select("*")
 
         if search:
-            query = query.or_(f"title.ilike.%{search}%,description.ilike.%{search}%,company.ilike.%{search}%")
+            query = query.or_(f"title.ilike.%{search}%,about_the_job.ilike.%{search}%,company.ilike.%{search}%")
 
         if company:
             query = query.eq("company", company)

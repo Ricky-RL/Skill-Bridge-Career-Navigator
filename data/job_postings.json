@@ -29,11 +29,36 @@
       "Participate in, or lead design reviews with peers and stakeholders to decide amongst available technologies.",
       "Participate in on-call rotations and incident response, conducting thorough post-mortems and implementing preventive measures."
     ],
-    "required_skills": ["Python", "Go", "Kubernetes", "Docker", "Linux", "Distributed Systems", "Cloud Computing", "Git", "CI/CD"],
-    "preferred_skills": ["Terraform", "gRPC", "Prometheus", "Service Mesh", "GCP", "System Design", "C++"],
+    "required_skills": [
+      "Python",
+      "Go",
+      "Kubernetes",
+      "Docker",
+      "Linux",
+      "Distributed Systems",
+      "Cloud Computing",
+      "Git",
+      "CI/CD"
+    ],
+    "preferred_skills": [
+      "Terraform",
+      "gRPC",
+      "Prometheus",
+      "Service Mesh",
+      "GCP",
+      "System Design",
+      "C++"
+    ],
     "required_experience_years": 3,
     "salary_range": "$141,000 - $202,000 + bonus + equity",
-    "benefits": ["Comprehensive health, dental, and vision insurance", "401(k) with 50% company match", "Generous PTO and parental leave (18-24 weeks)", "On-site fitness centers, meals, and wellness programs", "Learning and development stipend ($12,000/year)", "Annual performance bonus and equity refresh grants"]
+    "benefits": [
+      "Comprehensive health, dental, and vision insurance",
+      "401(k) with 50% company match",
+      "Generous PTO and parental leave (18-24 weeks)",
+      "On-site fitness centers, meals, and wellness programs",
+      "Learning and development stipend ($12,000/year)",
+      "Annual performance bonus and equity refresh grants"
+    ]
   },
   {
     "company": "Amazon",
@@ -66,11 +91,38 @@
       "Respond to security incidents with urgency, conduct root cause analysis, and implement preventive measures.",
       "Work with compliance and legal teams to meet regulatory requirements including SOC2, FedRAMP, and GDPR."
     ],
-    "required_skills": ["Java", "Python", "AWS", "Security Engineering", "Cryptography", "REST APIs", "SQL", "Linux", "Data Structures", "Algorithms"],
-    "preferred_skills": ["OAuth 2.0", "SAML", "OpenID Connect", "HSM", "Penetration Testing", "SIEM", "Threat Modeling", "PKI"],
+    "required_skills": [
+      "Java",
+      "Python",
+      "AWS",
+      "Security Engineering",
+      "Cryptography",
+      "REST APIs",
+      "SQL",
+      "Linux",
+      "Data Structures",
+      "Algorithms"
+    ],
+    "preferred_skills": [
+      "OAuth 2.0",
+      "SAML",
+      "OpenID Connect",
+      "HSM",
+      "Penetration Testing",
+      "SIEM",
+      "Threat Modeling",
+      "PKI"
+    ],
     "required_experience_years": 4,
     "salary_range": "$129,300 - $223,600 + sign-on bonus + equity",
-    "benefits": ["Medical, dental, and vision coverage starting day one", "401(k) with 50% company match", "Restricted Stock Units (RSUs) vesting over 4 years", "Relocation assistance", "20+ days PTO plus holidays", "Parental leave (up to 20 weeks)"]
+    "benefits": [
+      "Medical, dental, and vision coverage starting day one",
+      "401(k) with 50% company match",
+      "Restricted Stock Units (RSUs) vesting over 4 years",
+      "Relocation assistance",
+      "20+ days PTO plus holidays",
+      "Parental leave (up to 20 weeks)"
+    ]
   },
   {
     "company": "Palo Alto Networks",
@@ -96,7 +148,7 @@
       "Knowledge of security frameworks (MITRE ATT&CK, NIST, CIS).",
       "Track record of leading technical projects and mentoring engineers."
     ],
-    "about_the_job": "At Palo Alto Networks, we're committed to being the cybersecurity partner of choice. We're building the future of security operations with Cortex XSIAM—the industry's first autonomous security operations platform that uses AI to transform how security teams detect, investigate, and respond to threats.\n\nAs a Senior Software Engineer on the Cortex XSIAM team, you will architect and build the core platform components that process billions of security events daily. You'll work on cutting-edge machine learning pipelines for threat detection, high-throughput data ingestion systems, and real-time analytics engines that enable security teams to respond to threats in seconds rather than hours.\n\nThis role requires deep technical expertise in building large-scale distributed systems, experience with streaming data architectures, and passion for solving complex security challenges. You'll collaborate with world-class security researchers, data scientists, and engineers to build products that protect organizations from sophisticated cyber threats.\n\nOur compensation ranges from $152,000 to $247,500, depending on location. This position is eligible for bonus and equity.",
+    "about_the_job": "At Palo Alto Networks, we're committed to being the cybersecurity partner of choice. We're building the future of security operations with Cortex XSIAM\u2014the industry's first autonomous security operations platform that uses AI to transform how security teams detect, investigate, and respond to threats.\n\nAs a Senior Software Engineer on the Cortex XSIAM team, you will architect and build the core platform components that process billions of security events daily. You'll work on cutting-edge machine learning pipelines for threat detection, high-throughput data ingestion systems, and real-time analytics engines that enable security teams to respond to threats in seconds rather than hours.\n\nThis role requires deep technical expertise in building large-scale distributed systems, experience with streaming data architectures, and passion for solving complex security challenges. You'll collaborate with world-class security researchers, data scientists, and engineers to build products that protect organizations from sophisticated cyber threats.\n\nOur compensation ranges from $152,000 to $247,500, depending on location. This position is eligible for bonus and equity.",
     "responsibilities": [
       "Architect and develop core platform features for Cortex XSIAM, processing 10+ billion events per day.",
       "Build high-throughput, low-latency data pipelines using Kafka, Spark, and custom streaming solutions.",
@@ -105,11 +157,39 @@
       "Collaborate with security researchers to implement new detection algorithms and threat intelligence integrations.",
       "Mentor engineers, establish coding standards, and drive engineering excellence across the team."
     ],
-    "required_skills": ["Python", "Java", "Elasticsearch", "Kafka", "Machine Learning", "Big Data", "Cybersecurity", "REST APIs", "Microservices", "Distributed Systems"],
-    "preferred_skills": ["Apache Spark", "Flink", "SOAR", "SIEM", "Kubernetes", "TensorFlow", "PyTorch", "MITRE ATT&CK"],
+    "required_skills": [
+      "Python",
+      "Java",
+      "Elasticsearch",
+      "Kafka",
+      "Machine Learning",
+      "Big Data",
+      "Cybersecurity",
+      "REST APIs",
+      "Microservices",
+      "Distributed Systems"
+    ],
+    "preferred_skills": [
+      "Apache Spark",
+      "Flink",
+      "SOAR",
+      "SIEM",
+      "Kubernetes",
+      "TensorFlow",
+      "PyTorch",
+      "MITRE ATT&CK"
+    ],
     "required_experience_years": 5,
     "salary_range": "$152,000 - $247,500 + bonus + equity",
-    "benefits": ["Competitive equity package with RSUs", "FLEXBenefits wellness spending ($1,000/year)", "Comprehensive medical, dental, and vision", "Mental health resources and EAP", "Fitness reimbursement ($100/month)", "Unlimited PTO", "401(k) with company match"]
+    "benefits": [
+      "Competitive equity package with RSUs",
+      "FLEXBenefits wellness spending ($1,000/year)",
+      "Comprehensive medical, dental, and vision",
+      "Mental health resources and EAP",
+      "Fitness reimbursement ($100/month)",
+      "Unlimited PTO",
+      "401(k) with company match"
+    ]
   },
   {
     "company": "Apple",
@@ -134,7 +214,7 @@
       "Experience with large language models (LLMs) and prompt engineering.",
       "Experience with Swift and Apple platforms (iOS, macOS)."
     ],
-    "about_the_job": "The Siri and Information Intelligence team is creating groundbreaking technology for artificial intelligence and machine learning. We're building features that help over a billion users get things done through natural, conversational interactions with their devices.\n\nAs a Machine Learning Engineer on the Siri team, you will develop and deploy state-of-the-art NLP models for intent classification, entity extraction, and dialogue management. You'll work on speech recognition systems that understand users in noisy environments, and build conversational AI that can handle complex, multi-turn interactions.\n\nA key focus of this role is on-device machine learning—building models that are small and efficient enough to run directly on iPhone, iPad, Apple Watch, and Mac while maintaining accuracy and protecting user privacy. You'll work at the intersection of research and production, taking models from concept to deployment at Apple scale.\n\nPay for this position ranges from $143,100 to $264,200 based on qualifications and experience. Apple employees also receive equity, discretionary bonuses, and comprehensive benefits.",
+    "about_the_job": "The Siri and Information Intelligence team is creating groundbreaking technology for artificial intelligence and machine learning. We're building features that help over a billion users get things done through natural, conversational interactions with their devices.\n\nAs a Machine Learning Engineer on the Siri team, you will develop and deploy state-of-the-art NLP models for intent classification, entity extraction, and dialogue management. You'll work on speech recognition systems that understand users in noisy environments, and build conversational AI that can handle complex, multi-turn interactions.\n\nA key focus of this role is on-device machine learning\u2014building models that are small and efficient enough to run directly on iPhone, iPad, Apple Watch, and Mac while maintaining accuracy and protecting user privacy. You'll work at the intersection of research and production, taking models from concept to deployment at Apple scale.\n\nPay for this position ranges from $143,100 to $264,200 based on qualifications and experience. Apple employees also receive equity, discretionary bonuses, and comprehensive benefits.",
     "responsibilities": [
       "Develop and optimize NLP models for intent classification, named entity recognition, and semantic parsing.",
       "Build and improve automatic speech recognition (ASR) systems for diverse accents and languages.",
@@ -143,11 +223,40 @@
       "Analyze user interaction data (with strict privacy protections) to identify model improvements.",
       "Write production code in Python and Swift, working with Core ML and Apple's ML infrastructure."
     ],
-    "required_skills": ["Python", "PyTorch", "TensorFlow", "NLP", "Deep Learning", "Machine Learning", "Statistics", "Linear Algebra", "Git"],
-    "preferred_skills": ["Swift", "Core ML", "Transformers", "BERT", "GPT", "Speech Recognition", "On-device ML", "LLMs", "Model Compression"],
+    "required_skills": [
+      "Python",
+      "PyTorch",
+      "TensorFlow",
+      "NLP",
+      "Deep Learning",
+      "Machine Learning",
+      "Statistics",
+      "Linear Algebra",
+      "Git"
+    ],
+    "preferred_skills": [
+      "Swift",
+      "Core ML",
+      "Transformers",
+      "BERT",
+      "GPT",
+      "Speech Recognition",
+      "On-device ML",
+      "LLMs",
+      "Model Compression"
+    ],
     "required_experience_years": 3,
     "salary_range": "$143,100 - $264,200 + equity + bonus",
-    "benefits": ["Comprehensive medical, dental, and vision coverage", "Employee Stock Purchase Plan (15% discount)", "401(k) with company match", "Generous product discounts", "Wellness programs and on-site fitness", "Matching gifts program ($10,000/year)", "Education reimbursement", "Parental leave (up to 16 weeks)"]
+    "benefits": [
+      "Comprehensive medical, dental, and vision coverage",
+      "Employee Stock Purchase Plan (15% discount)",
+      "401(k) with company match",
+      "Generous product discounts",
+      "Wellness programs and on-site fitness",
+      "Matching gifts program ($10,000/year)",
+      "Education reimbursement",
+      "Parental leave (up to 16 weeks)"
+    ]
   },
   {
     "company": "Meta",
@@ -173,7 +282,7 @@
       "Experience building real-time collaborative applications.",
       "Track record of shipping products used by millions of users."
     ],
-    "about_the_job": "Reality Labs at Meta is building the future of connection through virtual and augmented reality. We're creating immersive experiences that will transform how people work, play, and connect with each other.\n\nAs a Full Stack Software Engineer on the Reality Labs team, you will build web and mobile applications that power the metaverse ecosystem. You'll work on creator tools, social experiences, and platform services that enable millions of users to connect in virtual spaces. Your work will span the entire stack—from React frontends to GraphQL APIs to distributed backend services.\n\nWe're looking for engineers who are excited about building at the frontier of technology. You should be comfortable with ambiguity, eager to learn new technologies, and passionate about creating great user experiences. This role offers the opportunity to work on products that will shape how humanity interacts in the coming decades.\n\nCompensation for this position ranges from $147,000 to $208,000 depending on location and experience. Total compensation includes base salary, annual bonus, and equity (RSUs).",
+    "about_the_job": "Reality Labs at Meta is building the future of connection through virtual and augmented reality. We're creating immersive experiences that will transform how people work, play, and connect with each other.\n\nAs a Full Stack Software Engineer on the Reality Labs team, you will build web and mobile applications that power the metaverse ecosystem. You'll work on creator tools, social experiences, and platform services that enable millions of users to connect in virtual spaces. Your work will span the entire stack\u2014from React frontends to GraphQL APIs to distributed backend services.\n\nWe're looking for engineers who are excited about building at the frontier of technology. You should be comfortable with ambiguity, eager to learn new technologies, and passionate about creating great user experiences. This role offers the opportunity to work on products that will shape how humanity interacts in the coming decades.\n\nCompensation for this position ranges from $147,000 to $208,000 depending on location and experience. Total compensation includes base salary, annual bonus, and equity (RSUs).",
     "responsibilities": [
       "Build full-stack applications for VR/AR platforms using React, GraphQL, and Node.js.",
       "Develop responsive web experiences with React, TypeScript, and modern CSS.",
@@ -182,11 +291,41 @@
       "Implement real-time collaboration features using WebSockets and custom protocols.",
       "Optimize application performance for global scale and low-latency interactions."
     ],
-    "required_skills": ["JavaScript", "TypeScript", "React", "Node.js", "GraphQL", "SQL", "REST APIs", "Git", "HTML", "CSS"],
-    "preferred_skills": ["React Native", "Three.js", "WebGL", "C++", "Unity", "Performance Optimization", "WebXR", "Relay"],
+    "required_skills": [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Node.js",
+      "GraphQL",
+      "SQL",
+      "REST APIs",
+      "Git",
+      "HTML",
+      "CSS"
+    ],
+    "preferred_skills": [
+      "React Native",
+      "Three.js",
+      "WebGL",
+      "C++",
+      "Unity",
+      "Performance Optimization",
+      "WebXR",
+      "Relay"
+    ],
     "required_experience_years": 3,
     "salary_range": "$147,000 - $208,000 + bonus + equity",
-    "benefits": ["Competitive RSU package (4-year vesting)", "Annual performance bonus (10-20%)", "Comprehensive health insurance", "Generous parental leave (up to 20 weeks)", "Free breakfast, lunch, and dinner", "Commuter benefits", "On-site health centers", "Remote work flexibility", "$3,000 annual wellness stipend"]
+    "benefits": [
+      "Competitive RSU package (4-year vesting)",
+      "Annual performance bonus (10-20%)",
+      "Comprehensive health insurance",
+      "Generous parental leave (up to 20 weeks)",
+      "Free breakfast, lunch, and dinner",
+      "Commuter benefits",
+      "On-site health centers",
+      "Remote work flexibility",
+      "$3,000 annual wellness stipend"
+    ]
   },
   {
     "company": "Microsoft",
@@ -210,7 +349,7 @@
       "Familiarity with agile development methodologies.",
       "Strong communication and collaboration skills."
     ],
-    "about_the_job": "Microsoft Azure is the world's second-largest cloud platform, serving millions of customers from startups to Fortune 500 companies. As a New Grad Software Engineer, you'll join one of our Azure teams and work on services that power the digital transformation of businesses worldwide.\n\nThis is an incredible opportunity to start your career working on cloud infrastructure at massive scale. You'll learn from experienced engineers, receive mentorship, and work on projects that have real impact from day one. New grads at Microsoft work on the same challenging problems as senior engineers—we believe in giving ownership and responsibility early.\n\nOur New Grad program includes structured onboarding, technical training, and a cohort experience to help you build connections across the company. You'll have opportunities to explore different areas of Azure and find the team and technology that excites you most.\n\nBase salary ranges from $102,600 to $136,000 depending on location. Total compensation includes signing bonus, stock awards, and annual performance bonus.",
+    "about_the_job": "Microsoft Azure is the world's second-largest cloud platform, serving millions of customers from startups to Fortune 500 companies. As a New Grad Software Engineer, you'll join one of our Azure teams and work on services that power the digital transformation of businesses worldwide.\n\nThis is an incredible opportunity to start your career working on cloud infrastructure at massive scale. You'll learn from experienced engineers, receive mentorship, and work on projects that have real impact from day one. New grads at Microsoft work on the same challenging problems as senior engineers\u2014we believe in giving ownership and responsibility early.\n\nOur New Grad program includes structured onboarding, technical training, and a cohort experience to help you build connections across the company. You'll have opportunities to explore different areas of Azure and find the team and technology that excites you most.\n\nBase salary ranges from $102,600 to $136,000 depending on location. Total compensation includes signing bonus, stock awards, and annual performance bonus.",
     "responsibilities": [
       "Design and implement features for Azure cloud services used by millions of customers.",
       "Write clean, maintainable code and participate in code reviews.",
@@ -219,11 +358,35 @@
       "Participate in on-call rotations after ramp-up period (typically 6+ months).",
       "Contribute to team documentation and knowledge sharing."
     ],
-    "required_skills": ["C#", "Python", "Data Structures", "Algorithms", "Git", "Problem Solving"],
-    "preferred_skills": ["Azure", "JavaScript", "SQL", "Docker", "REST APIs", "Agile", "Linux"],
+    "required_skills": [
+      "C#",
+      "Python",
+      "Data Structures",
+      "Algorithms",
+      "Git",
+      "Problem Solving"
+    ],
+    "preferred_skills": [
+      "Azure",
+      "JavaScript",
+      "SQL",
+      "Docker",
+      "REST APIs",
+      "Agile",
+      "Linux"
+    ],
     "required_experience_years": 0,
     "salary_range": "$102,600 - $136,000 + signing bonus + stock",
-    "benefits": ["Comprehensive health coverage", "401(k) with company match", "$1,200 annual wellness stipend", "Stock awards (4-year vesting)", "Generous parental leave (20 weeks)", "Employee discount program", "Learning and development resources", "Relocation assistance"]
+    "benefits": [
+      "Comprehensive health coverage",
+      "401(k) with company match",
+      "$1,200 annual wellness stipend",
+      "Stock awards (4-year vesting)",
+      "Generous parental leave (20 weeks)",
+      "Employee discount program",
+      "Learning and development resources",
+      "Relocation assistance"
+    ]
   },
   {
     "company": "Netflix",
@@ -247,7 +410,7 @@
       "Experience with chaos engineering and building resilient systems.",
       "Publications or talks at engineering conferences."
     ],
-    "about_the_job": "Netflix is the world's leading streaming entertainment service with over 230 million paid memberships in more than 190 countries. Our Content Delivery team is responsible for streaming billions of hours of content to members worldwide, ensuring the best possible viewing experience.\n\nAs a Senior Software Engineer on the Content Delivery team, you will work on the systems that deliver video from our global Open Connect CDN to member devices. You'll optimize streaming quality, build tools for capacity planning, and develop algorithms that ensure smooth playback even under challenging network conditions.\n\nThis role requires deep technical expertise and the ability to work autonomously. At Netflix, we value freedom and responsibility—you'll have significant ownership over your projects and the authority to make important technical decisions. We're looking for engineers who thrive in ambiguous environments and are passionate about building systems at scale.\n\nNetflix offers a unique compensation structure with a single top-of-market salary (no separate bonus or stock). Annual compensation ranges from $300,000 to $700,000.",
+    "about_the_job": "Netflix is the world's leading streaming entertainment service with over 230 million paid memberships in more than 190 countries. Our Content Delivery team is responsible for streaming billions of hours of content to members worldwide, ensuring the best possible viewing experience.\n\nAs a Senior Software Engineer on the Content Delivery team, you will work on the systems that deliver video from our global Open Connect CDN to member devices. You'll optimize streaming quality, build tools for capacity planning, and develop algorithms that ensure smooth playback even under challenging network conditions.\n\nThis role requires deep technical expertise and the ability to work autonomously. At Netflix, we value freedom and responsibility\u2014you'll have significant ownership over your projects and the authority to make important technical decisions. We're looking for engineers who thrive in ambiguous environments and are passionate about building systems at scale.\n\nNetflix offers a unique compensation structure with a single top-of-market salary (no separate bonus or stock). Annual compensation ranges from $300,000 to $700,000.",
     "responsibilities": [
       "Design and build systems that deliver petabytes of video content daily across 190+ countries.",
       "Optimize streaming quality algorithms that adapt to network conditions in real-time.",
@@ -256,11 +419,36 @@
       "Lead technical design discussions and mentor other engineers.",
       "Collaborate with cross-functional teams including encoding, client, and infrastructure."
     ],
-    "required_skills": ["Java", "Distributed Systems", "AWS", "Networking", "System Design", "Linux", "Git", "REST APIs"],
-    "preferred_skills": ["Video Streaming", "CDN", "HLS", "DASH", "Chaos Engineering", "Cassandra", "Python", "Edge Computing"],
+    "required_skills": [
+      "Java",
+      "Distributed Systems",
+      "AWS",
+      "Networking",
+      "System Design",
+      "Linux",
+      "Git",
+      "REST APIs"
+    ],
+    "preferred_skills": [
+      "Video Streaming",
+      "CDN",
+      "HLS",
+      "DASH",
+      "Chaos Engineering",
+      "Cassandra",
+      "Python",
+      "Edge Computing"
+    ],
     "required_experience_years": 7,
     "salary_range": "$300,000 - $700,000 (all-inclusive)",
-    "benefits": ["Top-of-market salary (no bonus/stock)", "Unlimited PTO (with cultural expectation of ~4 weeks)", "Generous parental leave", "Stock option program available", "No traditional performance reviews", "High degree of autonomy and ownership"]
+    "benefits": [
+      "Top-of-market salary (no bonus/stock)",
+      "Unlimited PTO (with cultural expectation of ~4 weeks)",
+      "Generous parental leave",
+      "Stock option program available",
+      "No traditional performance reviews",
+      "High degree of autonomy and ownership"
+    ]
   },
   {
     "company": "Stripe",
@@ -284,7 +472,7 @@
       "Strong attention to detail and quality.",
       "Interest in helping businesses grow through financial infrastructure."
     ],
-    "about_the_job": "Stripe builds economic infrastructure for the internet. Millions of companies—from the world's largest enterprises to ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities.\n\nAs a Software Engineer on the Payments Infrastructure team, you will work on the core systems that process hundreds of billions of dollars annually. You'll build reliable, scalable infrastructure that handles payments across 135+ currencies and dozens of payment methods. The systems you build will directly impact the revenue of millions of businesses.\n\nPayments infrastructure is uniquely challenging—every transaction must be processed correctly, and downtime directly impacts our users' revenue. You'll work on problems like exactly-once payment processing, distributed transaction management, and real-time fraud detection. This is a role for engineers who care deeply about correctness and reliability.\n\nCompensation ranges from $140,000 to $199,000 depending on experience and location.",
+    "about_the_job": "Stripe builds economic infrastructure for the internet. Millions of companies\u2014from the world's largest enterprises to ambitious startups\u2014use Stripe to accept payments, grow their revenue, and accelerate new business opportunities.\n\nAs a Software Engineer on the Payments Infrastructure team, you will work on the core systems that process hundreds of billions of dollars annually. You'll build reliable, scalable infrastructure that handles payments across 135+ currencies and dozens of payment methods. The systems you build will directly impact the revenue of millions of businesses.\n\nPayments infrastructure is uniquely challenging\u2014every transaction must be processed correctly, and downtime directly impacts our users' revenue. You'll work on problems like exactly-once payment processing, distributed transaction management, and real-time fraud detection. This is a role for engineers who care deeply about correctness and reliability.\n\nCompensation ranges from $140,000 to $199,000 depending on experience and location.",
     "responsibilities": [
       "Build and scale payment processing systems handling millions of transactions daily.",
       "Design distributed systems with strong consistency guarantees for financial operations.",
@@ -293,11 +481,38 @@
       "Participate in on-call rotation to ensure 24/7 payment processing.",
       "Work with product and compliance teams to launch new payment features."
     ],
-    "required_skills": ["Ruby", "Java", "SQL", "Distributed Systems", "REST APIs", "Git", "Linux", "Problem Solving"],
-    "preferred_skills": ["Go", "Payments", "Event Sourcing", "Kafka", "Redis", "Financial Systems", "AWS", "Kubernetes"],
+    "required_skills": [
+      "Ruby",
+      "Java",
+      "SQL",
+      "Distributed Systems",
+      "REST APIs",
+      "Git",
+      "Linux",
+      "Problem Solving"
+    ],
+    "preferred_skills": [
+      "Go",
+      "Payments",
+      "Event Sourcing",
+      "Kafka",
+      "Redis",
+      "Financial Systems",
+      "AWS",
+      "Kubernetes"
+    ],
     "required_experience_years": 2,
     "salary_range": "$140,000 - $199,000 + equity",
-    "benefits": ["Competitive equity package", "Comprehensive health insurance", "$10,000 annual learning budget", "Remote work flexibility", "Generous parental leave (20 weeks)", "Commuter benefits", "Wellness stipend", "Annual company retreat"]
+    "benefits": [
+      "Competitive equity package",
+      "Comprehensive health insurance",
+      "$10,000 annual learning budget",
+      "Remote work flexibility",
+      "Generous parental leave (20 weeks)",
+      "Commuter benefits",
+      "Wellness stipend",
+      "Annual company retreat"
+    ]
   },
   {
     "company": "Uber",
@@ -321,7 +536,7 @@
       "Interest in location-based services and maps.",
       "Understanding of mobile performance optimization."
     ],
-    "about_the_job": "Uber's mission is to reimagine the way the world moves for the better. Our Rider Experience team builds the features that millions of riders use every day—from requesting rides to tracking their driver to managing payments.\n\nAs a Software Engineer I on the Rider Experience team, you'll work on one of the most downloaded apps in the world. You'll build features that directly impact the experience of millions of daily active users across 70+ countries. This is a great opportunity for early-career engineers to learn mobile development at scale.\n\nYou'll be mentored by senior engineers and have access to Uber's extensive learning resources. We believe in giving meaningful work to engineers at all levels—you won't just be fixing bugs, you'll be building features that users see and love.\n\nBase salary ranges from $106,000 to $141,000 depending on location. Total compensation includes annual bonus and equity.",
+    "about_the_job": "Uber's mission is to reimagine the way the world moves for the better. Our Rider Experience team builds the features that millions of riders use every day\u2014from requesting rides to tracking their driver to managing payments.\n\nAs a Software Engineer I on the Rider Experience team, you'll work on one of the most downloaded apps in the world. You'll build features that directly impact the experience of millions of daily active users across 70+ countries. This is a great opportunity for early-career engineers to learn mobile development at scale.\n\nYou'll be mentored by senior engineers and have access to Uber's extensive learning resources. We believe in giving meaningful work to engineers at all levels\u2014you won't just be fixing bugs, you'll be building features that users see and love.\n\nBase salary ranges from $106,000 to $141,000 depending on location. Total compensation includes annual bonus and equity.",
     "responsibilities": [
       "Develop features for the Uber rider app used by millions of users daily.",
       "Write clean, testable code in Swift or Kotlin.",
@@ -330,11 +545,35 @@
       "Participate in code reviews and contribute to team documentation.",
       "Debug and fix issues reported by users and internal teams."
     ],
-    "required_skills": ["Swift", "Kotlin", "Mobile Development", "Git", "REST APIs", "Data Structures"],
-    "preferred_skills": ["iOS SDK", "Android SDK", "React Native", "Maps API", "Unit Testing", "MVVM", "Agile"],
+    "required_skills": [
+      "Swift",
+      "Kotlin",
+      "Mobile Development",
+      "Git",
+      "REST APIs",
+      "Data Structures"
+    ],
+    "preferred_skills": [
+      "iOS SDK",
+      "Android SDK",
+      "React Native",
+      "Maps API",
+      "Unit Testing",
+      "MVVM",
+      "Agile"
+    ],
     "required_experience_years": 0,
     "salary_range": "$106,000 - $141,000 + bonus + equity",
-    "benefits": ["Uber credits", "Comprehensive health insurance", "401(k) with company match", "Flexible PTO", "Parental leave", "Learning & development stipend", "Mental health support", "Remote work options"]
+    "benefits": [
+      "Uber credits",
+      "Comprehensive health insurance",
+      "401(k) with company match",
+      "Flexible PTO",
+      "Parental leave",
+      "Learning & development stipend",
+      "Mental health support",
+      "Remote work options"
+    ]
   },
   {
     "company": "Airbnb",
@@ -358,7 +597,7 @@
       "Frontend experience with React or similar frameworks.",
       "Passion for travel and community."
     ],
-    "about_the_job": "Airbnb is a community built on connection—the connection between guests and hosts, travelers and locals, people and places. Our Search & Discovery team is responsible for helping guests find their perfect stay among millions of listings worldwide.\n\nAs a Software Engineer on the Search & Discovery team, you will build the systems that power Airbnb's search experience. You'll work on search ranking algorithms, personalization models, and discovery features that help guests find unique stays they'll love. Your work will directly impact booking conversion and guest satisfaction.\n\nThis role combines backend engineering with data-driven optimization. You'll work closely with data scientists and ML engineers to implement and iterate on ranking models, and you'll build the infrastructure that serves millions of search queries daily.\n\nCompensation ranges from $154,000 to $200,000 base salary plus equity and bonus.",
+    "about_the_job": "Airbnb is a community built on connection\u2014the connection between guests and hosts, travelers and locals, people and places. Our Search & Discovery team is responsible for helping guests find their perfect stay among millions of listings worldwide.\n\nAs a Software Engineer on the Search & Discovery team, you will build the systems that power Airbnb's search experience. You'll work on search ranking algorithms, personalization models, and discovery features that help guests find unique stays they'll love. Your work will directly impact booking conversion and guest satisfaction.\n\nThis role combines backend engineering with data-driven optimization. You'll work closely with data scientists and ML engineers to implement and iterate on ranking models, and you'll build the infrastructure that serves millions of search queries daily.\n\nCompensation ranges from $154,000 to $200,000 base salary plus equity and bonus.",
     "responsibilities": [
       "Build and optimize search ranking algorithms serving millions of queries daily.",
       "Implement personalization features that tailor results to individual users.",
@@ -367,11 +606,37 @@
       "Collaborate with ML engineers to deploy and iterate on ranking models.",
       "Contribute to search infrastructure improvements for scale and reliability."
     ],
-    "required_skills": ["Java", "Elasticsearch", "SQL", "Algorithms", "Distributed Systems", "REST APIs", "Git"],
-    "preferred_skills": ["Kotlin", "Machine Learning", "A/B Testing", "Spark", "Kafka", "React", "Redis", "Ranking Models"],
+    "required_skills": [
+      "Java",
+      "Elasticsearch",
+      "SQL",
+      "Algorithms",
+      "Distributed Systems",
+      "REST APIs",
+      "Git"
+    ],
+    "preferred_skills": [
+      "Kotlin",
+      "Machine Learning",
+      "A/B Testing",
+      "Spark",
+      "Kafka",
+      "React",
+      "Redis",
+      "Ranking Models"
+    ],
     "required_experience_years": 3,
     "salary_range": "$154,000 - $200,000 + equity + bonus",
-    "benefits": ["$2,000 annual travel credit", "Quarterly team travel", "Comprehensive health benefits", "Generous parental leave (22 weeks)", "Employee stock purchase plan", "Learning & development stipend", "Sabbatical program", "Volunteer time off"]
+    "benefits": [
+      "$2,000 annual travel credit",
+      "Quarterly team travel",
+      "Comprehensive health benefits",
+      "Generous parental leave (22 weeks)",
+      "Employee stock purchase plan",
+      "Learning & development stipend",
+      "Sabbatical program",
+      "Volunteer time off"
+    ]
   },
   {
     "company": "Spotify",
@@ -404,11 +669,38 @@
       "Collaborate with ML teams to deploy and monitor recommendation models.",
       "Participate in squad rituals and contribute to team culture."
     ],
-    "required_skills": ["Java", "Python", "Microservices", "GCP", "SQL", "REST APIs", "Git", "Docker"],
-    "preferred_skills": ["Scala", "Kafka", "Spark", "Kubernetes", "Machine Learning", "A/B Testing", "BigQuery", "Redis"],
+    "required_skills": [
+      "Java",
+      "Python",
+      "Microservices",
+      "GCP",
+      "SQL",
+      "REST APIs",
+      "Git",
+      "Docker"
+    ],
+    "preferred_skills": [
+      "Scala",
+      "Kafka",
+      "Spark",
+      "Kubernetes",
+      "Machine Learning",
+      "A/B Testing",
+      "BigQuery",
+      "Redis"
+    ],
     "required_experience_years": 2,
     "salary_range": "$131,000 - $187,000 + equity",
-    "benefits": ["Free Spotify Premium", "Flexible work hours", "Work from anywhere program", "6 months parental leave", "Generous vacation policy", "Learning & development budget", "Mental health support", "Music industry events access"]
+    "benefits": [
+      "Free Spotify Premium",
+      "Flexible work hours",
+      "Work from anywhere program",
+      "6 months parental leave",
+      "Generous vacation policy",
+      "Learning & development budget",
+      "Mental health support",
+      "Music industry events access"
+    ]
   },
   {
     "company": "NVIDIA",
@@ -432,7 +724,7 @@
       "Experience with sensor fusion (camera, lidar, radar).",
       "Knowledge of real-time systems and embedded deployment."
     ],
-    "about_the_job": "NVIDIA is the pioneer of GPU-accelerated computing. Our DRIVE platform powers the autonomous vehicle systems of major automakers worldwide, from advanced driver assistance to fully self-driving capabilities.\n\nAs a Deep Learning Engineer on the Autonomous Vehicles team, you will develop perception models that enable vehicles to understand their environment. You'll work on 3D object detection, semantic segmentation, lane detection, and other computer vision tasks critical for safe autonomous driving.\n\nThis role combines cutting-edge research with real-world deployment. You'll develop models that run on NVIDIA's DRIVE AGX platform in production vehicles. Safety is paramount—your work directly impacts the safety of passengers and road users.\n\nCompensation ranges from $180,000 to $339,250 base salary plus equity and bonus.",
+    "about_the_job": "NVIDIA is the pioneer of GPU-accelerated computing. Our DRIVE platform powers the autonomous vehicle systems of major automakers worldwide, from advanced driver assistance to fully self-driving capabilities.\n\nAs a Deep Learning Engineer on the Autonomous Vehicles team, you will develop perception models that enable vehicles to understand their environment. You'll work on 3D object detection, semantic segmentation, lane detection, and other computer vision tasks critical for safe autonomous driving.\n\nThis role combines cutting-edge research with real-world deployment. You'll develop models that run on NVIDIA's DRIVE AGX platform in production vehicles. Safety is paramount\u2014your work directly impacts the safety of passengers and road users.\n\nCompensation ranges from $180,000 to $339,250 base salary plus equity and bonus.",
     "responsibilities": [
       "Develop deep learning models for autonomous vehicle perception (detection, segmentation, tracking).",
       "Optimize models for real-time inference on NVIDIA DRIVE AGX hardware.",
@@ -441,11 +733,38 @@
       "Publish research and represent NVIDIA at academic conferences.",
       "Mentor junior engineers and contribute to team technical direction."
     ],
-    "required_skills": ["Python", "PyTorch", "TensorFlow", "Computer Vision", "Deep Learning", "CUDA", "Git", "Linux"],
-    "preferred_skills": ["TensorRT", "C++", "3D Object Detection", "Lidar", "Sensor Fusion", "ONNX", "Autonomous Vehicles", "Real-time Systems"],
+    "required_skills": [
+      "Python",
+      "PyTorch",
+      "TensorFlow",
+      "Computer Vision",
+      "Deep Learning",
+      "CUDA",
+      "Git",
+      "Linux"
+    ],
+    "preferred_skills": [
+      "TensorRT",
+      "C++",
+      "3D Object Detection",
+      "Lidar",
+      "Sensor Fusion",
+      "ONNX",
+      "Autonomous Vehicles",
+      "Real-time Systems"
+    ],
     "required_experience_years": 5,
     "salary_range": "$180,000 - $339,250 + equity + bonus",
-    "benefits": ["Competitive equity grants", "Employee Stock Purchase Plan", "Comprehensive health coverage", "401(k) with match", "Flexible time off", "Parental leave", "On-site fitness and dining", "Tuition reimbursement"]
+    "benefits": [
+      "Competitive equity grants",
+      "Employee Stock Purchase Plan",
+      "Comprehensive health coverage",
+      "401(k) with match",
+      "Flexible time off",
+      "Parental leave",
+      "On-site fitness and dining",
+      "Tuition reimbursement"
+    ]
   },
   {
     "company": "Salesforce",
@@ -478,11 +797,37 @@
       "Participate in ML research reading groups and learning sessions.",
       "Collaborate with product teams to understand customer needs."
     ],
-    "required_skills": ["Python", "Java", "Machine Learning", "SQL", "Git", "Statistics", "Linear Algebra"],
-    "preferred_skills": ["PyTorch", "TensorFlow", "NLP", "Deep Learning", "Spark", "AWS", "Docker", "Scikit-learn"],
+    "required_skills": [
+      "Python",
+      "Java",
+      "Machine Learning",
+      "SQL",
+      "Git",
+      "Statistics",
+      "Linear Algebra"
+    ],
+    "preferred_skills": [
+      "PyTorch",
+      "TensorFlow",
+      "NLP",
+      "Deep Learning",
+      "Spark",
+      "AWS",
+      "Docker",
+      "Scikit-learn"
+    ],
     "required_experience_years": 0,
     "salary_range": "$96,500 - $132,600 + equity + bonus",
-    "benefits": ["Generous equity package", "Employee Stock Purchase Plan", "7 days of paid volunteer time", "Comprehensive health benefits", "Parental leave (26 weeks)", "Wellness reimbursement", "Education reimbursement ($5,250/year)", "Employee resource groups"]
+    "benefits": [
+      "Generous equity package",
+      "Employee Stock Purchase Plan",
+      "7 days of paid volunteer time",
+      "Comprehensive health benefits",
+      "Parental leave (26 weeks)",
+      "Wellness reimbursement",
+      "Education reimbursement ($5,250/year)",
+      "Employee resource groups"
+    ]
   },
   {
     "company": "Databricks",
@@ -506,7 +851,7 @@
       "Experience with streaming data processing.",
       "PhD in databases, distributed systems, or related area."
     ],
-    "about_the_job": "Databricks is pioneering the Data Lakehouse paradigm—combining the best features of data warehouses and data lakes. Founded by the original creators of Apache Spark, MLflow, and Delta Lake, we're building the unified platform for data and AI.\n\nAs a Software Engineer on the Data Engineering team, you will work on the core Databricks platform that processes exabytes of data for thousands of organizations. You'll build features for Delta Lake, optimize Spark query performance, and develop tools that help data engineers build reliable data pipelines.\n\nThis is an opportunity to work on industry-defining technology used by companies like Shell, Comcast, and the US Department of Defense. You'll collaborate with some of the best systems engineers in the world and contribute to widely-used open-source projects.\n\nCompensation ranges from $153,000 to $215,000 base salary plus equity.",
+    "about_the_job": "Databricks is pioneering the Data Lakehouse paradigm\u2014combining the best features of data warehouses and data lakes. Founded by the original creators of Apache Spark, MLflow, and Delta Lake, we're building the unified platform for data and AI.\n\nAs a Software Engineer on the Data Engineering team, you will work on the core Databricks platform that processes exabytes of data for thousands of organizations. You'll build features for Delta Lake, optimize Spark query performance, and develop tools that help data engineers build reliable data pipelines.\n\nThis is an opportunity to work on industry-defining technology used by companies like Shell, Comcast, and the US Department of Defense. You'll collaborate with some of the best systems engineers in the world and contribute to widely-used open-source projects.\n\nCompensation ranges from $153,000 to $215,000 base salary plus equity.",
     "responsibilities": [
       "Build and optimize core features of the Databricks platform.",
       "Develop features for Delta Lake and Databricks SQL.",
@@ -515,11 +860,38 @@
       "Contribute to open-source projects (Spark, Delta Lake, MLflow).",
       "Collaborate with customers to understand and solve data challenges."
     ],
-    "required_skills": ["Scala", "Python", "Apache Spark", "Distributed Systems", "SQL", "Git", "Linux", "Java"],
-    "preferred_skills": ["Delta Lake", "AWS", "Azure", "Kafka", "Query Optimization", "Data Lakes", "Parquet", "Streaming"],
+    "required_skills": [
+      "Scala",
+      "Python",
+      "Apache Spark",
+      "Distributed Systems",
+      "SQL",
+      "Git",
+      "Linux",
+      "Java"
+    ],
+    "preferred_skills": [
+      "Delta Lake",
+      "AWS",
+      "Azure",
+      "Kafka",
+      "Query Optimization",
+      "Data Lakes",
+      "Parquet",
+      "Streaming"
+    ],
     "required_experience_years": 3,
     "salary_range": "$153,000 - $215,000 + equity",
-    "benefits": ["Competitive equity (ISOs)", "Comprehensive health coverage", "Unlimited PTO", "Parental leave (16 weeks)", "$10,000 annual learning budget", "Home office stipend", "Commuter benefits", "401(k)"]
+    "benefits": [
+      "Competitive equity (ISOs)",
+      "Comprehensive health coverage",
+      "Unlimited PTO",
+      "Parental leave (16 weeks)",
+      "$10,000 annual learning budget",
+      "Home office stipend",
+      "Commuter benefits",
+      "401(k)"
+    ]
   },
   {
     "company": "Cloudflare",
@@ -552,11 +924,38 @@
       "Debug complex distributed systems issues across global infrastructure.",
       "Participate in on-call rotation supporting critical Internet infrastructure."
     ],
-    "required_skills": ["Go", "Linux", "Networking", "TCP/IP", "HTTP", "Systems Programming", "Git", "C"],
-    "preferred_skills": ["Rust", "eBPF", "DNS", "BGP", "CDN", "DDoS Mitigation", "TLS", "Performance Optimization"],
+    "required_skills": [
+      "Go",
+      "Linux",
+      "Networking",
+      "TCP/IP",
+      "HTTP",
+      "Systems Programming",
+      "Git",
+      "C"
+    ],
+    "preferred_skills": [
+      "Rust",
+      "eBPF",
+      "DNS",
+      "BGP",
+      "CDN",
+      "DDoS Mitigation",
+      "TLS",
+      "Performance Optimization"
+    ],
     "required_experience_years": 3,
     "salary_range": "$137,000 - $167,000 + equity",
-    "benefits": ["Equity participation", "Health, dental, and vision coverage", "Flexible PTO", "Parental leave (16 weeks)", "$3,000 annual professional development", "Commuter benefits", "Free Cloudflare Pro plan", "Remote-friendly culture"]
+    "benefits": [
+      "Equity participation",
+      "Health, dental, and vision coverage",
+      "Flexible PTO",
+      "Parental leave (16 weeks)",
+      "$3,000 annual professional development",
+      "Commuter benefits",
+      "Free Cloudflare Pro plan",
+      "Remote-friendly culture"
+    ]
   },
   {
     "company": "LinkedIn",
@@ -589,11 +988,35 @@
       "Participate in code reviews and learn from experienced engineers.",
       "Contribute to team on-call rotation after ramp-up period."
     ],
-    "required_skills": ["Java", "Data Structures", "Algorithms", "SQL", "Git", "Problem Solving"],
-    "preferred_skills": ["Python", "REST APIs", "Distributed Systems", "NoSQL", "Kafka", "Machine Learning", "Agile"],
+    "required_skills": [
+      "Java",
+      "Data Structures",
+      "Algorithms",
+      "SQL",
+      "Git",
+      "Problem Solving"
+    ],
+    "preferred_skills": [
+      "Python",
+      "REST APIs",
+      "Distributed Systems",
+      "NoSQL",
+      "Kafka",
+      "Machine Learning",
+      "Agile"
+    ],
     "required_experience_years": 0,
     "salary_range": "$101,000 - $154,000 + signing bonus + stock",
-    "benefits": ["Comprehensive health coverage", "401(k) with match", "Stock awards", "Generous PTO", "Parental leave (20 weeks)", "LinkedIn Learning access", "Matching gifts program", "Commuter benefits"]
+    "benefits": [
+      "Comprehensive health coverage",
+      "401(k) with match",
+      "Stock awards",
+      "Generous PTO",
+      "Parental leave (20 weeks)",
+      "LinkedIn Learning access",
+      "Matching gifts program",
+      "Commuter benefits"
+    ]
   },
   {
     "company": "Snowflake",
@@ -617,7 +1040,7 @@
       "Knowledge of cost-based optimization and statistics.",
       "Experience with cloud data warehouses."
     ],
-    "about_the_job": "Snowflake delivers the Data Cloud—a global network where thousands of organizations mobilize data with near-unlimited scale, concurrency, and performance. We're revolutionizing the data warehousing industry with our cloud-native architecture.\n\nAs a Software Engineer on the Query Optimization team, you will work on the query compiler and optimizer that makes Snowflake the fastest cloud data warehouse. You'll develop optimization techniques for complex SQL queries, implement new query processing features, and ensure efficient execution across our distributed compute infrastructure.\n\nThis role is for engineers who love diving deep into systems. You'll work on compiler techniques, query planning algorithms, and distributed execution strategies. Your work will directly impact the performance of queries running across thousands of customers.\n\nCompensation ranges from $187,000 to $261,500 base salary plus equity.",
+    "about_the_job": "Snowflake delivers the Data Cloud\u2014a global network where thousands of organizations mobilize data with near-unlimited scale, concurrency, and performance. We're revolutionizing the data warehousing industry with our cloud-native architecture.\n\nAs a Software Engineer on the Query Optimization team, you will work on the query compiler and optimizer that makes Snowflake the fastest cloud data warehouse. You'll develop optimization techniques for complex SQL queries, implement new query processing features, and ensure efficient execution across our distributed compute infrastructure.\n\nThis role is for engineers who love diving deep into systems. You'll work on compiler techniques, query planning algorithms, and distributed execution strategies. Your work will directly impact the performance of queries running across thousands of customers.\n\nCompensation ranges from $187,000 to $261,500 base salary plus equity.",
     "responsibilities": [
       "Design and implement query optimization algorithms for complex SQL workloads.",
       "Build cost-based optimization features using statistics and machine learning.",
@@ -626,11 +1049,36 @@
       "Profile and improve query performance for customer workloads.",
       "Mentor engineers and contribute to team technical direction."
     ],
-    "required_skills": ["Java", "C++", "SQL", "Algorithms", "Database Systems", "Distributed Systems", "Git"],
-    "preferred_skills": ["Query Optimization", "Compiler Design", "Statistics", "Cost Models", "Vectorization", "LLVM", "Cloud Computing"],
+    "required_skills": [
+      "Java",
+      "C++",
+      "SQL",
+      "Algorithms",
+      "Database Systems",
+      "Distributed Systems",
+      "Git"
+    ],
+    "preferred_skills": [
+      "Query Optimization",
+      "Compiler Design",
+      "Statistics",
+      "Cost Models",
+      "Vectorization",
+      "LLVM",
+      "Cloud Computing"
+    ],
     "required_experience_years": 5,
     "salary_range": "$187,000 - $261,500 + equity",
-    "benefits": ["Competitive equity package", "Comprehensive health benefits", "Flexible PTO", "Parental leave (20 weeks)", "401(k) with match", "Learning stipend", "Home office equipment", "Annual company events"]
+    "benefits": [
+      "Competitive equity package",
+      "Comprehensive health benefits",
+      "Flexible PTO",
+      "Parental leave (20 weeks)",
+      "401(k) with match",
+      "Learning stipend",
+      "Home office equipment",
+      "Annual company events"
+    ]
   },
   {
     "company": "Figma",
@@ -654,7 +1102,7 @@
       "Knowledge of accessibility standards (WCAG).",
       "Experience with build tools and bundlers."
     ],
-    "about_the_job": "Figma is the leading collaborative design platform. Designers at companies like Google, Microsoft, and Airbnb use Figma to create user interfaces, design systems, and prototypes. Our browser-based editor handles complex vector graphics and real-time collaboration.\n\nAs a Software Engineer on the Frontend Platform team, you will build the infrastructure that powers Figma's web application. You'll work on our component library, performance optimization, and the foundational systems that enable our product engineers to build features quickly.\n\nFigma's engineering challenges are unique—we push the boundaries of what's possible in a browser. You'll work with WebGL, manage complex state in real-time, and optimize performance for design files with thousands of elements. If you love frontend engineering at its most challenging, this role is for you.\n\nCompensation ranges from $149,000 to $350,000 depending on experience.",
+    "about_the_job": "Figma is the leading collaborative design platform. Designers at companies like Google, Microsoft, and Airbnb use Figma to create user interfaces, design systems, and prototypes. Our browser-based editor handles complex vector graphics and real-time collaboration.\n\nAs a Software Engineer on the Frontend Platform team, you will build the infrastructure that powers Figma's web application. You'll work on our component library, performance optimization, and the foundational systems that enable our product engineers to build features quickly.\n\nFigma's engineering challenges are unique\u2014we push the boundaries of what's possible in a browser. You'll work with WebGL, manage complex state in real-time, and optimize performance for design files with thousands of elements. If you love frontend engineering at its most challenging, this role is for you.\n\nCompensation ranges from $149,000 to $350,000 depending on experience.",
     "responsibilities": [
       "Build and maintain Figma's design system and component library.",
       "Optimize web application performance for complex design documents.",
@@ -663,11 +1111,38 @@
       "Ensure accessibility and cross-browser compatibility.",
       "Collaborate with product teams to deliver high-quality features."
     ],
-    "required_skills": ["TypeScript", "React", "JavaScript", "HTML", "CSS", "Git", "Web Performance", "Design Systems"],
-    "preferred_skills": ["WebGL", "Canvas", "WebAssembly", "Real-time Systems", "Webpack", "Accessibility", "CRDT", "Performance Profiling"],
+    "required_skills": [
+      "TypeScript",
+      "React",
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "Git",
+      "Web Performance",
+      "Design Systems"
+    ],
+    "preferred_skills": [
+      "WebGL",
+      "Canvas",
+      "WebAssembly",
+      "Real-time Systems",
+      "Webpack",
+      "Accessibility",
+      "CRDT",
+      "Performance Profiling"
+    ],
     "required_experience_years": 3,
     "salary_range": "$149,000 - $350,000 + equity",
-    "benefits": ["Competitive equity", "Comprehensive health coverage", "Flexible PTO", "Parental leave (20 weeks)", "$1,500 home office stipend", "Learning & development budget", "Wellness reimbursement", "Company retreats"]
+    "benefits": [
+      "Competitive equity",
+      "Comprehensive health coverage",
+      "Flexible PTO",
+      "Parental leave (20 weeks)",
+      "$1,500 home office stipend",
+      "Learning & development budget",
+      "Wellness reimbursement",
+      "Company retreats"
+    ]
   },
   {
     "company": "Coinbase",
@@ -691,7 +1166,7 @@
       "Bug bounty or CTF participation.",
       "Knowledge of regulatory compliance (SOC 2, PCI-DSS)."
     ],
-    "about_the_job": "Coinbase is building the cryptoeconomy—a more fair, accessible, efficient, and transparent financial system enabled by crypto. As the most trusted cryptocurrency platform, we're responsible for securing billions of dollars in digital assets.\n\nAs a Software Engineer on the Platform Security team, you will build security infrastructure that protects Coinbase's systems and customer assets. You'll work on authentication systems, access controls, security monitoring, and the tools that help engineering teams build secure software.\n\nSecurity at Coinbase is a unique challenge. We're a high-value target for sophisticated attackers, and we secure assets that can't be reversed if stolen. You'll work on defense-in-depth strategies, implement zero-trust architecture, and build systems that detect and prevent attacks in real-time.\n\nCompensation ranges from $147,900 to $174,000 base salary plus equity and bonus.",
+    "about_the_job": "Coinbase is building the cryptoeconomy\u2014a more fair, accessible, efficient, and transparent financial system enabled by crypto. As the most trusted cryptocurrency platform, we're responsible for securing billions of dollars in digital assets.\n\nAs a Software Engineer on the Platform Security team, you will build security infrastructure that protects Coinbase's systems and customer assets. You'll work on authentication systems, access controls, security monitoring, and the tools that help engineering teams build secure software.\n\nSecurity at Coinbase is a unique challenge. We're a high-value target for sophisticated attackers, and we secure assets that can't be reversed if stolen. You'll work on defense-in-depth strategies, implement zero-trust architecture, and build systems that detect and prevent attacks in real-time.\n\nCompensation ranges from $147,900 to $174,000 base salary plus equity and bonus.",
     "responsibilities": [
       "Build security infrastructure for authentication, authorization, and access control.",
       "Develop security monitoring and anomaly detection systems.",
@@ -700,11 +1175,38 @@
       "Respond to security incidents and lead remediation efforts.",
       "Collaborate with engineering teams to improve security posture."
     ],
-    "required_skills": ["Go", "Python", "Security Engineering", "Authentication", "Linux", "SQL", "Git", "REST APIs"],
-    "preferred_skills": ["Blockchain", "Cryptography", "AWS", "Kubernetes", "SIEM", "Penetration Testing", "Threat Modeling", "Zero Trust"],
+    "required_skills": [
+      "Go",
+      "Python",
+      "Security Engineering",
+      "Authentication",
+      "Linux",
+      "SQL",
+      "Git",
+      "REST APIs"
+    ],
+    "preferred_skills": [
+      "Blockchain",
+      "Cryptography",
+      "AWS",
+      "Kubernetes",
+      "SIEM",
+      "Penetration Testing",
+      "Threat Modeling",
+      "Zero Trust"
+    ],
     "required_experience_years": 3,
     "salary_range": "$147,900 - $174,000 + equity + bonus",
-    "benefits": ["Competitive equity package", "Remote-first culture", "Comprehensive health benefits", "Unlimited PTO", "Parental leave (18 weeks)", "$2,000 annual crypto stipend", "Home office setup budget", "Learning & development budget"]
+    "benefits": [
+      "Competitive equity package",
+      "Remote-first culture",
+      "Comprehensive health benefits",
+      "Unlimited PTO",
+      "Parental leave (18 weeks)",
+      "$2,000 annual crypto stipend",
+      "Home office setup budget",
+      "Learning & development budget"
+    ]
   },
   {
     "company": "Notion",
@@ -737,10 +1239,1888 @@
       "Build offline support for seamless productivity anywhere.",
       "Collaborate with design to create intuitive collaboration experiences."
     ],
-    "required_skills": ["TypeScript", "React", "Node.js", "WebSockets", "SQL", "Git", "REST APIs"],
-    "preferred_skills": ["CRDTs", "Operational Transformation", "Postgres", "Redis", "Offline-First", "Performance Optimization", "System Design"],
+    "required_skills": [
+      "TypeScript",
+      "React",
+      "Node.js",
+      "WebSockets",
+      "SQL",
+      "Git",
+      "REST APIs"
+    ],
+    "preferred_skills": [
+      "CRDTs",
+      "Operational Transformation",
+      "Postgres",
+      "Redis",
+      "Offline-First",
+      "Performance Optimization",
+      "System Design"
+    ],
     "required_experience_years": 2,
     "salary_range": "$130,000 - $200,000 + equity",
-    "benefits": ["Competitive equity", "Comprehensive health benefits", "Flexible PTO", "Parental leave (16 weeks)", "$500 monthly wellness stipend", "Learning & development budget", "Free lunch in office", "Home office setup"]
+    "benefits": [
+      "Competitive equity",
+      "Comprehensive health benefits",
+      "Flexible PTO",
+      "Parental leave (16 weeks)",
+      "$500 monthly wellness stipend",
+      "Learning & development budget",
+      "Free lunch in office",
+      "Home office setup"
+    ]
+  },
+  {
+    "company": "Goldman Sachs",
+    "title": "Quantitative Analyst, Trading Strategies",
+    "industry": "Finance & Trading",
+    "location": "New York, NY, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Master's degree or PhD in Mathematics, Physics, Statistics, Financial Engineering, or related quantitative field.",
+      "3+ years of experience in quantitative research or trading.",
+      "Strong programming skills in Python, C++, or Java.",
+      "Experience with statistical modeling and time series analysis.",
+      "Solid understanding of financial markets, derivatives, and trading strategies."
+    ],
+    "preferred_qualifications": [
+      "PhD in a quantitative discipline.",
+      "Experience with high-frequency trading or market microstructure.",
+      "Knowledge of options pricing models (Black-Scholes, Monte Carlo).",
+      "Experience with machine learning for financial applications.",
+      "CFA or FRM certification.",
+      "Publications in quantitative finance journals."
+    ],
+    "about_the_job": "Goldman Sachs Global Markets division is seeking a Quantitative Analyst to join our Trading Strategies team. You will develop and implement quantitative models that drive trading decisions across equities, fixed income, and derivatives markets.\n\nAs a Quant on this team, you'll work closely with traders to identify alpha-generating opportunities, build predictive models, and optimize execution strategies. You'll analyze massive datasets of market data, develop statistical arbitrage strategies, and backtest trading signals using historical data.\n\nThis role combines cutting-edge quantitative research with real-world trading impact. Your models will directly influence trading decisions worth millions of dollars daily. We're looking for intellectually curious individuals who can translate complex mathematical concepts into practical trading strategies.\n\nCompensation includes base salary of $150,000-$250,000, plus performance bonus that can exceed 100% of base.",
+    "responsibilities": [
+      "Develop quantitative models for trading signal generation and alpha research.",
+      "Build statistical arbitrage strategies using machine learning and traditional econometric methods.",
+      "Analyze market microstructure and optimize trade execution algorithms.",
+      "Backtest trading strategies using historical data and conduct sensitivity analysis.",
+      "Collaborate with traders to implement and monitor live trading strategies.",
+      "Research alternative data sources and develop novel features for predictive models."
+    ],
+    "required_skills": [
+      "Python",
+      "Statistics",
+      "Time Series Analysis",
+      "SQL",
+      "Financial Modeling",
+      "Mathematics",
+      "Data Analysis",
+      "Probability"
+    ],
+    "preferred_skills": [
+      "C++",
+      "Machine Learning",
+      "R",
+      "Bloomberg",
+      "Options Pricing",
+      "Monte Carlo",
+      "Risk Management",
+      "HFT"
+    ],
+    "required_experience_years": 3,
+    "salary_range": "$150,000 - $250,000 + bonus (100%+)",
+    "benefits": [
+      "Comprehensive health, dental, vision",
+      "401(k) with company match",
+      "Generous bonus potential",
+      "Gym membership",
+      "Commuter benefits",
+      "Parental leave",
+      "Mental health resources",
+      "Continuing education support"
+    ]
+  },
+  {
+    "company": "JPMorgan Chase",
+    "title": "Investment Banking Analyst",
+    "industry": "Investment Banking",
+    "location": "New York, NY, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Entry Level",
+    "minimum_qualifications": [
+      "Bachelor's degree in Finance, Economics, Business, or related field.",
+      "Strong academic record with demonstrated analytical abilities.",
+      "Proficiency in Excel and PowerPoint.",
+      "Basic understanding of financial statements and valuation methodologies.",
+      "Excellent written and verbal communication skills."
+    ],
+    "preferred_qualifications": [
+      "Previous internship experience in investment banking or related field.",
+      "Familiarity with Bloomberg Terminal and Capital IQ.",
+      "Knowledge of DCF, comparable company analysis, and precedent transactions.",
+      "Experience with financial modeling.",
+      "Progress toward CFA designation.",
+      "Leadership experience in extracurricular activities."
+    ],
+    "about_the_job": "JPMorgan's Investment Banking division advises corporations, governments, and institutions on their most important strategic decisions. As an Analyst, you'll work on high-profile M&A transactions, IPOs, and capital raises for Fortune 500 clients.\n\nThis is a two-year program where you'll develop deep expertise in financial analysis, valuation, and deal execution. You'll build complex financial models, prepare pitch materials for C-suite executives, and support senior bankers through all phases of transactions.\n\nThe program offers unparalleled exposure to capital markets, corporate finance, and strategic advisory. Top performers have opportunities to advance to Associate positions or transition to buy-side roles in private equity and hedge funds.\n\nBase salary is $110,000 with signing bonus and year-end bonus based on performance.",
+    "responsibilities": [
+      "Build detailed financial models including DCF, LBO, and merger analyses.",
+      "Prepare client presentations, pitch books, and marketing materials.",
+      "Conduct industry research and competitive analysis for potential transactions.",
+      "Support due diligence processes for M&A transactions.",
+      "Coordinate with legal, accounting, and other advisors on deal execution.",
+      "Maintain client relationships and respond to information requests."
+    ],
+    "required_skills": [
+      "Excel",
+      "PowerPoint",
+      "Financial Analysis",
+      "Valuation",
+      "Accounting",
+      "Communication",
+      "Attention to Detail"
+    ],
+    "preferred_skills": [
+      "Financial Modeling",
+      "DCF",
+      "LBO Modeling",
+      "Bloomberg",
+      "Capital IQ",
+      "M&A",
+      "Python",
+      "SQL"
+    ],
+    "required_experience_years": 0,
+    "salary_range": "$110,000 + signing bonus + year-end bonus",
+    "benefits": [
+      "Medical, dental, vision coverage",
+      "401(k) with match",
+      "Commuter benefits",
+      "Gym access",
+      "Employee stock purchase plan",
+      "Parental leave",
+      "Mental health support",
+      "Professional development"
+    ]
+  },
+  {
+    "company": "BlackRock",
+    "title": "Portfolio Risk Analyst",
+    "industry": "Asset Management",
+    "location": "San Francisco, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's degree in Finance, Economics, Mathematics, or related field.",
+      "3+ years of experience in risk management or quantitative finance.",
+      "Proficiency in Python or R for data analysis.",
+      "Strong understanding of portfolio theory and risk metrics (VaR, CVaR, Greeks).",
+      "Experience with fixed income, equities, or derivatives."
+    ],
+    "preferred_qualifications": [
+      "Master's degree in Financial Engineering, Quantitative Finance, or related field.",
+      "FRM or CFA certification.",
+      "Experience with BlackRock Aladdin platform.",
+      "Knowledge of factor models and risk attribution.",
+      "Experience with stress testing and scenario analysis.",
+      "SQL skills for large dataset management."
+    ],
+    "about_the_job": "BlackRock manages over $9 trillion in assets, making risk management absolutely critical to our success. Our Risk & Quantitative Analysis team ensures that portfolio managers understand and appropriately manage the risks in their portfolios.\n\nAs a Portfolio Risk Analyst, you'll analyze risk exposures across multi-asset portfolios, build factor-based risk models, and provide actionable insights to portfolio managers. You'll use Aladdin, BlackRock's proprietary risk management platform, to monitor real-time risk metrics and conduct scenario analysis.\n\nThis role offers the opportunity to work with sophisticated investment strategies across equities, fixed income, alternatives, and multi-asset funds. You'll collaborate with portfolio managers, traders, and clients to ensure risk is understood and managed effectively.\n\nCompensation ranges from $120,000-$180,000 plus annual bonus.",
+    "responsibilities": [
+      "Monitor and analyze portfolio risk exposures using VaR, stress tests, and factor models.",
+      "Build and maintain risk reports for portfolio managers and senior leadership.",
+      "Conduct scenario analysis and stress testing for market disruption events.",
+      "Develop Python tools for automated risk analysis and reporting.",
+      "Collaborate with portfolio managers to understand and optimize risk-return profiles.",
+      "Support client reporting and respond to risk-related inquiries."
+    ],
+    "required_skills": [
+      "Python",
+      "Risk Management",
+      "Excel",
+      "Statistics",
+      "Portfolio Theory",
+      "Financial Analysis",
+      "SQL"
+    ],
+    "preferred_skills": [
+      "Aladdin",
+      "R",
+      "VaR",
+      "Factor Models",
+      "Fixed Income",
+      "Derivatives",
+      "Bloomberg",
+      "Tableau"
+    ],
+    "required_experience_years": 3,
+    "salary_range": "$120,000 - $180,000 + bonus",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with generous match",
+      "Parental leave (20 weeks)",
+      "Fitness reimbursement",
+      "Tuition assistance",
+      "Employee stock purchase plan",
+      "Sabbatical program",
+      "Volunteer days"
+    ]
+  },
+  {
+    "company": "McKinsey & Company",
+    "title": "Associate, Digital & Analytics",
+    "industry": "Management Consulting",
+    "location": "Chicago, IL, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "MBA or advanced degree in a quantitative field (Engineering, Statistics, Economics).",
+      "3-5 years of professional experience in analytics, data science, or digital transformation.",
+      "Strong problem-solving skills and structured thinking.",
+      "Experience leading cross-functional teams or client engagements.",
+      "Excellent communication and presentation skills."
+    ],
+    "preferred_qualifications": [
+      "Experience in management consulting.",
+      "Technical background in machine learning or data engineering.",
+      "Industry expertise in financial services, healthcare, or technology.",
+      "Experience with digital product development.",
+      "Published research or thought leadership.",
+      "Fluency in additional languages."
+    ],
+    "about_the_job": "McKinsey's Digital & Analytics practice helps the world's leading organizations transform through technology and data. As an Associate, you'll work with C-suite executives to drive digital transformation, build analytics capabilities, and create data-driven competitive advantages.\n\nYou'll lead workstreams on complex client engagements, managing teams of consultants and collaborating with data scientists and engineers. Projects span from AI strategy development to analytics operating model design to digital product launches.\n\nMcKinsey offers unparalleled opportunities for impact and professional growth. You'll work across industries, develop deep expertise in digital and analytics, and build relationships with the world's most influential business leaders.\n\nCompensation includes base salary of $190,000-$230,000 plus performance bonus.",
+    "responsibilities": [
+      "Lead client engagements focused on digital transformation and analytics strategy.",
+      "Structure complex problems and develop analytical frameworks for solution development.",
+      "Manage teams of consultants and coordinate with technical experts.",
+      "Present findings and recommendations to C-suite executives.",
+      "Build client relationships and identify opportunities for follow-on work.",
+      "Contribute to McKinsey's knowledge development and thought leadership."
+    ],
+    "required_skills": [
+      "Problem Solving",
+      "Data Analysis",
+      "PowerPoint",
+      "Excel",
+      "Communication",
+      "Leadership",
+      "Strategy"
+    ],
+    "preferred_skills": [
+      "Python",
+      "SQL",
+      "Machine Learning",
+      "Digital Transformation",
+      "Agile",
+      "Product Management",
+      "Change Management",
+      "Industry Expertise"
+    ],
+    "required_experience_years": 4,
+    "salary_range": "$190,000 - $230,000 + performance bonus",
+    "benefits": [
+      "Comprehensive health and wellness benefits",
+      "401(k) with match",
+      "Generous PTO (5 weeks)",
+      "Parental leave",
+      "Fertility benefits",
+      "Global mobility opportunities",
+      "Professional development budget",
+      "Sabbatical program"
+    ]
+  },
+  {
+    "company": "Boston Consulting Group",
+    "title": "Data Scientist, BCG GAMMA",
+    "industry": "Management Consulting",
+    "location": "Boston, MA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Master's or PhD in Computer Science, Statistics, Mathematics, or related field.",
+      "3+ years of experience applying machine learning to business problems.",
+      "Strong programming skills in Python with experience in scikit-learn, TensorFlow, or PyTorch.",
+      "Experience with data manipulation and analysis (pandas, SQL).",
+      "Excellent communication skills with ability to explain technical concepts to non-technical audiences."
+    ],
+    "preferred_qualifications": [
+      "PhD in a quantitative field with research publications.",
+      "Experience in management consulting or client-facing roles.",
+      "Industry expertise in retail, financial services, or healthcare.",
+      "Experience deploying ML models in production environments.",
+      "Knowledge of cloud platforms (AWS, GCP, Azure).",
+      "Experience with NLP or computer vision applications."
+    ],
+    "about_the_job": "BCG GAMMA is BCG's global team of data scientists and engineers who partner with BCG consultants to solve the world's most complex business challenges using advanced analytics and AI. We build custom ML solutions that drive measurable business impact for Fortune 500 clients.\n\nAs a Data Scientist, you'll work on projects ranging from demand forecasting and pricing optimization to fraud detection and personalization engines. You'll collaborate with BCG consultants to translate business problems into technical solutions and present insights to senior executives.\n\nThis role offers a unique blend of technical depth and business impact. You'll develop expertise across industries while building production-grade ML systems that transform how companies operate.\n\nCompensation ranges from $150,000-$200,000 plus bonus.",
+    "responsibilities": [
+      "Build and deploy machine learning models that solve complex business problems.",
+      "Collaborate with BCG consultants to frame analytics questions and design solutions.",
+      "Analyze large datasets to extract actionable insights for clients.",
+      "Present technical findings to non-technical stakeholders and executives.",
+      "Mentor junior data scientists and contribute to GAMMA's technical community.",
+      "Stay current with ML research and evaluate new techniques for client applications."
+    ],
+    "required_skills": [
+      "Python",
+      "Machine Learning",
+      "SQL",
+      "Statistics",
+      "pandas",
+      "scikit-learn",
+      "Data Visualization",
+      "Communication"
+    ],
+    "preferred_skills": [
+      "TensorFlow",
+      "PyTorch",
+      "AWS",
+      "Spark",
+      "Deep Learning",
+      "NLP",
+      "Time Series",
+      "A/B Testing"
+    ],
+    "required_experience_years": 3,
+    "salary_range": "$150,000 - $200,000 + bonus",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Generous PTO",
+      "Parental leave (16 weeks)",
+      "Annual learning budget",
+      "Wellness programs",
+      "Global mobility opportunities",
+      "Sabbatical program"
+    ]
+  },
+  {
+    "company": "Harvard Medical School",
+    "title": "Research Scientist, Computational Biology",
+    "industry": "Academic Research",
+    "location": "Boston, MA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "PhD in Computational Biology, Bioinformatics, Computer Science, or related field.",
+      "Strong publication record in peer-reviewed journals.",
+      "Experience with high-throughput sequencing data analysis (RNA-seq, ATAC-seq, single-cell).",
+      "Programming proficiency in Python or R.",
+      "Experience with statistical methods for genomics data."
+    ],
+    "preferred_qualifications": [
+      "Postdoctoral research experience.",
+      "Experience with machine learning for biological applications.",
+      "Familiarity with cloud computing (AWS, Google Cloud).",
+      "Experience with large-scale consortium projects (ENCODE, GTEx, TCGA).",
+      "Grant writing experience.",
+      "Teaching or mentoring experience."
+    ],
+    "about_the_job": "Harvard Medical School's Department of Biomedical Informatics is seeking a Research Scientist to lead computational biology research in our genetics of complex disease program. You'll develop novel methods for analyzing multi-modal genomics data to understand disease mechanisms.\n\nThis position offers the opportunity to work with world-leading researchers on cutting-edge problems in human genetics and disease biology. You'll have access to unique datasets from large-scale consortiums and clinical partners, enabling discoveries that directly impact patient care.\n\nThe role includes opportunities to mentor graduate students and postdocs, collaborate across Harvard's biomedical research community, and contribute to grant applications. Strong candidates may have pathway to faculty position.\n\nSalary range is $85,000-$120,000 depending on experience.",
+    "responsibilities": [
+      "Lead computational analysis of large-scale genomics datasets (RNA-seq, GWAS, single-cell).",
+      "Develop novel statistical and machine learning methods for genomics.",
+      "Collaborate with experimental biologists and clinicians on translational research.",
+      "Publish research findings in high-impact journals.",
+      "Mentor graduate students and postdoctoral fellows.",
+      "Contribute to grant applications and scientific presentations."
+    ],
+    "required_skills": [
+      "Python",
+      "R",
+      "Statistics",
+      "Bioinformatics",
+      "RNA-seq",
+      "Single-cell Analysis",
+      "Linux",
+      "Git"
+    ],
+    "preferred_skills": [
+      "Machine Learning",
+      "GWAS",
+      "AWS",
+      "Nextflow",
+      "Docker",
+      "Deep Learning",
+      "Grant Writing",
+      "Teaching"
+    ],
+    "required_experience_years": 3,
+    "salary_range": "$85,000 - $120,000",
+    "benefits": [
+      "Health, dental, vision insurance",
+      "Retirement plan with match",
+      "Generous PTO and holidays",
+      "Tuition assistance",
+      "Professional development funds",
+      "Access to Harvard facilities",
+      "Flexible work arrangements",
+      "Parental leave"
+    ]
+  },
+  {
+    "company": "Stanford Research Institute (SRI International)",
+    "title": "Senior Research Engineer, Robotics",
+    "industry": "Research & Development",
+    "location": "Menlo Park, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Senior",
+    "minimum_qualifications": [
+      "PhD in Robotics, Computer Science, Mechanical Engineering, or related field.",
+      "5+ years of experience in robotics research and development.",
+      "Strong programming skills in C++ and Python.",
+      "Experience with ROS and robotic perception systems.",
+      "Published research in robotics venues (ICRA, IROS, RSS)."
+    ],
+    "preferred_qualifications": [
+      "Experience with manipulation and grasping algorithms.",
+      "Knowledge of computer vision and deep learning for robotics.",
+      "Experience with hardware integration and real robot systems.",
+      "Proposal writing and research funding experience.",
+      "Experience with DARPA or government research programs.",
+      "Leadership experience in research teams."
+    ],
+    "about_the_job": "SRI International has been at the forefront of robotics innovation for over 50 years, from developing Shakey (the first mobile intelligent robot) to pioneering surgical robotics. Our Robotics Lab continues this legacy, tackling challenges in manipulation, autonomous systems, and human-robot interaction.\n\nAs a Senior Research Engineer, you'll lead research projects exploring the frontiers of robotic intelligence. You'll work on problems ranging from dexterous manipulation to autonomous navigation to collaborative robots that work alongside humans.\n\nThis role offers unique opportunities to bridge fundamental research with real-world applications. Your work may be funded by DARPA, NSF, and industry partners, with pathways to commercialization through SRI's innovation pipeline.\n\nCompensation ranges from $140,000-$200,000 depending on experience.",
+    "responsibilities": [
+      "Lead research projects in robotics perception, planning, and manipulation.",
+      "Design and implement algorithms for autonomous robot systems.",
+      "Develop proposals for government and industry research funding.",
+      "Publish research findings and present at conferences.",
+      "Mentor junior researchers and interns.",
+      "Collaborate with external partners on technology transfer and commercialization."
+    ],
+    "required_skills": [
+      "C++",
+      "Python",
+      "ROS",
+      "Computer Vision",
+      "Motion Planning",
+      "Linux",
+      "Git",
+      "Technical Writing"
+    ],
+    "preferred_skills": [
+      "Deep Learning",
+      "PyTorch",
+      "TensorFlow",
+      "SLAM",
+      "Manipulation",
+      "Simulation",
+      "DARPA",
+      "Proposal Writing"
+    ],
+    "required_experience_years": 5,
+    "salary_range": "$140,000 - $200,000",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Flexible PTO",
+      "Parental leave",
+      "Professional development budget",
+      "Conference travel support",
+      "Patent bonuses",
+      "Sabbatical program"
+    ]
+  },
+  {
+    "company": "Moderna",
+    "title": "Senior Scientist, mRNA Platform Development",
+    "industry": "Biotechnology Research",
+    "location": "Cambridge, MA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Senior",
+    "minimum_qualifications": [
+      "PhD in Biochemistry, Molecular Biology, Chemical Engineering, or related field.",
+      "5+ years of experience in mRNA or nucleic acid research.",
+      "Deep understanding of mRNA biology, delivery systems, and manufacturing.",
+      "Experience with analytical methods for nucleic acid characterization.",
+      "Track record of scientific publications."
+    ],
+    "preferred_qualifications": [
+      "Industry experience in mRNA therapeutics or vaccine development.",
+      "Experience with lipid nanoparticle formulation.",
+      "Knowledge of GMP manufacturing processes.",
+      "Experience with in vivo models and preclinical studies.",
+      "IND/BLA regulatory experience.",
+      "Project leadership experience."
+    ],
+    "about_the_job": "Moderna is pioneering a new class of medicines made of mRNA. Our mRNA platform has enabled the rapid development of COVID-19 vaccines and is now being applied to infectious diseases, oncology, rare diseases, and autoimmune conditions.\n\nAs a Senior Scientist on the Platform Development team, you'll advance the fundamental science underlying our mRNA technology. You'll optimize mRNA design, improve delivery systems, and develop next-generation platform capabilities that enable entirely new therapeutic modalities.\n\nThis role offers the opportunity to work on transformative science with direct patient impact. You'll collaborate with world-class scientists across research, clinical, and manufacturing teams to advance medicines from concept to clinic.\n\nSalary range is $130,000-$180,000 plus equity.",
+    "responsibilities": [
+      "Lead research projects to optimize mRNA design and delivery.",
+      "Develop and characterize lipid nanoparticle formulations for mRNA delivery.",
+      "Design experiments and analyze data to drive platform improvements.",
+      "Collaborate with cross-functional teams to advance therapeutic programs.",
+      "Present research findings to internal stakeholders and at scientific conferences.",
+      "Mentor junior scientists and contribute to team development."
+    ],
+    "required_skills": [
+      "mRNA Biology",
+      "Biochemistry",
+      "Analytical Chemistry",
+      "Data Analysis",
+      "Scientific Writing",
+      "Lab Techniques"
+    ],
+    "preferred_skills": [
+      "Lipid Nanoparticles",
+      "GMP Manufacturing",
+      "In Vivo Studies",
+      "Regulatory Affairs",
+      "Project Management",
+      "Mass Spectrometry",
+      "HPLC"
+    ],
+    "required_experience_years": 5,
+    "salary_range": "$130,000 - $180,000 + equity",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Employee stock purchase plan",
+      "Generous PTO",
+      "Parental leave (16 weeks)",
+      "Fertility benefits",
+      "Tuition reimbursement",
+      "On-site amenities"
+    ]
+  },
+  {
+    "company": "Citadel Securities",
+    "title": "Quantitative Researcher",
+    "industry": "Finance & Trading",
+    "location": "Chicago, IL, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Entry Level",
+    "minimum_qualifications": [
+      "Bachelor's, Master's, or PhD in Mathematics, Physics, Statistics, Computer Science, or related field.",
+      "Exceptional academic record (top 5% of class).",
+      "Strong programming skills in Python, C++, or similar.",
+      "Solid foundation in probability, statistics, and mathematical modeling.",
+      "Interest in financial markets and quantitative trading."
+    ],
+    "preferred_qualifications": [
+      "PhD in a quantitative discipline.",
+      "Experience in academic research with publications.",
+      "Competition experience (Math Olympiad, Putnam, Kaggle, competitive programming).",
+      "Previous internship in quantitative finance.",
+      "Experience with machine learning.",
+      "Knowledge of market microstructure."
+    ],
+    "about_the_job": "Citadel Securities is a leading global market maker, providing liquidity across asset classes and geographies. Our quantitative research team develops the models and strategies that drive our trading systems.\n\nAs a Quantitative Researcher, you'll apply mathematical and statistical methods to understand market dynamics and develop trading strategies. You'll work with massive datasets of market data, build predictive models, and collaborate with engineers to implement your research in production systems.\n\nWe're looking for exceptional problem solvers who are passionate about applying quantitative methods to real-world challenges. You'll join a team of world-class researchers from academia, competing against the best minds in finance.\n\nNew graduate compensation starts at $200,000+ base salary with significant bonus potential.",
+    "responsibilities": [
+      "Conduct quantitative research to understand market behavior and develop trading signals.",
+      "Build statistical models using machine learning and econometric methods.",
+      "Analyze large datasets of market data to identify patterns and opportunities.",
+      "Collaborate with engineers to implement research in production trading systems.",
+      "Backtest strategies and analyze performance across different market conditions.",
+      "Present research findings to trading teams and senior leadership."
+    ],
+    "required_skills": [
+      "Python",
+      "Statistics",
+      "Probability",
+      "Mathematics",
+      "Data Analysis",
+      "Problem Solving"
+    ],
+    "preferred_skills": [
+      "C++",
+      "Machine Learning",
+      "Time Series",
+      "Market Microstructure",
+      "Research",
+      "SQL",
+      "Linux"
+    ],
+    "required_experience_years": 0,
+    "salary_range": "$200,000+ base + significant bonus",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Relocation assistance",
+      "Commuter benefits",
+      "Meals and snacks",
+      "Fitness center",
+      "Mental health support",
+      "Professional development"
+    ]
+  },
+  {
+    "company": "Deloitte",
+    "title": "Senior Consultant, Finance Transformation",
+    "industry": "Management Consulting",
+    "location": "New York, NY, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's degree in Accounting, Finance, Business, or related field.",
+      "4+ years of experience in finance, consulting, or corporate strategy.",
+      "Understanding of financial planning, reporting, and analysis processes.",
+      "Proficiency in Excel and financial modeling.",
+      "Strong communication and client management skills."
+    ],
+    "preferred_qualifications": [
+      "MBA or Master's degree in Finance.",
+      "CPA, CFA, or CMA certification.",
+      "Experience with ERP systems (SAP, Oracle, Workday).",
+      "Experience with finance technology (EPM, analytics tools).",
+      "Prior consulting experience.",
+      "Industry expertise in financial services or technology."
+    ],
+    "about_the_job": "Deloitte's Finance & Performance practice helps CFOs and finance organizations transform their capabilities to drive business value. We help clients modernize their finance functions through process optimization, technology implementation, and operating model redesign.\n\nAs a Senior Consultant, you'll lead workstreams on finance transformation projects, helping clients improve financial planning, close processes, and management reporting. You'll work with controllers, FP&A teams, and CFOs to identify improvement opportunities and implement solutions.\n\nThis role offers exposure to diverse industries and challenges. You'll develop deep expertise in finance operations while building consulting skills that prepare you for leadership roles.\n\nBase salary ranges from $100,000-$150,000 plus bonus.",
+    "responsibilities": [
+      "Lead workstreams on finance transformation engagements.",
+      "Assess current state finance processes and identify improvement opportunities.",
+      "Design future state operating models and implementation roadmaps.",
+      "Support ERP and EPM implementations from a finance process perspective.",
+      "Develop client presentations and deliverables.",
+      "Build relationships with client stakeholders and manage day-to-day interactions."
+    ],
+    "required_skills": [
+      "Excel",
+      "PowerPoint",
+      "Financial Analysis",
+      "Process Improvement",
+      "Communication",
+      "Project Management"
+    ],
+    "preferred_skills": [
+      "SAP",
+      "Oracle",
+      "Workday",
+      "Anaplan",
+      "EPM",
+      "Data Visualization",
+      "SQL",
+      "Change Management"
+    ],
+    "required_experience_years": 4,
+    "salary_range": "$100,000 - $150,000 + bonus",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Generous PTO",
+      "Parental leave",
+      "Professional development",
+      "CPA support",
+      "Wellness programs",
+      "Flexible work"
+    ]
+  },
+  {
+    "company": "World Bank Group",
+    "title": "Economist, Development Research",
+    "industry": "Economic Research",
+    "location": "Washington, DC, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "PhD in Economics, Public Policy, or related field.",
+      "Strong publication record in peer-reviewed journals.",
+      "Experience with econometric methods and causal inference.",
+      "Proficiency in Stata, R, or Python for data analysis.",
+      "Excellent written and verbal communication skills."
+    ],
+    "preferred_qualifications": [
+      "Research experience in development economics.",
+      "Field experience in developing countries.",
+      "Experience with randomized controlled trials.",
+      "Knowledge of machine learning for policy applications.",
+      "Experience with large administrative datasets.",
+      "Working knowledge of Spanish, French, or Arabic."
+    ],
+    "about_the_job": "The World Bank's Development Research Group produces cutting-edge research to inform development policy and practice. Our economists investigate the most pressing challenges facing developing countries, from poverty reduction to climate adaptation to inclusive growth.\n\nAs an Economist, you'll conduct original research on critical development questions, collaborate with operational teams to design and evaluate programs, and contribute to the Bank's global knowledge work. Your research will directly influence policies affecting millions of people in developing countries.\n\nThis role offers unique opportunities to combine academic rigor with real-world policy impact. You'll work alongside leading development economists and have access to unique data sources and field partnerships.\n\nSalary ranges from $95,000-$150,000 depending on experience, plus comprehensive benefits.",
+    "responsibilities": [
+      "Conduct original research on development economics topics.",
+      "Design and analyze impact evaluations for World Bank projects.",
+      "Collaborate with operational teams to apply research insights to policy.",
+      "Publish research in peer-reviewed journals and World Bank publications.",
+      "Present findings at conferences and policy forums.",
+      "Contribute to capacity building in developing country institutions."
+    ],
+    "required_skills": [
+      "Stata",
+      "R",
+      "Econometrics",
+      "Causal Inference",
+      "Academic Writing",
+      "Data Analysis",
+      "Research Design"
+    ],
+    "preferred_skills": [
+      "Python",
+      "RCTs",
+      "Machine Learning",
+      "GIS",
+      "Survey Design",
+      "Policy Analysis",
+      "Field Research"
+    ],
+    "required_experience_years": 3,
+    "salary_range": "$95,000 - $150,000 + benefits",
+    "benefits": [
+      "Comprehensive health coverage",
+      "Pension plan",
+      "Generous leave (30+ days)",
+      "Relocation assistance",
+      "Tax-exempt salary",
+      "Education benefits for children",
+      "Professional development",
+      "Field travel opportunities"
+    ]
+  },
+  {
+    "company": "OpenAI",
+    "title": "Research Scientist, Alignment",
+    "industry": "AI & Machine Learning",
+    "location": "San Francisco, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Senior",
+    "minimum_qualifications": [
+      "PhD in Machine Learning, Computer Science, or related field.",
+      "Track record of publications at top ML venues (NeurIPS, ICML, ICLR).",
+      "Strong programming skills in Python with deep learning frameworks.",
+      "Experience training large neural networks.",
+      "Deep understanding of modern deep learning architectures."
+    ],
+    "preferred_qualifications": [
+      "Research experience in AI safety, interpretability, or RLHF.",
+      "Experience with large language models.",
+      "Background in cognitive science, philosophy of mind, or decision theory.",
+      "Experience with distributed training at scale.",
+      "Strong communication skills for explaining complex ideas.",
+      "Track record of open-source contributions."
+    ],
+    "about_the_job": "OpenAI's mission is to ensure that artificial general intelligence benefits all of humanity. Our Alignment team works on one of the most important challenges in AI: ensuring that increasingly capable AI systems remain safe, beneficial, and aligned with human values.\n\nAs a Research Scientist on the Alignment team, you'll tackle fundamental questions in AI safety. This includes developing techniques for scalable oversight, understanding neural network internals, building robust reward models, and creating evaluation frameworks for alignment.\n\nThis is an opportunity to work on problems that will shape the future of AI. You'll collaborate with world-class researchers on research that matters deeply for humanity's long-term future.\n\nCompensation ranges from $300,000-$500,000+ total compensation including significant equity.",
+    "responsibilities": [
+      "Conduct original research on AI alignment and safety.",
+      "Develop techniques for understanding and controlling large language models.",
+      "Design experiments to test alignment hypotheses at scale.",
+      "Publish research and contribute to the broader AI safety community.",
+      "Collaborate with deployment teams to apply alignment research to products.",
+      "Mentor researchers and contribute to OpenAI's research culture."
+    ],
+    "required_skills": [
+      "Python",
+      "PyTorch",
+      "Deep Learning",
+      "NLP",
+      "Research",
+      "Academic Writing",
+      "Mathematics"
+    ],
+    "preferred_skills": [
+      "Transformers",
+      "RLHF",
+      "Interpretability",
+      "Distributed Training",
+      "JAX",
+      "AI Safety",
+      "Large Language Models"
+    ],
+    "required_experience_years": 5,
+    "salary_range": "$300,000 - $500,000+ total compensation",
+    "benefits": [
+      "Comprehensive health benefits",
+      "Generous equity",
+      "Unlimited PTO",
+      "Parental leave",
+      "Learning budget",
+      "Compute resources",
+      "Visa sponsorship",
+      "Relocation assistance"
+    ]
+  },
+  {
+    "company": "Morgan Stanley",
+    "title": "Vice President, Equity Research",
+    "industry": "Equity Research",
+    "location": "New York, NY, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Senior",
+    "minimum_qualifications": [
+      "MBA or Master's degree in Finance, Economics, or related field.",
+      "5+ years of experience in equity research, investment management, or related field.",
+      "Strong financial modeling and valuation skills.",
+      "Deep knowledge of a specific sector (technology, healthcare, financials, etc.).",
+      "Excellent written and verbal communication skills."
+    ],
+    "preferred_qualifications": [
+      "CFA designation.",
+      "Ranked analyst status (Institutional Investor, Greenwich).",
+      "Experience publishing research and engaging with institutional investors.",
+      "Track record of successful stock calls.",
+      "Media experience and public speaking skills.",
+      "Industry operating experience."
+    ],
+    "about_the_job": "Morgan Stanley Research is a leading provider of equity research to institutional investors globally. Our analysts are trusted advisors to portfolio managers managing trillions of dollars in assets.\n\nAs a Vice President in Equity Research, you'll lead coverage of companies in your sector, publishing research reports and investment recommendations. You'll build financial models, conduct company and industry analysis, and communicate your views to institutional investors.\n\nThis role offers significant visibility and influence in financial markets. Your research will move stock prices and inform major investment decisions. Top performers build substantial industry profiles and may advance to Managing Director.\n\nTotal compensation ranges from $300,000-$600,000+ depending on experience and performance.",
+    "responsibilities": [
+      "Lead coverage of companies in your sector with buy/sell/hold recommendations.",
+      "Build and maintain detailed financial models and valuation frameworks.",
+      "Conduct primary research through company meetings, industry conferences, and expert networks.",
+      "Publish research reports and investment notes for institutional clients.",
+      "Present investment ideas to portfolio managers and traders.",
+      "Participate in industry conferences and client events."
+    ],
+    "required_skills": [
+      "Financial Modeling",
+      "Excel",
+      "Valuation",
+      "Equity Analysis",
+      "Writing",
+      "Presentation",
+      "Industry Knowledge"
+    ],
+    "preferred_skills": [
+      "Bloomberg",
+      "FactSet",
+      "DCF",
+      "Comparable Analysis",
+      "Channel Checks",
+      "Expert Networks",
+      "Media Relations"
+    ],
+    "required_experience_years": 5,
+    "salary_range": "$300,000 - $600,000+ total compensation",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Deferred compensation",
+      "Employee stock purchase plan",
+      "Parental leave",
+      "Commuter benefits",
+      "Wellness programs",
+      "Career development"
+    ]
+  },
+  {
+    "company": "Stripe",
+    "title": "Product Manager, Payments",
+    "industry": "FinTech",
+    "location": "San Francisco, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "5+ years of product management experience.",
+      "Experience with payments, financial services, or B2B SaaS.",
+      "Strong analytical skills with ability to use data to drive decisions.",
+      "Excellent communication skills for working with technical teams.",
+      "Track record of shipping products that users love."
+    ],
+    "preferred_qualifications": [
+      "Technical background (CS degree or engineering experience).",
+      "Experience with payment rails (cards, ACH, international payments).",
+      "Experience at high-growth startups or major tech companies.",
+      "MBA from a top program.",
+      "International product management experience.",
+      "Experience with developer-facing products."
+    ],
+    "about_the_job": "Stripe builds the most powerful and flexible tools for internet commerce. Our products power businesses of all sizes, from startups to Fortune 500 companies, processing hundreds of billions of dollars annually.\n\nAs a Product Manager on the Payments team, you'll define the strategy and roadmap for core payment products used by millions of businesses. You'll work closely with engineers, designers, and data scientists to build products that make payments seamless for businesses worldwide.\n\nThis role requires both strategic thinking and hands-on execution. You'll navigate complex payment ecosystems, understand merchant needs across different industries and geographies, and make tradeoffs that balance user experience with regulatory and technical constraints.\n\nCompensation ranges from $200,000-$300,000+ including equity.",
+    "responsibilities": [
+      "Define product vision and roadmap for payments products.",
+      "Collaborate with engineering and design to ship high-quality products.",
+      "Analyze data to understand user behavior and identify opportunities.",
+      "Work with partners (card networks, banks, regulators) to expand capabilities.",
+      "Conduct user research and translate insights into product requirements.",
+      "Present product strategy to leadership and cross-functional stakeholders."
+    ],
+    "required_skills": [
+      "Product Management",
+      "Data Analysis",
+      "Communication",
+      "Strategy",
+      "SQL",
+      "User Research"
+    ],
+    "preferred_skills": [
+      "Payments",
+      "APIs",
+      "Financial Services",
+      "Python",
+      "A/B Testing",
+      "Technical Product Management",
+      "International Markets"
+    ],
+    "required_experience_years": 5,
+    "salary_range": "$200,000 - $300,000+ including equity",
+    "benefits": [
+      "Comprehensive health benefits",
+      "Generous equity",
+      "Flexible PTO",
+      "Parental leave (16 weeks)",
+      "Remote work options",
+      "$10,000 wellness budget",
+      "Learning stipend",
+      "Home office setup"
+    ]
+  },
+  {
+    "company": "Bridgewater Associates",
+    "title": "Investment Associate",
+    "industry": "Hedge Fund",
+    "location": "Westport, CT, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Entry Level",
+    "minimum_qualifications": [
+      "Bachelor's degree with strong academic record.",
+      "Demonstrated intellectual curiosity and independent thinking.",
+      "Strong analytical and problem-solving skills.",
+      "Interest in global macroeconomics and financial markets.",
+      "Excellent written and verbal communication skills."
+    ],
+    "preferred_qualifications": [
+      "Degree in Economics, Finance, Mathematics, or Engineering.",
+      "Research or internship experience in finance.",
+      "Programming skills (Python, R, or similar).",
+      "Understanding of macroeconomic concepts.",
+      "Foreign language skills.",
+      "Study abroad or international experience."
+    ],
+    "about_the_job": "Bridgewater Associates is the world's largest hedge fund, managing approximately $150 billion for institutional clients. Our investment process is rooted in understanding how the economic machine works and using that understanding to navigate markets.\n\nAs an Investment Associate, you'll join a rigorous two-year program that teaches our systematic approach to understanding economies and markets. You'll analyze global macro trends, build economic models, and contribute to investment decision-making alongside experienced investors.\n\nBridgewater's culture emphasizes radical transparency and idea meritocracy. You'll be expected to challenge ideas regardless of seniority and contribute your authentic perspective. This is demanding but offers unparalleled learning for those intellectually curious about how the world works.\n\nStarting compensation is $120,000+ with bonus potential.",
+    "responsibilities": [
+      "Analyze global economic and market data to develop investment views.",
+      "Build and maintain economic models and analytical tools.",
+      "Research specific countries, sectors, or economic themes.",
+      "Participate in investment discussions and challenge ideas.",
+      "Present analysis to senior investors and contribute to decision-making.",
+      "Develop expertise in specific areas of the global economy."
+    ],
+    "required_skills": [
+      "Analytical Thinking",
+      "Excel",
+      "Communication",
+      "Economics",
+      "Research",
+      "Problem Solving"
+    ],
+    "preferred_skills": [
+      "Python",
+      "R",
+      "Financial Modeling",
+      "Statistics",
+      "Macroeconomics",
+      "Data Analysis",
+      "Writing"
+    ],
+    "required_experience_years": 0,
+    "salary_range": "$120,000+ base + bonus",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Subsidized cafeteria",
+      "Fitness center",
+      "Commuter benefits",
+      "Parental leave",
+      "Learning resources",
+      "Mental health support"
+    ]
+  },
+  {
+    "company": "Tesla",
+    "title": "Supply Chain Manager, Battery Materials",
+    "industry": "Supply Chain",
+    "location": "Austin, TX, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's degree in Supply Chain, Business, Engineering, or related field.",
+      "5+ years of experience in supply chain management or procurement.",
+      "Experience managing supplier relationships and negotiations.",
+      "Strong analytical skills with proficiency in Excel.",
+      "Experience with ERP systems (SAP, Oracle, or similar)."
+    ],
+    "preferred_qualifications": [
+      "MBA or Master's degree in Supply Chain Management.",
+      "Experience in battery, automotive, or manufacturing industries.",
+      "APICS certification (CPIM, CSCP).",
+      "Experience with commodity markets (lithium, nickel, cobalt).",
+      "International sourcing experience.",
+      "Six Sigma or Lean certification."
+    ],
+    "about_the_job": "Tesla's mission is to accelerate the world's transition to sustainable energy. As we scale production of electric vehicles and energy storage products, securing battery materials at scale is one of our most critical challenges.\n\nAs a Supply Chain Manager for Battery Materials, you'll manage strategic suppliers and develop sourcing strategies for critical materials like lithium, nickel, and cobalt. You'll work to ensure supply security, drive cost reductions, and support our vertical integration strategy.\n\nThis role sits at the intersection of Tesla's growth ambitions and the global energy transition. You'll navigate complex global supply chains, manage geopolitical risks, and contribute to making sustainable energy accessible to all.\n\nSalary range is $100,000-$160,000 plus equity.",
+    "responsibilities": [
+      "Manage relationships with strategic suppliers of battery materials.",
+      "Develop and execute sourcing strategies for critical commodities.",
+      "Negotiate contracts and pricing with suppliers.",
+      "Monitor commodity markets and develop risk mitigation strategies.",
+      "Collaborate with engineering on supplier qualification and development.",
+      "Support new product introduction from a supply chain perspective."
+    ],
+    "required_skills": [
+      "Procurement",
+      "Negotiation",
+      "Excel",
+      "ERP Systems",
+      "Supplier Management",
+      "Data Analysis"
+    ],
+    "preferred_skills": [
+      "SAP",
+      "Commodity Markets",
+      "Contract Management",
+      "Manufacturing",
+      "International Trade",
+      "Six Sigma",
+      "SQL"
+    ],
+    "required_experience_years": 5,
+    "salary_range": "$100,000 - $160,000 + equity",
+    "benefits": [
+      "Medical, dental, vision",
+      "401(k) with match",
+      "Employee stock purchase plan",
+      "Paid time off",
+      "Parental leave",
+      "Tesla vehicle discounts",
+      "Commuter benefits",
+      "On-site amenities"
+    ]
+  },
+  {
+    "company": "Bain & Company",
+    "title": "Consultant",
+    "industry": "Management Consulting",
+    "location": "San Francisco, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Entry Level",
+    "minimum_qualifications": [
+      "Bachelor's degree with strong academic record.",
+      "Demonstrated problem-solving and analytical skills.",
+      "Leadership experience in academic or extracurricular activities.",
+      "Strong interpersonal and communication skills.",
+      "Intellectual curiosity and drive to learn."
+    ],
+    "preferred_qualifications": [
+      "Top academic performance (GPA 3.6+).",
+      "Internship experience in consulting or related field.",
+      "Quantitative background (STEM, Economics).",
+      "International experience.",
+      "Entrepreneurial experience.",
+      "Fluency in additional languages."
+    ],
+    "about_the_job": "Bain & Company is a global consultancy that helps the world's most ambitious change makers define the future. We work with clients across industries to create value, improve results, and outperform the competition.\n\nAs a Consultant, you'll join case teams tackling strategic challenges for Fortune 500 clients. You'll conduct research and analysis, develop recommendations, and present findings to senior executives. You'll work closely with experienced consultants who will mentor you as you develop your skills.\n\nBain's apprenticeship model means you'll learn by doing, with increasing responsibility as you demonstrate capability. After two years, top performers are promoted to Senior Consultant with opportunities to pursue MBA sponsorship.\n\nStarting base salary is $115,000 plus signing bonus and performance bonus.",
+    "responsibilities": [
+      "Conduct research and analysis to support client recommendations.",
+      "Build financial models and perform quantitative analysis.",
+      "Participate in client interviews and working sessions.",
+      "Develop presentation materials for client deliverables.",
+      "Collaborate with team members to solve complex problems.",
+      "Contribute to Bain's intellectual capital and best practices."
+    ],
+    "required_skills": [
+      "Excel",
+      "PowerPoint",
+      "Analytical Thinking",
+      "Communication",
+      "Problem Solving",
+      "Research"
+    ],
+    "preferred_skills": [
+      "Financial Modeling",
+      "Data Analysis",
+      "Python",
+      "Tableau",
+      "Industry Knowledge",
+      "Leadership"
+    ],
+    "required_experience_years": 0,
+    "salary_range": "$115,000 + signing bonus + performance bonus",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Generous PTO (20 days)",
+      "Parental leave",
+      "MBA sponsorship program",
+      "Global mobility opportunities",
+      "Wellness programs",
+      "Social events"
+    ]
+  },
+  {
+    "company": "NVIDIA",
+    "title": "Deep Learning Solutions Architect",
+    "industry": "AI & Machine Learning",
+    "location": "Santa Clara, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Senior",
+    "minimum_qualifications": [
+      "Bachelor's or Master's degree in Computer Science, Engineering, or related field.",
+      "5+ years of experience in deep learning or machine learning.",
+      "Strong programming skills in Python and C++.",
+      "Experience with deep learning frameworks (PyTorch, TensorFlow).",
+      "Experience deploying ML models in production."
+    ],
+    "preferred_qualifications": [
+      "PhD in Machine Learning, Computer Vision, or NLP.",
+      "Experience with NVIDIA GPUs and CUDA programming.",
+      "Experience with TensorRT, Triton, or other inference optimization.",
+      "Customer-facing experience in technical roles.",
+      "Experience with MLOps and model deployment pipelines.",
+      "Publications in ML research venues."
+    ],
+    "about_the_job": "NVIDIA is the world leader in accelerated computing. Our GPUs power the AI revolution, from training the largest language models to deploying inference at scale. We're looking for solutions architects to help customers achieve breakthroughs with our AI platform.\n\nAs a Deep Learning Solutions Architect, you'll work directly with enterprise customers to implement AI solutions using NVIDIA's technology stack. You'll optimize deep learning workloads, design inference architectures, and ensure customers extract maximum value from our platforms.\n\nThis role combines deep technical expertise with customer engagement. You'll work with cutting-edge AI applications across industries including healthcare, automotive, financial services, and manufacturing.\n\nCompensation ranges from $180,000-$280,000 plus equity.",
+    "responsibilities": [
+      "Design and implement deep learning solutions for enterprise customers.",
+      "Optimize models for inference using TensorRT and Triton.",
+      "Provide technical guidance on GPU architecture and CUDA optimization.",
+      "Work with customers to understand requirements and design solutions.",
+      "Create demos, proofs-of-concept, and reference implementations.",
+      "Contribute to documentation, blogs, and technical content."
+    ],
+    "required_skills": [
+      "Python",
+      "PyTorch",
+      "TensorFlow",
+      "Deep Learning",
+      "CUDA",
+      "Linux",
+      "Customer Engagement"
+    ],
+    "preferred_skills": [
+      "TensorRT",
+      "Triton",
+      "C++",
+      "Computer Vision",
+      "NLP",
+      "MLOps",
+      "Docker",
+      "Kubernetes"
+    ],
+    "required_experience_years": 5,
+    "salary_range": "$180,000 - $280,000 + equity",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Employee stock purchase plan",
+      "Flexible PTO",
+      "Parental leave",
+      "Wellness programs",
+      "Professional development",
+      "GPU purchase program"
+    ]
+  },
+  {
+    "company": "Fidelity Investments",
+    "title": "Financial Advisor",
+    "industry": "Wealth Management",
+    "location": "Denver, CO, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's degree in Finance, Business, Economics, or related field.",
+      "Series 7 and 66 licenses (or ability to obtain within 120 days).",
+      "2+ years of experience in financial services or client-facing roles.",
+      "Strong interpersonal and communication skills.",
+      "Interest in personal finance and helping clients achieve goals."
+    ],
+    "preferred_qualifications": [
+      "CFP certification or progress toward certification.",
+      "Experience with financial planning software.",
+      "Previous experience as a financial advisor or wealth manager.",
+      "Strong network and business development skills.",
+      "Life insurance license.",
+      "Bilingual English/Spanish."
+    ],
+    "about_the_job": "Fidelity Investments is one of the largest financial services companies in the world, serving over 40 million individuals. Our financial advisors help clients navigate life's financial journey, from saving for retirement to planning for education to managing wealth.\n\nAs a Financial Advisor, you'll work with clients to understand their goals and develop comprehensive financial plans. You'll provide advice on investments, retirement planning, insurance, and estate planning. You'll build long-term relationships with clients and help them stay on track toward their goals.\n\nThis role combines relationship building with technical expertise. Fidelity provides extensive training, technology, and support to help you succeed and grow your practice.\n\nBase salary is $70,000-$100,000 plus incentive compensation based on client assets.",
+    "responsibilities": [
+      "Develop comprehensive financial plans for clients.",
+      "Provide investment advice and portfolio recommendations.",
+      "Build relationships with clients through regular meetings and reviews.",
+      "Identify opportunities to deepen client relationships.",
+      "Conduct seminars and workshops to attract new clients.",
+      "Stay current with financial planning strategies and regulations."
+    ],
+    "required_skills": [
+      "Financial Planning",
+      "Communication",
+      "Sales",
+      "Client Relationship",
+      "Excel",
+      "Investment Knowledge"
+    ],
+    "preferred_skills": [
+      "CFP",
+      "eMoney",
+      "MoneyGuidePro",
+      "Insurance",
+      "Estate Planning",
+      "Tax Planning",
+      "Business Development"
+    ],
+    "required_experience_years": 2,
+    "salary_range": "$70,000 - $100,000 base + incentive compensation",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Pension plan",
+      "Profit sharing",
+      "Tuition reimbursement",
+      "CFP sponsorship",
+      "Parental leave",
+      "Wellness programs"
+    ]
+  },
+  {
+    "company": "NASA Jet Propulsion Laboratory",
+    "title": "Aerospace Systems Engineer",
+    "industry": "Aerospace Research",
+    "location": "Pasadena, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Master's degree in Aerospace Engineering, Mechanical Engineering, or related field.",
+      "3+ years of experience in spacecraft or complex system development.",
+      "Experience with systems engineering processes and tools.",
+      "Strong analytical skills with MATLAB, Python, or similar tools.",
+      "US citizenship required for security clearance."
+    ],
+    "preferred_qualifications": [
+      "PhD in Aerospace Engineering or related field.",
+      "Experience with NASA missions or flight projects.",
+      "Experience with spacecraft subsystems (propulsion, GN&C, power).",
+      "INCOSE CSEP certification.",
+      "Experience with mission design and trajectory optimization.",
+      "Published technical papers."
+    ],
+    "about_the_job": "NASA's Jet Propulsion Laboratory is a federally funded research and development center that has led humanity's exploration of the solar system. From Mars rovers to missions to Jupiter and Saturn, JPL builds robotic spacecraft that push the boundaries of what's possible.\n\nAs an Aerospace Systems Engineer, you'll contribute to the design and development of spacecraft systems for planetary exploration missions. You'll work on systems engineering activities including requirements development, interface control, integration, and test.\n\nThis is an opportunity to work on missions that inspire the world and advance our understanding of the universe. You'll collaborate with scientists and engineers at the forefront of space exploration.\n\nSalary ranges from $100,000-$150,000 depending on experience.",
+    "responsibilities": [
+      "Lead systems engineering activities for spacecraft development.",
+      "Develop system requirements and allocate to subsystems.",
+      "Manage interfaces between spacecraft subsystems.",
+      "Support integration and test activities.",
+      "Conduct trade studies and system analyses.",
+      "Contribute to proposal development for new missions."
+    ],
+    "required_skills": [
+      "Systems Engineering",
+      "MATLAB",
+      "Requirements Management",
+      "Technical Writing",
+      "Analysis",
+      "Problem Solving"
+    ],
+    "preferred_skills": [
+      "Python",
+      "STK",
+      "DOORS",
+      "Spacecraft Design",
+      "Propulsion",
+      "GN&C",
+      "Mission Design"
+    ],
+    "required_experience_years": 3,
+    "salary_range": "$100,000 - $150,000",
+    "benefits": [
+      "Federal health benefits",
+      "Pension plan (FERS)",
+      "Generous leave (13-26 days)",
+      "Flexible work schedule",
+      "Professional development",
+      "On-site amenities",
+      "Transit subsidy",
+      "Tuition assistance"
+    ]
+  },
+  {
+    "company": "Procter & Gamble",
+    "title": "Brand Manager",
+    "industry": "Consumer Products",
+    "location": "Cincinnati, OH, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "MBA from a top business school.",
+      "2-4 years of pre-MBA experience in marketing, consulting, or related field.",
+      "Strong analytical skills with ability to translate data into insights.",
+      "Excellent communication and presentation skills.",
+      "Track record of leadership and achieving results."
+    ],
+    "preferred_qualifications": [
+      "Brand management internship at a CPG company.",
+      "Experience with consumer research methodologies.",
+      "P&L management experience.",
+      "Experience launching new products.",
+      "Digital marketing experience.",
+      "International experience."
+    ],
+    "about_the_job": "P&G is one of the world's largest consumer products companies, with brands like Tide, Pampers, Gillette, and Olay that touch billions of consumers daily. Our brand managers are the general managers of their businesses, responsible for driving growth and profitability.\n\nAs a Brand Manager, you'll own the strategy and P&L for your brand or product line. You'll develop marketing plans, lead innovation projects, and work cross-functionally with R&D, sales, and finance to deliver business results. You'll make decisions that impact products on store shelves around the world.\n\nP&G is known for developing world-class marketers. Our brand management training program provides the skills and experiences needed to lead major businesses and advance to senior leadership.\n\nCompensation ranges from $130,000-$170,000 plus bonus and benefits.",
+    "responsibilities": [
+      "Develop and execute brand strategy and annual marketing plans.",
+      "Own brand P&L and drive profitable growth.",
+      "Lead consumer research to develop insights and test concepts.",
+      "Manage advertising and media planning with agency partners.",
+      "Lead innovation projects from concept through launch.",
+      "Collaborate with sales on retail strategy and promotion planning."
+    ],
+    "required_skills": [
+      "Marketing Strategy",
+      "Data Analysis",
+      "Communication",
+      "Leadership",
+      "P&L Management",
+      "Consumer Insights"
+    ],
+    "preferred_skills": [
+      "Digital Marketing",
+      "Innovation",
+      "Media Planning",
+      "Trade Marketing",
+      "Market Research",
+      "Project Management"
+    ],
+    "required_experience_years": 4,
+    "salary_range": "$130,000 - $170,000 + bonus",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Profit sharing",
+      "Stock purchase plan",
+      "Flexible work",
+      "Parental leave",
+      "On-site daycare",
+      "Tuition assistance"
+    ]
+  },
+  {
+    "company": "Allen Institute for AI",
+    "title": "Research Scientist, NLP",
+    "industry": "AI Research",
+    "location": "Seattle, WA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Senior",
+    "minimum_qualifications": [
+      "PhD in Computer Science, NLP, or related field.",
+      "Strong publication record at top NLP venues (ACL, EMNLP, NAACL).",
+      "Experience with modern deep learning and transformer architectures.",
+      "Strong programming skills in Python.",
+      "Experience training and fine-tuning large language models."
+    ],
+    "preferred_qualifications": [
+      "Postdoctoral research experience.",
+      "Experience leading research teams or mentoring students.",
+      "Experience with knowledge representation or reasoning.",
+      "Contributions to open-source NLP tools.",
+      "Experience with scientific or biomedical NLP.",
+      "Grant writing experience."
+    ],
+    "about_the_job": "The Allen Institute for AI (AI2) is a non-profit research institute founded by Paul Allen to conduct high-impact AI research for the common good. Our NLP team focuses on building AI systems that can understand, reason about, and generate natural language.\n\nAs a Research Scientist, you'll lead research projects exploring the frontiers of language understanding. Our work spans from fundamental research on language models to applied work on scientific document understanding and reasoning. We publish our research openly and release models and datasets to benefit the research community.\n\nAI2 offers a unique environment combining the freedom of academic research with the resources and impact of industry. You'll have access to significant compute resources and collaborate with top researchers in a mission-driven organization.\n\nSalary ranges from $200,000-$300,000 depending on experience.",
+    "responsibilities": [
+      "Lead original research projects in NLP and language understanding.",
+      "Publish research at top venues and present at conferences.",
+      "Develop and release open-source models and datasets.",
+      "Mentor junior researchers and contribute to team culture.",
+      "Collaborate with other teams at AI2 on interdisciplinary projects.",
+      "Contribute to grant applications and strategic research directions."
+    ],
+    "required_skills": [
+      "Python",
+      "PyTorch",
+      "NLP",
+      "Deep Learning",
+      "Research",
+      "Academic Writing",
+      "Transformers"
+    ],
+    "preferred_skills": [
+      "Large Language Models",
+      "Reasoning",
+      "Knowledge Graphs",
+      "Hugging Face",
+      "Scientific NLP",
+      "Mentoring"
+    ],
+    "required_experience_years": 5,
+    "salary_range": "$200,000 - $300,000",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Generous PTO",
+      "Parental leave",
+      "Professional development",
+      "Conference travel",
+      "Flexible work",
+      "Mission-driven culture"
+    ]
+  },
+  {
+    "company": "Point72",
+    "title": "Data Analyst, Investment Research",
+    "industry": "Hedge Fund",
+    "location": "New York, NY, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Entry Level",
+    "minimum_qualifications": [
+      "Bachelor's degree in Computer Science, Statistics, Economics, or related field.",
+      "Strong programming skills in Python or R.",
+      "Experience with SQL and database querying.",
+      "Excellent analytical and problem-solving skills.",
+      "Interest in financial markets and investing."
+    ],
+    "preferred_qualifications": [
+      "Master's degree in a quantitative field.",
+      "Experience with alternative data (web scraping, satellite, credit card).",
+      "Experience with data visualization tools.",
+      "Internship experience in finance or data science.",
+      "Knowledge of machine learning techniques.",
+      "Experience with cloud platforms (AWS, GCP)."
+    ],
+    "about_the_job": "Point72 is a global asset management firm with over $30 billion in assets under management. Our investment research teams use fundamental analysis enhanced by alternative data and quantitative techniques to identify investment opportunities.\n\nAs a Data Analyst, you'll work with portfolio managers and analysts to source, process, and analyze alternative datasets. You'll build data pipelines, create visualizations, and develop analytical tools that inform investment decisions. Your work will directly impact how we evaluate companies and make investment decisions.\n\nThis role offers unique exposure to both data science and investment research. You'll develop expertise in working with novel data sources while learning how investors think about companies and markets.\n\nStarting salary is $100,000-$150,000 plus bonus.",
+    "responsibilities": [
+      "Source and evaluate alternative data vendors and datasets.",
+      "Build data pipelines to process and clean large datasets.",
+      "Create dashboards and visualizations for investment teams.",
+      "Conduct statistical analysis to extract insights from data.",
+      "Collaborate with portfolio managers to answer research questions.",
+      "Document data sources and methodologies."
+    ],
+    "required_skills": [
+      "Python",
+      "SQL",
+      "Data Analysis",
+      "Statistics",
+      "Data Visualization",
+      "Problem Solving"
+    ],
+    "preferred_skills": [
+      "R",
+      "Tableau",
+      "AWS",
+      "Web Scraping",
+      "Machine Learning",
+      "Financial Analysis",
+      "pandas"
+    ],
+    "required_experience_years": 0,
+    "salary_range": "$100,000 - $150,000 + bonus",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Commuter benefits",
+      "Meals provided",
+      "Fitness center",
+      "Parental leave",
+      "Learning resources",
+      "Mentorship program"
+    ]
+  },
+  {
+    "company": "Pfizer",
+    "title": "Clinical Data Scientist",
+    "industry": "Pharmaceutical Research",
+    "location": "New York, NY, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Master's or PhD in Statistics, Biostatistics, Data Science, or related field.",
+      "3+ years of experience in clinical trial data analysis.",
+      "Strong programming skills in SAS, R, or Python.",
+      "Experience with clinical data standards (CDISC, SDTM, ADaM).",
+      "Understanding of FDA regulatory requirements."
+    ],
+    "preferred_qualifications": [
+      "Experience with machine learning for healthcare applications.",
+      "Experience with real-world evidence and electronic health records.",
+      "Experience in oncology or rare diseases.",
+      "Knowledge of Bayesian methods.",
+      "Experience with regulatory submissions.",
+      "Publications in biostatistics journals."
+    ],
+    "about_the_job": "Pfizer is a global pharmaceutical company committed to developing innovative therapies that improve patients' lives. Our clinical data science team applies advanced analytics to clinical trial data to accelerate drug development and improve decision-making.\n\nAs a Clinical Data Scientist, you'll analyze clinical trial data to support drug development programs. You'll work with clinical teams to design analyses, develop statistical models, and generate insights that inform regulatory submissions and medical decisions.\n\nThis role offers the opportunity to apply data science to work that directly impacts patient health. You'll contribute to bringing new therapies to patients while advancing the science of clinical development.\n\nSalary ranges from $120,000-$180,000 depending on experience.",
+    "responsibilities": [
+      "Analyze clinical trial data to support drug development decisions.",
+      "Develop statistical analysis plans and programming specifications.",
+      "Build predictive models and conduct exploratory analyses.",
+      "Prepare tables, figures, and listings for regulatory submissions.",
+      "Collaborate with clinical teams on study design and analysis strategies.",
+      "Contribute to publications and scientific presentations."
+    ],
+    "required_skills": [
+      "SAS",
+      "R",
+      "Statistics",
+      "Clinical Trials",
+      "CDISC",
+      "Data Analysis",
+      "Regulatory Knowledge"
+    ],
+    "preferred_skills": [
+      "Python",
+      "Machine Learning",
+      "Bayesian Statistics",
+      "RWE",
+      "SQL",
+      "Data Visualization",
+      "Programming"
+    ],
+    "required_experience_years": 3,
+    "salary_range": "$120,000 - $180,000",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Pension plan",
+      "Parental leave (12 weeks)",
+      "Tuition assistance",
+      "Employee stock purchase plan",
+      "Wellness programs",
+      "Flexible work"
+    ]
+  },
+  {
+    "company": "Two Sigma",
+    "title": "Software Engineer, Trading Infrastructure",
+    "industry": "Finance & Trading",
+    "location": "New York, NY, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's or Master's degree in Computer Science or related field.",
+      "3+ years of software engineering experience.",
+      "Strong programming skills in Python, Java, or C++.",
+      "Experience with distributed systems and high-performance computing.",
+      "Strong fundamentals in data structures and algorithms."
+    ],
+    "preferred_qualifications": [
+      "Experience in financial services or quantitative trading.",
+      "Experience with real-time systems and low-latency requirements.",
+      "Knowledge of market data feeds and trading protocols.",
+      "Experience with Kubernetes, Docker, and cloud infrastructure.",
+      "Experience with database systems (PostgreSQL, Redis).",
+      "Experience with message queues (Kafka, ZeroMQ)."
+    ],
+    "about_the_job": "Two Sigma uses technology and data science to find value in the world's data. As one of the largest quantitative hedge funds, we process massive amounts of data to inform systematic trading strategies across global markets.\n\nAs a Software Engineer on the Trading Infrastructure team, you'll build the systems that power our trading operations. This includes market data processing, order management, execution algorithms, and risk systems. Your work will directly impact how we trade billions of dollars in assets daily.\n\nWe're looking for engineers who enjoy solving hard technical problems and building systems that operate at scale with high reliability. You'll work with talented engineers and researchers in an environment that values technical excellence.\n\nCompensation ranges from $200,000-$350,000+ total compensation including base, bonus, and equity.",
+    "responsibilities": [
+      "Design and build trading infrastructure systems with high reliability.",
+      "Develop market data processing pipelines that handle millions of events per second.",
+      "Build order management and execution systems for global markets.",
+      "Optimize system performance and reduce latency.",
+      "Collaborate with quantitative researchers to implement trading strategies.",
+      "Participate in on-call rotation for production systems."
+    ],
+    "required_skills": [
+      "Python",
+      "Java",
+      "Distributed Systems",
+      "Algorithms",
+      "Linux",
+      "SQL",
+      "Git"
+    ],
+    "preferred_skills": [
+      "C++",
+      "Kafka",
+      "Redis",
+      "Kubernetes",
+      "Low Latency",
+      "Trading Systems",
+      "FIX Protocol"
+    ],
+    "required_experience_years": 3,
+    "salary_range": "$200,000 - $350,000+ total compensation",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Generous bonus",
+      "Parental leave",
+      "Commuter benefits",
+      "On-site meals and fitness",
+      "Professional development",
+      "Sabbatical program"
+    ]
+  },
+  {
+    "company": "Salesforce",
+    "title": "Product Marketing Manager, Einstein AI",
+    "industry": "Enterprise Software",
+    "location": "San Francisco, CA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's degree in Marketing, Business, or related field.",
+      "5+ years of product marketing experience in B2B technology.",
+      "Experience marketing AI/ML or data products.",
+      "Strong written and verbal communication skills.",
+      "Experience with positioning, messaging, and go-to-market strategy."
+    ],
+    "preferred_qualifications": [
+      "MBA from a top program.",
+      "Experience at enterprise SaaS companies.",
+      "Technical background or understanding of AI/ML.",
+      "Experience with analyst relations and industry positioning.",
+      "Experience with customer marketing and case studies.",
+      "Public speaking experience."
+    ],
+    "about_the_job": "Salesforce is the global leader in CRM, helping companies connect with their customers in a whole new way. Einstein is Salesforce's AI platform, bringing predictive intelligence and automation to every Salesforce product.\n\nAs a Product Marketing Manager for Einstein AI, you'll own the go-to-market strategy for our AI products. You'll work closely with product management to understand capabilities, develop compelling positioning, and launch products that drive customer adoption.\n\nThis role offers the opportunity to shape how enterprises understand and adopt AI. You'll tell the story of AI innovation to customers, analysts, and the market, helping position Salesforce at the forefront of the AI revolution.\n\nCompensation ranges from $160,000-$220,000 including base and bonus.",
+    "responsibilities": [
+      "Develop product positioning, messaging, and go-to-market strategy.",
+      "Create sales enablement materials and competitive battlecards.",
+      "Launch new products and features with marketing campaigns.",
+      "Conduct market research and competitive analysis.",
+      "Work with customer marketing to develop case studies and testimonials.",
+      "Support analyst relations and industry events."
+    ],
+    "required_skills": [
+      "Product Marketing",
+      "Positioning",
+      "Go-to-Market",
+      "Communication",
+      "Market Research",
+      "Sales Enablement"
+    ],
+    "preferred_skills": [
+      "AI/ML Knowledge",
+      "Enterprise Software",
+      "Analyst Relations",
+      "Content Marketing",
+      "Public Speaking",
+      "Customer Marketing"
+    ],
+    "required_experience_years": 5,
+    "salary_range": "$160,000 - $220,000 including base and bonus",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Employee stock purchase plan",
+      "Generous PTO",
+      "Parental leave (26 weeks)",
+      "Wellness reimbursement",
+      "Volunteer time off",
+      "Professional development"
+    ]
+  },
+  {
+    "company": "Johns Hopkins Applied Physics Laboratory",
+    "title": "Data Scientist, National Security",
+    "industry": "Defense Research",
+    "location": "Laurel, MD, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Master's or PhD in Computer Science, Statistics, Mathematics, or related field.",
+      "3+ years of experience in data science or machine learning.",
+      "Strong programming skills in Python or R.",
+      "Experience with machine learning algorithms and statistical analysis.",
+      "US citizenship and ability to obtain security clearance."
+    ],
+    "preferred_qualifications": [
+      "Active TS/SCI security clearance.",
+      "Experience with computer vision or signal processing.",
+      "Experience with geospatial analysis.",
+      "Experience with big data technologies (Spark, Hadoop).",
+      "Experience with deep learning frameworks.",
+      "Publications in relevant technical fields."
+    ],
+    "about_the_job": "Johns Hopkins Applied Physics Laboratory is the nation's largest university-affiliated research center, solving complex problems in national security, space science, and health. Our data scientists apply cutting-edge analytics to protect national security and advance scientific discovery.\n\nAs a Data Scientist, you'll develop machine learning and analytical solutions for national security applications. This includes signal processing, computer vision, anomaly detection, and predictive analytics for intelligence and defense missions.\n\nThis role offers unique technical challenges and meaningful impact. You'll work on problems at the frontier of AI/ML research with direct applications to national security. APL provides a research-oriented environment with opportunities for publication and professional development.\n\nSalary ranges from $110,000-$170,000 depending on experience.",
+    "responsibilities": [
+      "Develop machine learning models for national security applications.",
+      "Analyze large datasets to extract intelligence insights.",
+      "Build data pipelines and analytical tools.",
+      "Present findings to government sponsors and stakeholders.",
+      "Collaborate with engineers and domain experts on integrated solutions.",
+      "Contribute to proposals and technical publications."
+    ],
+    "required_skills": [
+      "Python",
+      "Machine Learning",
+      "Statistics",
+      "SQL",
+      "Data Analysis",
+      "Problem Solving"
+    ],
+    "preferred_skills": [
+      "R",
+      "Deep Learning",
+      "Computer Vision",
+      "Signal Processing",
+      "Spark",
+      "TensorFlow",
+      "PyTorch"
+    ],
+    "required_experience_years": 3,
+    "salary_range": "$110,000 - $170,000",
+    "benefits": [
+      "Comprehensive health benefits",
+      "Pension plan",
+      "401(k) with match",
+      "Generous leave",
+      "Professional development",
+      "Tuition assistance",
+      "Flexible work",
+      "On-site amenities"
+    ]
+  },
+  {
+    "company": "Accenture",
+    "title": "Strategy Consultant, Technology",
+    "industry": "Management Consulting",
+    "location": "Atlanta, GA, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "Bachelor's degree in Business, Engineering, or related field.",
+      "3-5 years of experience in consulting or corporate strategy.",
+      "Strong analytical and problem-solving skills.",
+      "Excellent communication and presentation skills.",
+      "Experience with technology industry or digital transformation."
+    ],
+    "preferred_qualifications": [
+      "MBA from a top program.",
+      "Experience with technology M&A or corporate development.",
+      "Industry expertise in software, cloud, or semiconductors.",
+      "Prior experience at a strategy consulting firm.",
+      "Experience with financial modeling and valuation.",
+      "Programming or technical background."
+    ],
+    "about_the_job": "Accenture Strategy helps clients at the intersection of business and technology. Our Technology Strategy practice advises C-suite executives on growth strategies, market positioning, and technology investments that drive competitive advantage.\n\nAs a Strategy Consultant, you'll work on high-impact projects helping technology companies and tech-enabled enterprises make critical strategic decisions. This includes market entry strategies, competitive positioning, M&A strategy, and operating model design.\n\nAccenture's global platform provides access to deep industry expertise, analytical tools, and implementation capabilities. You'll develop strategy skills while gaining exposure to cutting-edge technology trends and transformational change.\n\nBase salary ranges from $120,000-$180,000 plus bonus.",
+    "responsibilities": [
+      "Lead workstreams on strategic consulting engagements.",
+      "Conduct market research and competitive analysis.",
+      "Develop strategic recommendations for C-suite clients.",
+      "Build financial models and business cases.",
+      "Create executive presentations and deliverables.",
+      "Support business development and proposal efforts."
+    ],
+    "required_skills": [
+      "Strategy",
+      "PowerPoint",
+      "Excel",
+      "Data Analysis",
+      "Communication",
+      "Problem Solving"
+    ],
+    "preferred_skills": [
+      "Financial Modeling",
+      "M&A",
+      "Technology Industry",
+      "Market Research",
+      "Valuation",
+      "Project Management"
+    ],
+    "required_experience_years": 4,
+    "salary_range": "$120,000 - $180,000 + bonus",
+    "benefits": [
+      "Comprehensive health benefits",
+      "401(k) with match",
+      "Generous PTO",
+      "Parental leave",
+      "Professional development",
+      "Flexible work",
+      "Wellness programs",
+      "Global mobility"
+    ]
+  },
+  {
+    "company": "Renaissance Technologies",
+    "title": "Quantitative Developer",
+    "industry": "Finance & Trading",
+    "location": "East Setauket, NY, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "PhD in Computer Science, Mathematics, Physics, or related field.",
+      "Strong programming skills in C++ and Python.",
+      "Experience with high-performance computing.",
+      "Deep understanding of algorithms and data structures.",
+      "Ability to work independently and collaboratively."
+    ],
+    "preferred_qualifications": [
+      "Experience with trading systems or financial applications.",
+      "Publications in scientific journals.",
+      "Experience with parallel computing (MPI, CUDA).",
+      "Knowledge of numerical methods and optimization.",
+      "Experience with Linux systems programming.",
+      "Track record of technical innovation."
+    ],
+    "about_the_job": "Renaissance Technologies is a quantitative investment management company known for the best track record in investing history. The Medallion fund, available only to employees, has generated returns averaging over 60% annually.\n\nAs a Quantitative Developer, you will build and maintain the computational infrastructure that powers our trading strategies. You will work on everything from market data processing to simulation systems to trade execution.\n\nRenaissance hires exceptional scientists and engineers who share our passion for solving hard problems. We seek individuals who think creatively, work rigorously, and have demonstrated excellence in their fields.\n\nCompensation is highly competitive with base salary plus substantial profit sharing.",
+    "responsibilities": [
+      "Develop high-performance systems for quantitative trading.",
+      "Build tools for backtesting and simulation of trading strategies.",
+      "Optimize algorithms for speed and reliability.",
+      "Process and analyze large financial datasets.",
+      "Collaborate with researchers on implementation of trading models.",
+      "Maintain and improve existing trading infrastructure."
+    ],
+    "required_skills": [
+      "C++",
+      "Python",
+      "Algorithms",
+      "Data Structures",
+      "High-Performance Computing",
+      "Linux",
+      "Mathematics"
+    ],
+    "preferred_skills": [
+      "CUDA",
+      "MPI",
+      "Financial Markets",
+      "Numerical Methods",
+      "Optimization",
+      "Low Latency",
+      "Distributed Systems"
+    ],
+    "required_experience_years": 3,
+    "salary_range": "Highly competitive base + substantial profit sharing",
+    "benefits": [
+      "Premium health benefits",
+      "401(k)",
+      "Profit sharing",
+      "Subsidized cafeteria",
+      "Gym facilities",
+      "Parental leave",
+      "Transportation",
+      "Collaborative environment"
+    ]
+  },
+  {
+    "company": "Federal Reserve Board",
+    "title": "Economist, Financial Stability",
+    "industry": "Economic Research",
+    "location": "Washington, DC, USA",
+    "employment_type": "Full-time",
+    "experience_level": "Mid",
+    "minimum_qualifications": [
+      "PhD in Economics or Finance.",
+      "Research experience in financial stability or banking.",
+      "Strong econometric and quantitative skills.",
+      "Proficiency in Stata, R, or Python.",
+      "Excellent written and oral communication skills."
+    ],
+    "preferred_qualifications": [
+      "Publication record in academic journals.",
+      "Experience with financial regulatory policy.",
+      "Knowledge of banking regulation and supervision.",
+      "Experience with stress testing methodologies.",
+      "Experience with large financial datasets.",
+      "Policy experience in government or central bank."
+    ],
+    "about_the_job": "The Federal Reserve Board is the central bank of the United States, responsible for monetary policy, financial regulation, and maintaining financial stability. The Division of Financial Stability conducts research and analysis to identify and monitor risks to the US financial system.\n\nAs an Economist, you will conduct original research on financial stability topics and contribute to policy analysis supporting the Federal Reserve's macroprudential responsibilities. Your work will inform decisions by the Federal Reserve Board and FOMC.\n\nThis position offers unique access to policymakers and data for impactful research. You will work alongside leading economists and have opportunities to publish and present at academic conferences.\n\nSalary ranges from ,000-,000 depending on experience.",
+    "responsibilities": [
+      "Conduct research on financial stability and systemic risk.",
+      "Analyze financial markets and institutions for emerging risks.",
+      "Support stress testing and scenario analysis for large banks.",
+      "Brief senior Federal Reserve officials on financial stability issues.",
+      "Publish research and present at academic conferences.",
+      "Contribute to Federal Reserve reports on financial stability."
+    ],
+    "required_skills": [
+      "Stata",
+      "R",
+      "Econometrics",
+      "Financial Economics",
+      "Academic Writing",
+      "Data Analysis",
+      "Research"
+    ],
+    "preferred_skills": [
+      "Python",
+      "Banking Regulation",
+      "Stress Testing",
+      "Macro Finance",
+      "Risk Management",
+      "Policy Analysis"
+    ],
+    "required_experience_years": 3,
+    "salary_range": "$95,000 - $160,000",
+    "benefits": [
+      "Federal health benefits",
+      "Pension plan (FERS)",
+      "Generous leave",
+      "Transit benefits",
+      "Professional development",
+      "Research time",
+      "Flexible schedule",
+      "On-site amenities"
+    ]
   }
 ]
