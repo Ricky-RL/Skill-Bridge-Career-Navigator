@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
-import { JobPosting, AnalysisResult, InterviewQuestion, ExperienceLevel } from '@/lib/types';
+import { JobPosting, AnalysisResult, InterviewQuestion, ExperienceLevel, ParsedJobInfo } from '@/lib/types';
 import Button from '@/components/ui/Button';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
@@ -119,6 +119,8 @@ export default function JobsPage() {
   const [completedSkills, setCompletedSkills] = useState<Set<string>>(new Set());
   const [usedCache, setUsedCache] = useState(false);
   const [userExperienceLevel, setUserExperienceLevel] = useState<ExperienceLevel | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
   const analysisRef = useRef<HTMLDivElement>(null);
 
   // Filters
@@ -254,6 +256,7 @@ export default function JobsPage() {
     setSelectedPosting(posting);
     setCompletedSkills(new Set());
     setError(null);
+    setSaved(false);
 
     // Check cache first (unless force refresh)
     if (!forceRefresh) {
@@ -309,6 +312,36 @@ export default function JobsPage() {
     setAnalysis(null);
     setUsedCache(false);
     setCompletedSkills(new Set());
+    setSaved(false);
+  };
+
+  const handleSaveAnalysis = async () => {
+    if (!userId || !analysis || !selectedPosting) return;
+
+    const jobInfo: ParsedJobInfo = {
+      title: selectedPosting.title,
+      company: selectedPosting.company,
+      required_skills: selectedPosting.required_skills,
+      nice_to_have_skills: selectedPosting.preferred_skills,
+      experience_level: selectedPosting.experience_level,
+      responsibilities: selectedPosting.responsibilities,
+      minimum_qualifications: selectedPosting.minimum_qualifications,
+      description: selectedPosting.about_the_job,
+    };
+
+    setSaving(true);
+    try {
+      await api.saveAnalysis({
+        user_id: userId,
+        job_info: jobInfo,
+        analysis_result: analysis,
+      });
+      setSaved(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to save analysis');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const getCompanyColor = (company: string) => {
@@ -709,6 +742,37 @@ export default function JobsPage() {
                   </Card>
                 ) : analysis ? (
                   <div ref={analysisRef} className="space-y-6">
+                    {/* Save Analysis Button */}
+                    <Card variant="elevated" className="bg-white">
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between flex-wrap gap-4">
+                          <div>
+                            <p className="text-sm font-medium text-gray-900">Save this analysis</p>
+                            <p className="text-xs text-gray-500">Come back later to review your progress</p>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            {saved && (
+                              <span className="text-sm text-green-600 flex items-center gap-1">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                Saved
+                              </span>
+                            )}
+                            <Button
+                              variant={saved ? 'outline' : 'primary'}
+                              size="sm"
+                              onClick={handleSaveAnalysis}
+                              isLoading={saving}
+                              disabled={saved}
+                            >
+                              {saved ? 'Saved' : 'Save Analysis'}
+                            </Button>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
                     {/* Cache indicator and re-analyze button */}
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">

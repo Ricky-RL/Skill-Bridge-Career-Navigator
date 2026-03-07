@@ -228,3 +228,28 @@ export interface InterviewQuestion {
   difficulty: 'easy' | 'medium' | 'hard';
   tips?: string;
 }
+
+// Saved Analysis types
+export interface SavedAnalysisCreate {
+  user_id: string;
+  job_info: ParsedJobInfo;
+  analysis_result: AnalysisResult;
+  job_description?: string;
+}
+
+export interface SavedAnalysis {
+  id: string;
+  user_id: string;
+  job_info: ParsedJobInfo;
+  analysis_result: AnalysisResult;
+  job_description?: string;
+  created_at: string;
+}
+
+export interface SavedAnalysisListItem {
+  id: string;
+  job_title: string;
+  company: string | null;
+  match_percentage: number;
+  created_at: string;
+}

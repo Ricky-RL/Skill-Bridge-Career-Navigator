@@ -79,12 +79,20 @@ export default function Navbar() {
                 Jobs & Internships
               </Link>
               {user && (
-                <Link
-                  href="/dashboard"
-                  className={`px-4 py-2 text-sm font-medium ${navTextColor} ${navHoverColor} transition-colors`}
-                >
-                  Analyze Role
-                </Link>
+                <>
+                  <Link
+                    href="/dashboard"
+                    className={`px-4 py-2 text-sm font-medium ${navTextColor} ${navHoverColor} transition-colors`}
+                  >
+                    Analyze Role
+                  </Link>
+                  <Link
+                    href="/saved-jobs"
+                    className={`px-4 py-2 text-sm font-medium ${navTextColor} ${navHoverColor} transition-colors`}
+                  >
+                    Saved Jobs
+                  </Link>
+                </>
               )}
             </div>
           </div>
@@ -150,6 +158,16 @@ export default function Navbar() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                       </svg>
                       Analyze Role
+                    </Link>
+                    <Link
+                      href="/saved-jobs"
+                      onClick={() => setShowDropdown(false)}
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                    >
+                      <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                      </svg>
+                      Saved Jobs
                     </Link>
                     <div className="border-t border-gray-100 mt-2 pt-2">
                       <button

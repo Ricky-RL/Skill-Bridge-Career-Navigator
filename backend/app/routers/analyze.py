@@ -226,15 +226,15 @@ async def analyze_from_description(request: DescriptionAnalysisRequest, db: Clie
 
         # Build target role from parsed job
         target_role = {
-            "title": parsed_job.get("title", "Unknown Role"),
+            "title": parsed_job.get("title") or "Software Engineer",
             "company": parsed_job.get("company"),
-            "required_skills": parsed_job.get("required_skills", []),
-            "nice_to_have_skills": parsed_job.get("nice_to_have_skills", []),
-            "description": parsed_job.get("description", request.job_description[:500]),
+            "required_skills": parsed_job.get("required_skills") or [],
+            "nice_to_have_skills": parsed_job.get("nice_to_have_skills") or [],
+            "description": parsed_job.get("description") or request.job_description[:500],
             "experience_level": parsed_job.get("experience_level"),
-            "responsibilities": parsed_job.get("responsibilities", []),
-            "minimum_qualifications": parsed_job.get("minimum_qualifications", []),
-            "preferred_qualifications": parsed_job.get("preferred_qualifications", [])
+            "responsibilities": parsed_job.get("responsibilities") or [],
+            "minimum_qualifications": parsed_job.get("minimum_qualifications") or [],
+            "preferred_qualifications": parsed_job.get("preferred_qualifications") or []
         }
 
         # Get learning resources
@@ -311,13 +311,13 @@ async def analyze_from_description(request: DescriptionAnalysisRequest, db: Clie
 
         return DescriptionAnalysisResponse(
             parsed_job=ParsedJobInfo(
-                title=parsed_job.get("title", "Unknown Role"),
+                title=parsed_job.get("title") or "Software Engineer",
                 company=parsed_job.get("company"),
-                required_skills=parsed_job.get("required_skills", []),
-                nice_to_have_skills=parsed_job.get("nice_to_have_skills", []),
+                required_skills=parsed_job.get("required_skills") or [],
+                nice_to_have_skills=parsed_job.get("nice_to_have_skills") or [],
                 experience_level=parsed_job.get("experience_level"),
-                responsibilities=parsed_job.get("responsibilities", []),
-                minimum_qualifications=parsed_job.get("minimum_qualifications", []),
+                responsibilities=parsed_job.get("responsibilities") or [],
+                minimum_qualifications=parsed_job.get("minimum_qualifications") or [],
                 description=parsed_job.get("description")
             ),
             analysis=analysis_response

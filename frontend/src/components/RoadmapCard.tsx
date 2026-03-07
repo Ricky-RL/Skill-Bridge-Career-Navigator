@@ -6,6 +6,8 @@ interface RoadmapCardProps {
   recommendation: SkillRecommendation;
   isCompleted?: boolean;
   onToggleComplete?: (skill: string) => void;
+  onMarkLearned?: (skill: string) => void;
+  isLearning?: boolean;
 }
 
 // Map common skills to their documentation/learning URLs
@@ -74,7 +76,7 @@ function getSkillUrl(skill: string): string | null {
   return `https://www.google.com/search?q=learn+${encodeURIComponent(skill)}+tutorial`;
 }
 
-export default function RoadmapCard({ recommendation, isCompleted = false, onToggleComplete }: RoadmapCardProps) {
+export default function RoadmapCard({ recommendation, isCompleted = false, onToggleComplete, onMarkLearned, isLearning = false }: RoadmapCardProps) {
   const { skill, priority, resources } = recommendation;
 
   const getPriorityBadge = () => {

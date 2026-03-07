@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import api from '@/lib/api';
-import { AnalysisResult, InterviewQuestion, ParsedJobInfo } from '@/lib/types';
+import { AnalysisResult, InterviewQuestion, ParsedJobInfo, SavedAnalysisCreate } from '@/lib/types';
 import Button from '@/components/ui/Button';
 import Card, { CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
@@ -160,6 +160,8 @@ export default function AnalyzeRolePage() {
   const [useAI, setUseAI] = useState(true);
   const [completedSkills, setCompletedSkills] = useState<Set<string>>(new Set());
   const [usedCache, setUsedCache] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     const init = async () => {
@@ -201,18 +203,43 @@ export default function AnalyzeRolePage() {
     }
 
     setError(null);
-    setJobLoaded(true);
+    setLoadingJob(true);
 
-    // For paste mode, immediately run analysis with the job description
+    // For paste mode, parse and analyze the job description
     if (inputMode === 'paste' && jobDescription.trim()) {
-      await runAnalysis();
+      if (!userId || userSkills.length === 0) {
+        setError('Please add skills to your profile first');
+        setLoadingJob(false);
+        return;
+      }
+
+      try {
+        const result = await api.analyzeFromDescription({
+          user_skills: userSkills,
+          job_description: jobDescription,
+          user_id: userId,
+          use_fallback: !useAI,
+        });
+
+        setParsedJob(result.parsed_job);
+        setAnalysis(result.analysis);
+        setJobLoaded(true);
+      } catch (err) {
+        console.error('Description analysis error:', err);
+        setError(err instanceof Error ? err.message : 'Failed to analyze job description');
+      } finally {
+        setLoadingJob(false);
+      }
     } else {
-      // For link mode (demo), check for cached analysis
+      // For link mode (demo), simulate loading before showing demo job
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setJobLoaded(true);
       const cached = getCachedAnalysis(userSkills, DEMO_JOB_POSTING.id);
       if (cached) {
         setAnalysis(cached);
         setUsedCache(true);
       }
+      setLoadingJob(false);
     }
   };
 
@@ -380,6 +407,37 @@ export default function AnalyzeRolePage() {
     setCompletedSkills(new Set());
     setError(null);
     setUsedCache(false);
+    setSaved(false);
+  };
+
+  const handleSaveAnalysis = async () => {
+    if (!userId || !analysis) return;
+
+    const jobInfo: ParsedJobInfo = parsedJob || {
+      title: DEMO_JOB_POSTING.title,
+      company: DEMO_JOB_POSTING.company,
+      required_skills: DEMO_JOB_POSTING.required_skills,
+      nice_to_have_skills: DEMO_JOB_POSTING.preferred_skills,
+      experience_level: DEMO_JOB_POSTING.experience_level,
+      responsibilities: DEMO_JOB_POSTING.responsibilities,
+      minimum_qualifications: DEMO_JOB_POSTING.minimum_qualifications,
+      description: DEMO_JOB_POSTING.about_the_job,
+    };
+
+    setSaving(true);
+    try {
+      await api.saveAnalysis({
+        user_id: userId,
+        job_info: jobInfo,
+        analysis_result: analysis,
+        job_description: inputMode === 'paste' ? jobDescription : undefined,
+      });
+      setSaved(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to save analysis');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleEditProfile = () => {
@@ -579,8 +637,8 @@ export default function AnalyzeRolePage() {
                 </div>
               )}
 
-              <Button onClick={handleLoadJob} className="w-full sm:w-auto">
-                Load Job & Analyze
+              <Button onClick={handleLoadJob} isLoading={loadingJob} className="w-full sm:w-auto">
+                {loadingJob ? 'Analyzing...' : 'Load Job & Analyze'}
               </Button>
             </CardContent>
           </Card>
@@ -624,7 +682,7 @@ export default function AnalyzeRolePage() {
                         )}
                       </div>
                     </div>
-                    <Button variant="ghost" size="sm" onClick={handleReset}>
+                    <Button variant="outline" size="sm" onClick={handleReset}>
                       Change Job
                     </Button>
                   </div>
@@ -736,6 +794,37 @@ export default function AnalyzeRolePage() {
 
               {analysis ? (
                 <>
+                  {/* Save Analysis Button */}
+                  <Card variant="elevated" className="bg-white">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">Save this analysis</p>
+                          <p className="text-xs text-gray-500">Come back later to review your progress</p>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          {saved && (
+                            <span className="text-sm text-green-600 flex items-center gap-1">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                              </svg>
+                              Saved
+                            </span>
+                          )}
+                          <Button
+                            variant={saved ? 'outline' : 'primary'}
+                            size="sm"
+                            onClick={handleSaveAnalysis}
+                            isLoading={saving}
+                            disabled={saved}
+                          >
+                            {saved ? 'Saved' : 'Save Analysis'}
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
                   <GapDisplay analysis={analysis} />
 
                   {analysis.recommendations.length > 0 && (

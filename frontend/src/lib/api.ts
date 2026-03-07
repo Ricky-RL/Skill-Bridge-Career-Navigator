@@ -11,6 +11,9 @@ import {
   InterviewQuestion,
   DescriptionAnalysisRequest,
   DescriptionAnalysisResponse,
+  SavedAnalysisCreate,
+  SavedAnalysis,
+  SavedAnalysisListItem,
 } from './types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
@@ -192,6 +195,30 @@ class ApiClient {
       body: JSON.stringify(params),
     });
     return response.questions;
+  }
+
+  // Saved analyses endpoints
+  async saveAnalysis(data: SavedAnalysisCreate): Promise<SavedAnalysis> {
+    return this.request<SavedAnalysis>('/api/saved-analyses', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async getSavedAnalyses(userId: string, limit?: number): Promise<SavedAnalysisListItem[]> {
+    const params = new URLSearchParams({ user_id: userId });
+    if (limit) params.append('limit', limit.toString());
+    return this.request<SavedAnalysisListItem[]>(`/api/saved-analyses?${params.toString()}`);
+  }
+
+  async getSavedAnalysis(analysisId: string, userId: string): Promise<SavedAnalysis> {
+    return this.request<SavedAnalysis>(`/api/saved-analyses/${analysisId}?user_id=${userId}`);
+  }
+
+  async deleteSavedAnalysis(analysisId: string, userId: string): Promise<void> {
+    return this.request(`/api/saved-analyses/${analysisId}?user_id=${userId}`, {
+      method: 'DELETE',
+    });
   }
 
   // Health check
