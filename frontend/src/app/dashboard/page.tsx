@@ -162,6 +162,7 @@ export default function AnalyzeRolePage() {
   const [usedCache, setUsedCache] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [learningSkill, setLearningSkill] = useState<string | null>(null);
 
   useEffect(() => {
     const init = async () => {
@@ -440,6 +441,66 @@ export default function AnalyzeRolePage() {
     }
   };
 
+  const handleMarkSkillLearned = async (skill: string) => {
+    if (!userId) return;
+
+    setLearningSkill(skill);
+    try {
+      // Add skill to user's profile
+      const updatedSkills = [...userSkills, skill];
+      await api.updateProfile(userId, { skills: updatedSkills });
+      setUserSkills(updatedSkills);
+      setTempSkills(updatedSkills);
+
+      // Mark as completed locally
+      setCompletedSkills((prev) => new Set([...prev, skill]));
+
+      // Clear cache since skills changed
+      localStorage.removeItem(ANALYSIS_CACHE_KEY);
+
+      // Re-run analysis with updated skills
+      if (inputMode === 'paste' && jobDescription.trim()) {
+        const result = await api.analyzeFromDescription({
+          user_skills: updatedSkills,
+          job_description: jobDescription,
+          user_id: userId,
+          use_fallback: !useAI,
+        });
+        setParsedJob(result.parsed_job);
+        setAnalysis(result.analysis);
+      } else {
+        // For demo mode, recalculate locally
+        const requiredSkills = DEMO_JOB_POSTING.required_skills.map((s) => s.toLowerCase());
+        const userSkillsLower = updatedSkills.map((s) => s.toLowerCase());
+
+        const matching = requiredSkills.filter((reqSkill) =>
+          userSkillsLower.some((us) => us.includes(reqSkill) || reqSkill.includes(us))
+        );
+        const missing = requiredSkills.filter(
+          (reqSkill) => !userSkillsLower.some((us) => us.includes(reqSkill) || reqSkill.includes(us))
+        );
+
+        const matchPercentage = Math.round((matching.length / requiredSkills.length) * 100);
+
+        setAnalysis((prev) => prev ? {
+          ...prev,
+          matching_skills: matching.map((s) => DEMO_JOB_POSTING.required_skills.find((rs) => rs.toLowerCase() === s) || s),
+          missing_skills: missing.map((s) => DEMO_JOB_POSTING.required_skills.find((rs) => rs.toLowerCase() === s) || s),
+          match_percentage: matchPercentage,
+          recommendations: missing.slice(0, 5).map((reqSkill, idx) => ({
+            skill: DEMO_JOB_POSTING.required_skills.find((rs) => rs.toLowerCase() === reqSkill) || reqSkill,
+            priority: idx + 1,
+            resources: [],
+          })),
+        } : null);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to add skill to profile');
+    } finally {
+      setLearningSkill(null);
+    }
+  };
+
   const handleEditProfile = () => {
     setTempSkills([...userSkills]);
     setEditingProfile(true);
@@ -481,7 +542,7 @@ export default function AnalyzeRolePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Header */}
-      <div className="bg-gradient-purple pt-20 pb-12">
+      <div className="bg-gradient-purple pt-4 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="text-white mb-6 md:mb-0">
@@ -853,6 +914,8 @@ export default function AnalyzeRolePage() {
                             recommendation={rec}
                             isCompleted={completedSkills.has(rec.skill)}
                             onToggleComplete={toggleSkillComplete}
+                            onMarkLearned={handleMarkSkillLearned}
+                            isLearning={learningSkill === rec.skill}
                           />
                         ))}
                       </CardContent>

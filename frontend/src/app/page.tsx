@@ -3,7 +3,7 @@ import Button from '@/components/ui/Button';
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen -mt-16">
       {/* Hero Section with Purple Gradient */}
       <section className="relative bg-gradient-purple min-h-[90vh] flex items-center overflow-hidden">
         {/* Floating decorative elements */}

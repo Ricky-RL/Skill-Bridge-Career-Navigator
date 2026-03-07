@@ -96,7 +96,7 @@ export default function SavedJobsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Header */}
-      <div className="bg-gradient-purple pt-20 pb-12">
+      <div className="bg-gradient-purple pt-4 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="text-white mb-6 md:mb-0">
@@ -150,10 +150,13 @@ export default function SavedJobsPage() {
                 <CardContent className="p-0">
                   <div className="divide-y divide-gray-100">
                     {savedJobs.map((job) => (
-                      <button
+                      <div
                         key={job.id}
                         onClick={() => handleSelectJob(job)}
-                        className={`w-full p-4 text-left hover:bg-gray-50 transition-colors ${
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSelectJob(job)}
+                        className={`w-full p-4 text-left hover:bg-gray-50 transition-colors cursor-pointer ${
                           selectedJob?.id === job.id ? 'bg-violet-50 border-l-4 border-violet-600' : ''
                         }`}
                       >
@@ -192,7 +195,7 @@ export default function SavedJobsPage() {
                             </button>
                           </div>
                         </div>
-                      </button>
+                      </div>
                     ))}
                   </div>
                 </CardContent>

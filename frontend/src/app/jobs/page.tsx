@@ -121,6 +121,7 @@ export default function JobsPage() {
   const [userExperienceLevel, setUserExperienceLevel] = useState<ExperienceLevel | null>(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [learningSkill, setLearningSkill] = useState<string | null>(null);
   const analysisRef = useRef<HTMLDivElement>(null);
 
   // Filters
@@ -344,6 +345,38 @@ export default function JobsPage() {
     }
   };
 
+  const handleMarkSkillLearned = async (skill: string) => {
+    if (!userId || !selectedPosting) return;
+
+    setLearningSkill(skill);
+    try {
+      // Add skill to user's profile
+      const updatedSkills = [...userSkills, skill];
+      await api.updateProfile(userId, { skills: updatedSkills });
+      setUserSkills(updatedSkills);
+
+      // Mark as completed locally
+      setCompletedSkills((prev) => new Set([...prev, skill]));
+
+      // Clear cache since skills changed
+      clearJobAnalysisCache();
+
+      // Re-run analysis with updated skills
+      const result = await api.analyzeSkills({
+        user_skills: updatedSkills,
+        job_posting_id: selectedPosting.id,
+        user_id: userId,
+        use_fallback: !useAI,
+      });
+      setAnalysis(result);
+      setCachedJobAnalysis(selectedPosting.id, updatedSkills, result);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to add skill to profile');
+    } finally {
+      setLearningSkill(null);
+    }
+  };
+
   const getCompanyColor = (company: string) => {
     const colors: Record<string, string> = {
       'Google': 'bg-[#4285F4]',
@@ -384,7 +417,7 @@ export default function JobsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Header */}
-      <div className="bg-gradient-purple pt-20 pb-12">
+      <div className="bg-gradient-purple pt-4 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="text-white mb-6 md:mb-0">
@@ -830,6 +863,8 @@ export default function JobsPage() {
                               recommendation={rec}
                               isCompleted={completedSkills.has(rec.skill)}
                               onToggleComplete={toggleSkillComplete}
+                              onMarkLearned={handleMarkSkillLearned}
+                              isLearning={learningSkill === rec.skill}
                             />
                           ))}
                         </CardContent>
