@@ -8,16 +8,17 @@ class JobPosting(BaseModel):
     company: str
     company_logo_url: Optional[str] = None
     title: str
-    industry: str  # e.g., "Cloud & Infrastructure", "Security", "AI/ML"
+    industry: str
     location: str
-    employment_type: str = "Full-time"  # Full-time, Part-time, Contract
-    experience_level: str  # Entry, Mid, Senior, Staff, Principal
-    description: str
+    employment_type: str = "Full-time"
+    experience_level: str
+    about_the_job: Optional[str] = None
+    minimum_qualifications: list[str] = Field(default_factory=list)
+    preferred_qualifications: list[str] = Field(default_factory=list)
     responsibilities: list[str] = Field(default_factory=list)
     required_skills: list[str] = Field(default_factory=list)
     preferred_skills: list[str] = Field(default_factory=list)
     required_experience_years: int = 0
-    education_requirement: Optional[str] = None
     salary_range: Optional[str] = None
     benefits: list[str] = Field(default_factory=list)
     posted_date: Optional[datetime] = None
@@ -36,7 +37,6 @@ class JobPostingListParams(BaseModel):
     offset: int = Field(default=0, ge=0)
 
 
-# Available industries for filtering
 INDUSTRIES = [
     "Cloud & Infrastructure",
     "Cybersecurity",
@@ -50,7 +50,6 @@ INDUSTRIES = [
     "Product Management",
 ]
 
-# Available companies
 COMPANIES = [
     "Google",
     "Amazon",
