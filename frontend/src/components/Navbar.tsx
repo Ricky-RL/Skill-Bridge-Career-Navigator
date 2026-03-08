@@ -56,6 +56,7 @@ export default function Navbar() {
   const handleSignOut = async () => {
     setShowDropdown(false);
     await supabase.auth.signOut();
+    window.location.href = '/';
   };
 
   const navTextColor = isHomePage ? 'text-white' : 'text-gray-700';
